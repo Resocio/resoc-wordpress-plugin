@@ -1,0 +1,47 @@
+.sbrfg-editor {
+
+  .sbrfg-platform-switcher-container {
+    button {
+      margin-right: 1em;
+      margin-bottom: 1em;
+    }
+  }
+
+  .sbrfg-preview-container {
+    float: right;
+    width: 574px;
+  }
+
+  .open-graph-editor-container > div {
+    text-align: center;
+  }
+
+  .sbrfg-fields {
+    overflow: auto;
+    padding-right: 12px;
+
+    td {
+      width: 100%;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+    }
+  }
+
+  .sbrfg-clear-fix {
+    clear: both;
+  }
+
+  .sbrfg-image-selection-container {
+    margin-top: 12px;
+  }
+
+  h3 a {
+    color: inherit;
+  }
+
+  label em {
+    font-weight: normal;
+  }
+}
