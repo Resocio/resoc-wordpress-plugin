@@ -52,7 +52,7 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
               </label>
               <label for="sbrfg-view-facebook-caption">
                 <input type="radio" name="sbrfg-view" value="facebook_caption" id="sbrfg-view-facebook-caption" />
-                Facebook - Caption
+                Facebook - Captions
               </label>
               <label for="sbrfg-view-linkedin">
                 <input type="radio" name="sbrfg-view" value="linkedin" id="sbrfg-view-linkedin" />
@@ -60,7 +60,7 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
               </label>
               <label for="sbrfg-view-linkedin-caption">
                 <input type="radio" name="sbrfg-view" value="linkedin_caption" id="sbrfg-view-linkedin-caption" />
-                LinkedIn - Caption
+                LinkedIn - Captions
               </label>
             </td>
 					</tr>
