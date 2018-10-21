@@ -68,8 +68,15 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 			</div>
 
 			<div class="sbrfg-clear-fix"></div>
-			<input type="hidden" name="sbrfg-og-serialized-data">
-			<input type="hidden" name="sbrfg-og-image-id">
+      <input
+        type="hidden"
+        name="sbrfg-og-serialized-data"
+      >
+      <input
+        type="hidden"
+        name="sbrfg-og-image-id"
+        value="<?php echo $imageId ?>"
+      >
 		</div>
 	</div>
 

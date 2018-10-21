@@ -51,10 +51,12 @@ var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageUrl, site
   
       fileFrame.on('select', function() {
         attachment = fileFrame.state().get('selection').first().toJSON();
-        imageId = attachment.id;
+
         imageUrl = attachment.url;
-  
         openGraphEditor.setImageSrc(imageUrl);
+
+        imageId = attachment.id;
+        editorContainer.find('input[name="sbrfg-og-image-id"]').val(imageId);
       });
   
       fileFrame.open();
