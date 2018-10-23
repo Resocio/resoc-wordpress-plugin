@@ -41,11 +41,22 @@ class Social_by_RealFaviconGenerator_Admin_API {
 	}
 
 	public function save_social_data ( $post_id ) {
+    // Title and description
+    $title = $_POST['sbrfg-title'];
+    $description = $_POST['sbrfg-description'];
+    WPSEO_Meta::set_value( 'opengraph-title', $title, $post_id );
+    WPSEO_Meta::set_value( 'opengraph-description', $description, $post_id );
+
+    // Image
+
 		$data = $_POST['sbrfg-og-serialized-data'];
 		// See http://stackoverflow.com/questions/2496455/why-are-post-variables-getting-escaped-in-php
-		$data = stripslashes( $data );
+    $data = stripslashes( $data );
+    
+    error_log("DATA=" . $data);
 
-		$imageId = $_POST['sbrfg-og-image-id'];
+    $imageId = $_POST['sbrfg-og-image-id'];
+    error_log("IMAGE ID " . $imageId);  
 
 		// Check if the data have changed
 		$existingData = get_post_meta( $post_id,
@@ -53,7 +64,8 @@ class Social_by_RealFaviconGenerator_Admin_API {
 		$existingImageId = get_post_meta( $post_id,
 			Social_by_RealFaviconGenerator::OPTION_OG_IMAGE_ID, true );
 		if ( $existingData && $existingData == $data && $existingImageId == $imageId ) {
-			// No change in the data: nothing to do
+      // No change in the data: nothing to do
+      error_log("No change, nothing to do");
 			return true;
 		}
 
@@ -63,30 +75,7 @@ class Social_by_RealFaviconGenerator_Admin_API {
 			Social_by_RealFaviconGenerator::OPTION_OG_IMAGE_ID, $imageId );
 
 		$data = json_decode( $data, true );
-		$faviconDesign = $data[ 'facebook_open_graph' ];
-		// Patch URL, site name and locale with placeholders
-		$addedFields = array(
-			'url'       => Social_by_RealFaviconGenerator::PLACEHOLDER_URL,
-			'site_name' => Social_by_RealFaviconGenerator::PLACEHOLDER_SITE_NAME,
-			'locale'    => Social_by_RealFaviconGenerator::PLACEHOLDER_LOCALE );
-		foreach(array_keys( $addedFields ) as $key) {
-			$faviconDesign[ $key ] = $addedFields[ $key ];
-		}
-		// Patch in case of article
-		if (isset($faviconDesign[ 'type' ]) && $faviconDesign[ 'type' ] == 'article') {
-			$articleFields = array(
-				'published_time' => Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_PUBLISHED_TIME,
-				'modified_time'  =>  Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_MODIFIED_TIME,
-				'author'         => Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_AUTHOR,
-				'section'        => Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_SECTION,
-				'tag'            => Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_TAG,
-				'publisher'      => Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_PUBLISHER
-			);
-			$faviconDesign[ 'article' ] = array();
-			foreach(array_keys( $articleFields ) as $key) {
-				$faviconDesign[ 'article' ][ $key ] = $articleFields[ $key ];
-			}
-		}
+		$faviconDesign = $data;
 
 		$pic_path = $this->get_picture_url( $post_id );
 
@@ -102,7 +91,7 @@ class Social_by_RealFaviconGenerator_Admin_API {
 
 		$request = json_encode(array(
 			'favicon_generation' => array(
-				"api_key" => "7fca1ff80fd1ad4188aa3d8e12e094e5a17137c7",
+				"api_key" => "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
 				"master_picture" => array(
 					"type" => "inline",
 					"content" => base64_encode( $masterImage )
@@ -112,20 +101,51 @@ class Social_by_RealFaviconGenerator_Admin_API {
 					"path" => $pic_path
 				),
 				"favicon_design" => array(
-					"facebook_open_graph" => $faviconDesign
+					"resoc_open_graph" => array(
+            "image" => array(
+              "center_x" => $faviconDesign['imageCenterX'],
+              "center_y" => $faviconDesign['imageCenterY'],
+              "scale" => $faviconDesign['imageContainerWidthRatio']
+            )
+          )
 				)
 			)
-		));
+    ));
+    
+    error_log("POSTED REQUEST = " . 
+      json_encode( $request )
+    );
 
 		// Generate the Open Graph data
-		$response = wp_remote_post('https://realfavicongenerator.net/api/social', array(
-			'body' => $request
+		$response = wp_remote_post('https://resoc.io/api/og-image', array(
+      'body' => $request,
+      'timeout' => 20
 		));
 
 		if ( is_wp_error( $response ) ) {
+      error_log("We get NO answer");
 			error_log($response->get_error_message());
 		}
 		else {
+      error_log("We get an answer");
+      error_log("Anwer is: " . $response['body']);
+
+      $response = json_decode( $response['body'], true );
+
+      // Very brittle
+      $image_url = $response['favicon_generation_result']['favicon']['files_urls'][0];
+      error_log( "Image URL " . $image_url );
+      $og_image_id = $this->add_image_to_media_library( $image_url, $post_id );
+
+      $ogImageUrl = wp_get_attachment_url( $og_image_id );
+      error_log( "OG Image URL=" . $ogImageUrl);
+      
+      WPSEO_Meta::set_value( 'opengraph-image', $ogImageUrl, $post_id );
+
+      // Save these information internally, when WP SEO is not present
+
+      /*
+
 			$response = new Social_By_RealFaviconGenerator_Api_Response($response['body']);
 
 			$zip_path = Social_by_RealFaviconGenerator::get_tmp_dir();
@@ -142,11 +162,46 @@ class Social_by_RealFaviconGenerator_Admin_API {
 
 			update_post_meta( $post_id,
 				Social_by_RealFaviconGenerator::OPTION_HTML_CODE,
-				$response->getHtmlCode() );
+        $response->getHtmlCode() );
+      */
 		}
 
 		return true;
-	}
+  }
+  
+  public function add_image_to_media_library( $image_url, $post_id ) {
+    $upload_dir = wp_upload_dir();
+    
+    $image_data = file_get_contents($image_url);
+  
+    $filename = basename($image_url);
+  
+    if (wp_mkdir_p($upload_dir['path'])) {
+      $file = $upload_dir['path'] . '/' . $filename;
+    }
+    else {
+      $file = $upload_dir['basedir'] . '/' . $filename;
+    }
+  
+    file_put_contents($file, $image_data);
+    
+    $wp_filetype = wp_check_filetype($filename, null);
+    
+    $attachment = array(
+      'post_mime_type' => $wp_filetype['type'],
+      'post_title' => sanitize_file_name($filename),
+      'post_content' => '',
+      'post_status' => 'inherit'
+    );
+    
+    $attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    $attach_data = wp_generate_attachment_metadata($attach_id, $file);
+    wp_update_attachment_metadata($attach_id, $attach_data);
+
+    return $attach_id;
+  }
+
 
 	public function get_picture_dir( $post_id ) {
 		return Social_by_RealFaviconGenerator::get_files_dir( $post_id );
@@ -159,7 +214,7 @@ class Social_by_RealFaviconGenerator_Admin_API {
 		return Social_by_RealFaviconGenerator::get_files_url( $post_id );
 	}
 
-
+/*
 	public function store_pictures( $post_id, $rfg_response ) {
 		$working_dir = $this->get_picture_dir( $post_id );
 
@@ -174,15 +229,19 @@ class Social_by_RealFaviconGenerator_Admin_API {
 			if ( is_file( $file ) ) {
 			    unlink( $file );
 			}
-		}
+    }
+    error_log("PACKAGE DIR IS " . $rfg_response->getProductionPackagePath());
 		$files = glob( $rfg_response->getProductionPackagePath() . '/*' );
 		foreach( $files as $file ) {
+      error_log("MOVE " . $file);
 			if ( is_file( $file ) ) {
 			    rename( $file, $working_dir . basename( $file ) );
 			}
-		}
-	}
-
+    }
+    error_log("PICS moved to " . $working_dir);
+    WPSEO_Meta::set_value( 'opengraph-image', $pic, $post_id );
+  }
+*/
 	/**
 	 * Generate HTML for displaying fields
 	 * @param  array   $field Field data

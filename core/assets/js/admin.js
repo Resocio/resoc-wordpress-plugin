@@ -19,6 +19,13 @@ var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageUrl, site
   initForm(editorContainer);
   initImageSelection(editorContainer);
 
+  var postForm = jQuery.find('#post');
+  jQuery(document).on('submit', postForm, function() {
+    editorContainer.find('input[name="sbrfg-og-serialized-data"]').val(
+      JSON.stringify(openGraphEditor.getImageEditionState())
+    );
+  });
+
   function initForm(editorContainer) {
     editorContainer.find('input[name=sbrfg-title]').on('input', function() {
       openGraphEditor.setTitle(this.value);
