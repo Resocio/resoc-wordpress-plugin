@@ -44,9 +44,15 @@ class Social_by_RealFaviconGenerator_Admin_API {
     // Title and description
     $title = $_POST['sbrfg-title'];
     $description = $_POST['sbrfg-description'];
+
+    update_post_meta( $post_id,
+      Social_by_RealFaviconGenerator::OG_TITLE, $title );
+    update_post_meta( $post_id,
+      Social_by_RealFaviconGenerator::OG_DESCRIPTION, $description );
+/*
     WPSEO_Meta::set_value( 'opengraph-title', $title, $post_id );
     WPSEO_Meta::set_value( 'opengraph-description', $description, $post_id );
-
+*/
     // Image
 
 		$data = $_POST['sbrfg-og-serialized-data'];
@@ -136,11 +142,14 @@ class Social_by_RealFaviconGenerator_Admin_API {
       $image_url = $response['favicon_generation_result']['favicon']['files_urls'][0];
       error_log( "Image URL " . $image_url );
       $og_image_id = $this->add_image_to_media_library( $image_url, $post_id );
-
+/*
       $ogImageUrl = wp_get_attachment_url( $og_image_id );
       error_log( "OG Image URL=" . $ogImageUrl);
       
       WPSEO_Meta::set_value( 'opengraph-image', $ogImageUrl, $post_id );
+*/
+      update_post_meta( $post_id,
+        Social_by_RealFaviconGenerator::OG_IMAGE_ID, $og_image_id );
 
       // Save these information internally, when WP SEO is not present
 

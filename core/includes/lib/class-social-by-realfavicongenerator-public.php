@@ -7,12 +7,54 @@ class Social_by_RealFaviconGenerator_Public {
 	public function __construct () {
 		add_action( 'wp_head', array( $this, 'add_favicon_markups' ) );
 
-		// Disable WPSEO/Yoast OpenGraph markups
-		add_action( 'wpseo_head', array( $this, 'remove_wpseo_open_graph' ), 1 );
-
 		// Disable Jetpack Open Graph markups
-		add_filter( 'jetpack_enable_open_graph', '__return_false' );
-	}
+    add_filter( 'jetpack_enable_open_graph', '__return_false' );
+
+    add_filter(
+      'wpseo_opengraph_title',
+      array( $this, 'get_og_title' )
+    );
+    add_filter(
+      'wpseo_opengraph_desc',
+      array( $this, 'get_og_description' )
+    );
+    add_filter(
+      'wpseo_add_opengraph_images',
+      array( $this, 'get_og_image' )
+    );
+  }
+
+  public function get_og_title( $original_title ) {
+    $post_id = get_the_ID();
+    $specific_title = get_post_meta(
+      $post_id,
+      Social_by_RealFaviconGenerator::OG_TITLE,
+      true
+    );
+    return $specific_title ? $specific_title : $original_title;
+  }
+
+  public function get_og_description( $original_description ) {
+    $post_id = get_the_ID();
+    $specific_description = get_post_meta(
+      $post_id,
+      Social_by_RealFaviconGenerator::OG_DESCRIPTION,
+      true
+    );
+    return $specific_description ? $specific_description : $original_description;
+  }
+
+  public function get_og_image( $wpseo_opengraph_image ) {
+    $post_id = get_the_ID();
+    $specific_image_id = get_post_meta(
+      $post_id,
+      Social_by_RealFaviconGenerator::OG_IMAGE_ID,
+      true
+    );
+    if ( $specific_image_id ) {
+      $wpseo_opengraph_image->add_image_by_id( $specific_image_id );
+    }
+  }
 
 	public function get_post_open_graph_code() {
 		$post_id = get_the_ID();

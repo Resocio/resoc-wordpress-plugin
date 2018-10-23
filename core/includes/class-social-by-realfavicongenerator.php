@@ -22,6 +22,11 @@ class Social_by_RealFaviconGenerator {
 
 	const PLUGIN_SLUG                        = 'social-by-realfavicongenerator';
 
+	const OG_IMAGE_ID    = 'SbRFG_OG_Image_Id';
+	const OG_TITLE       = 'SbRFG_OG_Title';
+	const OG_DESCRIPTION = 'SbRFG_OG_Description';
+
+
 	/**
 	 * The single instance of Social_by_RealFaviconGenerator.
 	 * @var 	object
