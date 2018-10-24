@@ -1,5 +1,5 @@
 
-var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageUrl, siteUrl) {
+var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageSettings, imageUrl, siteUrl) {
   var openGraphEditor;
   var fileFrame;
 
@@ -11,7 +11,7 @@ var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageUrl, site
     RFGSocialEditor.StandaloneOpenGraphEditor, {onCreated: function(obj) {
       openGraphEditor = obj;
 
-      openGraphEditor.setImageSrc(imageUrl);
+      openGraphEditor.setImage(imageUrl, imageSettings);
       openGraphEditor.setView('facebook');
       openGraphEditor.setUrl(siteUrl);
     }}), domContainer);
@@ -21,7 +21,7 @@ var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageUrl, site
 
   var postForm = jQuery.find('#post');
   jQuery(document).on('submit', postForm, function() {
-    editorContainer.find('input[name="sbrfg-og-serialized-data"]').val(
+    editorContainer.find('input[name="sbrfg-og-image-settings"]').val(
       JSON.stringify(openGraphEditor.getImageEditionState())
     );
   });

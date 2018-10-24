@@ -55,33 +55,33 @@ class Social_by_RealFaviconGenerator_Admin_API {
 */
     // Image
 
-		$data = $_POST['sbrfg-og-serialized-data'];
+		$imageSettings = $_POST['sbrfg-og-image-settings'];
 		// See http://stackoverflow.com/questions/2496455/why-are-post-variables-getting-escaped-in-php
-    $data = stripslashes( $data );
-    
-    error_log("DATA=" . $data);
+    $imageSettings = stripslashes( $imageSettings );
+
+    error_log("DATA=" . $imageSettings);
 
     $imageId = $_POST['sbrfg-og-image-id'];
     error_log("IMAGE ID " . $imageId);  
 
 		// Check if the data have changed
-		$existingData = get_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OPTION_OG_SERIALIZED_DATA, true );
+		$existingImageSettings = get_post_meta( $post_id,
+			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_SETTINGS, true );
 		$existingImageId = get_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OPTION_OG_IMAGE_ID, true );
-		if ( $existingData && $existingData == $data && $existingImageId == $imageId ) {
+			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_ID, true );
+		if ( $existingImageSettings && $existingImageSettings == $imageSettings && $existingImageId == $imageId ) {
       // No change in the data: nothing to do
       error_log("No change, nothing to do");
 			return true;
 		}
 
 		update_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OPTION_OG_SERIALIZED_DATA, $data );
+			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_SETTINGS, $imageSettings );
 		update_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OPTION_OG_IMAGE_ID, $imageId );
+			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_ID, $imageId );
 
-		$data = json_decode( $data, true );
-		$faviconDesign = $data;
+    $imageSettings = json_decode( $imageSettings, true );
+		$faviconDesign = $imageSettings;
 
 		$pic_path = $this->get_picture_url( $post_id );
 

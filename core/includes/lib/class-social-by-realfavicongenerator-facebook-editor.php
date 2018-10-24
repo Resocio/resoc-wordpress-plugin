@@ -4,16 +4,16 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 
 	public static function facebook_editor( $post ) {
 
-		$openGraphSerializedData =
+		$imageSettings =
 			get_post_meta( $post->ID,
-				Social_by_RealFaviconGenerator::OPTION_OG_SERIALIZED_DATA, true );
+        Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_SETTINGS, true );
 
 		$imageId =
 			get_post_meta( $post->ID,
-				Social_by_RealFaviconGenerator::OPTION_OG_IMAGE_ID, true );
+				Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_ID, true );
 		if ($imageId) {
 			$imageUrl = wp_get_attachment_url( $imageId );
-		}
+    }
 
 		ob_start();
 ?>
@@ -70,7 +70,7 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 			<div class="sbrfg-clear-fix"></div>
       <input
         type="hidden"
-        name="sbrfg-og-serialized-data"
+        name="sbrfg-og-image-settings"
       >
       <input
         type="hidden"
@@ -102,7 +102,8 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 
   <script>
 		jQuery(document).ready(function(e) {
-			var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
+      var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
+      var imageSettings = <?php echo $imageSettings ? $imageSettings : 'undefined' ?>;
       var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);
       var editorContainer = jQuery('#sbrfg-editor');
@@ -110,6 +111,7 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
       sbrfgInitOpenGraphEditor(
         editorContainer,
         imageId,
+        imageSettings,
         imageUrl,
         '<?php echo get_site_url() ?>'
       );

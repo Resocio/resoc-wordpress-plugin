@@ -22,9 +22,11 @@ class Social_by_RealFaviconGenerator {
 
 	const PLUGIN_SLUG                        = 'social-by-realfavicongenerator';
 
-	const OG_IMAGE_ID    = 'SbRFG_OG_Image_Id';
-	const OG_TITLE       = 'SbRFG_OG_Title';
-	const OG_DESCRIPTION = 'SbRFG_OG_Description';
+  const OG_MASTER_IMAGE_ID       = 'SbRFG_OG_Master_Image_Id';
+  const OG_MASTER_IMAGE_SETTINGS = 'SbRFG_OG_Master_Image_Settings';
+	const OG_IMAGE_ID              = 'SbRFG_OG_Image_Id';
+	const OG_TITLE                 = 'SbRFG_OG_Title';
+  const OG_DESCRIPTION           = 'SbRFG_OG_Description';
 
 
 	/**
