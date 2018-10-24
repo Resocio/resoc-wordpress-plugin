@@ -4,6 +4,13 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 
 	public static function facebook_editor( $post ) {
 
+    $title =
+      get_post_meta( $post->ID,
+        Social_by_RealFaviconGenerator::OG_TITLE, true );
+    $description =
+      get_post_meta( $post->ID,
+        Social_by_RealFaviconGenerator::OG_DESCRIPTION, true );
+
 		$imageSettings =
 			get_post_meta( $post->ID,
         Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_SETTINGS, true );
@@ -102,6 +109,9 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 
   <script>
 		jQuery(document).ready(function(e) {
+      var title = <?php echo $title ? json_encode( $title ) : 'undefined' ?>;
+      var description = <?php echo $description ? json_encode( $description ) : 'undefined' ?>;
+
       var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
       var imageSettings = <?php echo $imageSettings ? $imageSettings : 'undefined' ?>;
       var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
@@ -110,6 +120,8 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 
       sbrfgInitOpenGraphEditor(
         editorContainer,
+        title,
+        description,
         imageId,
         imageSettings,
         imageUrl,

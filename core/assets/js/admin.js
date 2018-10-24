@@ -1,8 +1,12 @@
 
-var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageSettings, imageUrl, siteUrl) {
+var sbrfgInitOpenGraphEditor = function(
+  editorContainer,
+  title, description,
+  imageId, imageSettings, imageUrl,
+  siteUrl
+) {
   var openGraphEditor;
   var fileFrame;
-
 
   const e = React.createElement;
   console.log(RFGSocialEditor);
@@ -14,9 +18,11 @@ var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageSettings,
       openGraphEditor.setImage(imageUrl, imageSettings);
       openGraphEditor.setView('facebook');
       openGraphEditor.setUrl(siteUrl);
+      openGraphEditor.setTitle(title);
+      openGraphEditor.setDescription(description);
     }}), domContainer);
 
-  initForm(editorContainer);
+  initForm(editorContainer, title, description);
   initImageSelection(editorContainer);
 
   var postForm = jQuery.find('#post');
@@ -26,13 +32,19 @@ var sbrfgInitOpenGraphEditor = function(editorContainer, imageId, imageSettings,
     );
   });
 
-  function initForm(editorContainer) {
-    editorContainer.find('input[name=sbrfg-title]').on('input', function() {
+  function initForm(editorContainer, title, description) {
+    var titleField = editorContainer.find('input[name=sbrfg-title]');
+    titleField.val(title);
+    titleField.on('input', function() {
       openGraphEditor.setTitle(this.value);
     });
-    editorContainer.find('textarea[name=sbrfg-description]').on('input propertychange', function() {
+
+    var descriptionField = editorContainer.find('textarea[name=sbrfg-description]');
+    descriptionField.val(description);
+    descriptionField.on('input propertychange', function() {
       openGraphEditor.setDescription(this.value);
     });
+
     editorContainer.find('input[name=sbrfg-view]').change(function() {
       openGraphEditor.setView(this.value);
     });
