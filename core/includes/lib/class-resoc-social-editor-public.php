@@ -5,23 +5,66 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Resoc_Social_Editor_Public {
 
 	public function __construct () {
-		add_action( 'wp_head', array( $this, 'add_favicon_markups' ) );
-
 		// Disable Jetpack Open Graph markups
     add_filter( 'jetpack_enable_open_graph', '__return_false' );
 
-    add_filter(
-      'wpseo_opengraph_title',
-      array( $this, 'get_og_title' )
+    if ( Resoc_Social_Editor_Utils::is_yoast_seo_active() ) {
+      add_filter(
+        'wpseo_opengraph_title',
+        array( $this, 'get_og_title' )
+      );
+      add_filter(
+        'wpseo_opengraph_desc',
+        array( $this, 'get_og_description' )
+      );
+      add_filter(
+        'wpseo_add_opengraph_images',
+        array( $this, 'get_og_image' )
+      );
+    }
+    else {
+      // No Yoast, add markups manually
+      add_action( 'wp_head', array( $this, 'add_opengraph_markups' ) );
+    }
+  }
+
+  public function add_opengraph_markups() {
+    $post_id = get_the_ID();
+
+    $title = get_post_meta(
+      $post_id,
+      Resoc_Social_Editor::OG_TITLE,
+      true
     );
-    add_filter(
-      'wpseo_opengraph_desc',
-      array( $this, 'get_og_description' )
+    if ( $title ) {
+      echo '<meta name="og:title" value="' . htmlspecialchars( $title ) . '">' . "\n";
+    }
+
+    $description = get_post_meta(
+      $post_id,
+      Resoc_Social_Editor::OG_DESCRIPTION,
+      true
     );
-    add_filter(
-      'wpseo_add_opengraph_images',
-      array( $this, 'get_og_image' )
+    if ( $description ) {
+      echo '<meta name="og:description" value="' . htmlspecialchars( $description ) . '">' . "\n";
+    }
+
+    $image_id = get_post_meta(
+      $post_id,
+      Resoc_Social_Editor::OG_IMAGE_ID,
+      true
     );
+    if ( $image_id ) {
+      $image_data = wp_get_attachment_metadata( $image_id );
+      if ( is_array( $image_data ) ) {
+        $image_data['url'] = wp_get_attachment_image_url( $image_id, 'full' );
+        echo '<meta name="og:image" value="' . $image_data['url'] . '">' . "\n";
+        if ( $image_data['width'] && $image_data['height'] ) {
+          echo '<meta name="og:image:width" value="' . $image_data['width'] . '">' . "\n";
+          echo '<meta name="og:image:height" value="' . $image_data['height'] . '">' . "\n";
+        }
+      }
+    }
   }
 
   public function get_og_title( $original_title ) {
