@@ -515,7 +515,7 @@ class Resoc_Social_Editor_Admin_API {
 		// Try to patch Yoast SEO. If that works, there is nothing more to do
 		if ( $this->patch_yoast_seo_meta_box() ) return;
 
-		$this->add_meta_box('rse-meta-facebook', 'Share on Facebook',
+		$this->add_meta_box('rse-meta-facebook', 'Share on Facebook and LinkedIn',
 			get_post_types( array( 'public' => true ) ) );
 
 		if ( ! $post_id ) return;
