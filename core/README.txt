@@ -1,4 +1,4 @@
-=== Social by RealFaviconGenerator ===
+=== Resoc Social Editor ===
 Contributors:  phbernard
 Donate link: http://realfavicongenerator.net/donate
 Tags: social, facebook, opengraph, metadata, editor, wordpress, plugin
@@ -22,7 +22,7 @@ Using Yoast SEO? Perfect. We replace its classic Facebook OpenGraph editor with 
 
 == Installation ==
 
-Installing "Social by RealFaviconGenerator" can be done either by searching for "Social by RealFaviconGenerator" via the "Plugins > Add New" screen in your WordPress dashboard, or by using the following steps:
+Installing "Resoc Social Editor" can be done either by searching for "Resoc Social Editor" via the "Plugins > Add New" screen in your WordPress dashboard, or by using the following steps:
 
 1. Download the plugin via WordPress.org
 1. Upload the ZIP file through the 'Plugins > Add New > Upload' screen in your WordPress dashboard
@@ -39,38 +39,6 @@ Installing "Social by RealFaviconGenerator" can be done either by searching for 
 6. Yoast user? We replace its editor.
 
 == Changelog ==
-
-= 0.1.0 =
-
-* Plugin tested against WordPress 4.9.8.
-* Plugin tested against Yoast SEO 8.4.
-
-= 0.0.6 =
-
-* Plugin tested against WordPress 4.9.4.
-* Plugin tested against Yoast SEO 7.1.
-
-= 0.0.5 =
-
-* Costmetic fixes in README.
-* Screenshot for Yoast SEO.
-
-= 0.0.4 =
-
-* Facebook editor is available for all post types: classic posts, pages, etc.
-* When Yoast SEO is activated, its Facebook meta editor is replaced by RealFaviconGenerator's.
-
-= 0.0.3 =
-
-* Disable Jetpack Open Graph markups when SbRFG itself has markups for the current post.
-* Inject URL, site name and locale at rendering time.
-* User can select the object type (web site, article, etc.).
-* Article-related meta.
-
-= 0.0.2 =
-
-* Disable WordPressSEO/YoastSEO Open Graph markups only when SbRFG itself has markups for the current post.
-* Use picture full URL in the `og:image` markup.
 
 = 0.0.1 =
 
