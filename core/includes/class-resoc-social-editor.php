@@ -4,34 +4,34 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Resoc_Social_Editor {
 
-	const PLUGIN_PREFIX = 'sbrfg';
+	const PLUGIN_PREFIX = 'rse';
 
-	const OPTION_HTML_CODE                   = 'sbrfg_html_code';
-	const OPTION_OG_SERIALIZED_DATA          = 'sbrfg_og_serialized_data';
-	const OPTION_OG_IMAGE_ID                 = 'sbrfg_og_image_id';
+	const OPTION_HTML_CODE                   = 'rse_html_code';
+	const OPTION_OG_SERIALIZED_DATA          = 'rse_og_serialized_data';
+	const OPTION_OG_IMAGE_ID                 = 'rse_og_image_id';
 
-	const PLACEHOLDER_URL                    = 'SbRFG_Placeholder_Url';
-	const PLACEHOLDER_SITE_NAME              = 'SbRFG_Placeholder_Site_Name';
-	const PLACEHOLDER_LOCALE                 = 'SbRFG_Placeholder_Locale';
+	const PLACEHOLDER_URL                    = 'RSE_Placeholder_Url';
+	const PLACEHOLDER_SITE_NAME              = 'RSE_Placeholder_Site_Name';
+	const PLACEHOLDER_LOCALE                 = 'RSE_Placeholder_Locale';
 	const PLACEHOLDER_ARTICLE_PUBLISHED_TIME = '2016-10-13T15:44:04+0000';
 	const PLACEHOLDER_ARTICLE_MODIFIED_TIME  = '2016-10-13T15:45:05+0000';
-	const PLACEHOLDER_ARTICLE_AUTHOR         = 'SbRFG_Placeholder_Article_Author';
-	const PLACEHOLDER_ARTICLE_SECTION        = 'SbRFG_Placeholder_Article_Section';
-	const PLACEHOLDER_ARTICLE_TAG            = 'SbRFG_Placeholder_Article_Tag';
-	const PLACEHOLDER_ARTICLE_PUBLISHER      = 'SbRFG_Placeholder_Article_Publisher';
+	const PLACEHOLDER_ARTICLE_AUTHOR         = 'RSE_Placeholder_Article_Author';
+	const PLACEHOLDER_ARTICLE_SECTION        = 'RSE_Placeholder_Article_Section';
+	const PLACEHOLDER_ARTICLE_TAG            = 'RSE_Placeholder_Article_Tag';
+	const PLACEHOLDER_ARTICLE_PUBLISHER      = 'RSE_Placeholder_Article_Publisher';
 
 	const PLUGIN_SLUG                        = 'resoc-social-editor';
 
-  const OG_MASTER_IMAGE_ID       = 'SbRFG_OpenGraph_Master_Image_Id';
-  const OG_MASTER_IMAGE_SETTINGS = 'SbRFG_OpenGraph_Master_Image_Settings';
+  const OG_MASTER_IMAGE_ID       = 'RSE_OpenGraph_Master_Image_Id';
+  const OG_MASTER_IMAGE_SETTINGS = 'RSE_OpenGraph_Master_Image_Settings';
   // Note: the previous name of this meta was
-  // 'SbRFG_OG_Image_Id'. For some reasons,
+  // 'RSE_OG_Image_Id'. For some reasons,
   // it was not possible to update the meta
   // whith that name. I couldn't figure out why.
   // Thus it was artificially changed.
-  const OG_IMAGE_ID              = 'SbRFG_OpenGraph_Image_Id';
-  const OG_TITLE                 = 'SbRFG_OpenGraph_Title';
-  const OG_DESCRIPTION           = 'SbRFG_OpenGraph_Description';
+  const OG_IMAGE_ID              = 'RSE_OpenGraph_Image_Id';
+  const OG_TITLE                 = 'RSE_OpenGraph_Title';
+  const OG_DESCRIPTION           = 'RSE_OpenGraph_Description';
 
 	/**
 	 * The single instance of Resoc_Social_Editor.
@@ -270,7 +270,7 @@ class Resoc_Social_Editor {
 
 
 	/**
-	 * Returns /www/wordpress/wp-content/uploaded/sbrfg
+	 * Returns /www/wordpress/wp-content/uploaded/rse
 	 */
 	public static function get_files_dir( $post_id = NULL ) {
 		$up_dir = wp_upload_dir();
@@ -280,7 +280,7 @@ class Resoc_Social_Editor {
 	}
 
 	/**
-	 * Returns http//somesite.com/blog/wp-content/upload/sbrfg/
+	 * Returns http//somesite.com/blog/wp-content/upload/rse/
 	 */
 	public static function get_files_url( $post_id ) {
 		$up_dir = wp_upload_dir();

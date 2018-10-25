@@ -1,5 +1,5 @@
 
-var sbrfgInitOpenGraphEditor = function(
+var rseInitOpenGraphEditor = function(
   editorContainer,
   title, description,
   imageId, imageSettings, imageUrl,
@@ -27,31 +27,31 @@ var sbrfgInitOpenGraphEditor = function(
 
   var postForm = jQuery.find('#post');
   jQuery(document).on('submit', postForm, function() {
-    editorContainer.find('input[name="sbrfg-og-image-settings"]').val(
+    editorContainer.find('input[name="rse-og-image-settings"]').val(
       JSON.stringify(openGraphEditor.getImageEditionState())
     );
   });
 
   function initForm(editorContainer, title, description) {
-    var titleField = editorContainer.find('input[name=sbrfg-title]');
+    var titleField = editorContainer.find('input[name=rse-title]');
     titleField.val(title);
     titleField.on('input', function() {
       openGraphEditor.setTitle(this.value);
     });
 
-    var descriptionField = editorContainer.find('textarea[name=sbrfg-description]');
+    var descriptionField = editorContainer.find('textarea[name=rse-description]');
     descriptionField.val(description);
     descriptionField.on('input propertychange', function() {
       openGraphEditor.setDescription(this.value);
     });
 
-    editorContainer.find('input[name=sbrfg-view]').change(function() {
+    editorContainer.find('input[name=rse-view]').change(function() {
       openGraphEditor.setView(this.value);
     });
   }
 
   function initImageSelection(editorContainer) {
-    editorContainer.find('.sbrfg-image-selection-button').live('click', function(event) {
+    editorContainer.find('.rse-image-selection-button').live('click', function(event) {
       event.preventDefault();
   
       if (fileFrame) {
@@ -75,7 +75,7 @@ var sbrfgInitOpenGraphEditor = function(
         openGraphEditor.setImage(imageUrl);
 
         imageId = attachment.id;
-        editorContainer.find('input[name="sbrfg-og-image-id"]').val(imageId);
+        editorContainer.find('input[name="rse-og-image-id"]').val(imageId);
       });
   
       fileFrame.open();
@@ -86,13 +86,13 @@ var sbrfgInitOpenGraphEditor = function(
 }
 
 /*
-var sbrfgInitSocialEditor = function(editorContainer, imageId, imageUrl, settings, siteUrl) {
+var rseInitSocialEditor = function(editorContainer, imageId, imageUrl, settings, siteUrl) {
 	var fileFrame;
 
 	var editorContainer;
-	var sbrfgEditor;
+	var rseEditor;
 
-	var sbrfgScaleMin, sbrfgScaleMax;
+	var rseScaleMin, rseScaleMax;
 
 	var fb;
 
@@ -111,17 +111,17 @@ var sbrfgInitSocialEditor = function(editorContainer, imageId, imageUrl, setting
 	function initAndShowEditor() {
 		initEditor();
 
-		editorContainer.find('.sbrfg-image-selection-container.sbrfg-no-existing-image').hide();
-		editorContainer.find('.sbrfg-image-selection-container.sbrfg-existing-image').show();
+		editorContainer.find('.rse-image-selection-container.rse-no-existing-image').hide();
+		editorContainer.find('.rse-image-selection-container.rse-existing-image').show();
 
-		editorContainer.find('.sbrfg-editor-overall-container').fadeIn();
+		editorContainer.find('.rse-editor-overall-container').fadeIn();
 	}
 
 
 	function initEditor() {
 		fb = new RFGFacebook({
 			apiKey: 'TODO',
-			element: jQuery('#sbrfg-editor .sbrfg-facebook-editor'),
+			element: jQuery('#rse-editor .rse-facebook-editor'),
 			master_image_src: imageUrl,
 			format: 'wide',
 			title: 'A title you should change',
@@ -133,13 +133,13 @@ var sbrfgInitSocialEditor = function(editorContainer, imageId, imageUrl, setting
 		if (settings) {
 			// As there is en existing API request, initialize the form with the
 			// editor's data
-			editorContainer.find('input[name="sbrfg-title"]').val(fb.getTitle());
-			editorContainer.find('textarea[name="sbrfg-description"]').val(fb.getDescription());
+			editorContainer.find('input[name="rse-title"]').val(fb.getTitle());
+			editorContainer.find('textarea[name="rse-description"]').val(fb.getDescription());
 		}
 
 		// Scale setting
 		fb.on('scaleChange', function(e, currentScale, minScale, maxScale) {
-			var range = editorContainer.find('input[name="sbrfg-scale"]');
+			var range = editorContainer.find('input[name="rse-scale"]');
 			currentScale = RFGComponent.transposeInterval(currentScale, minScale, maxScale,
 				range.attr('min'), range.attr('max'));
 			range.val(currentScale);
@@ -151,22 +151,22 @@ var sbrfgInitSocialEditor = function(editorContainer, imageId, imageUrl, setting
 
 		// Platform
 		var platforms = fb.getAvailablePlatforms();
-		editorContainer.find('.sbrfg-platform-switcher-container').html('');
+		editorContainer.find('.rse-platform-switcher-container').html('');
 		Object.keys(platforms).forEach(function(platform) {
 				var button = jQuery(
 					'<button href="#" class="button-secondary" data-platform="' + platform + '" ' +
 						((platform == fb.getPlatform()) ? ' disabled="disabled"' : '') + '>' +
 					platforms[platform] + '</button>');
 				button.click(function(e) {
-					editorContainer.find('.sbrfg-platform-switcher-container button').removeAttr('disabled');
+					editorContainer.find('.rse-platform-switcher-container button').removeAttr('disabled');
 					button.attr('disabled', 'disabled');
 					fb.setPlatform(platform);
 					e.preventDefault();
 				});
-				editorContainer.find('.sbrfg-platform-switcher-container').append(button);
+				editorContainer.find('.rse-platform-switcher-container').append(button);
 		});
-		editorContainer.find('.sbrfg-platform-switcher-container input[name="platform"]').change(function() {
-			var newPlatform = editorContainer.find('.sbrfg-platform-switcher-container input[name="platform"]:checked').val();
+		editorContainer.find('.rse-platform-switcher-container input[name="platform"]').change(function() {
+			var newPlatform = editorContainer.find('.rse-platform-switcher-container input[name="platform"]:checked').val();
 			fb.setPlatform(newPlatform);
 		});
 
@@ -189,17 +189,17 @@ var sbrfgInitSocialEditor = function(editorContainer, imageId, imageUrl, setting
 		});
 
 		// Title
-		editorContainer.find('input[name="sbrfg-title"]').on('input', function(val) {
-			fb.setTitle(jQuery('input[name="sbrfg-title"]').val());
+		editorContainer.find('input[name="rse-title"]').on('input', function(val) {
+			fb.setTitle(jQuery('input[name="rse-title"]').val());
 		});
 
 		// Description
-		editorContainer.find('textarea[name="sbrfg-description"]').on('input propertychange', function(val) {
-			fb.setDescription(jQuery('textarea[name="sbrfg-description"]').val());
+		editorContainer.find('textarea[name="rse-description"]').on('input propertychange', function(val) {
+			fb.setDescription(jQuery('textarea[name="rse-description"]').val());
 		});
 
 		// Scale
-		var is = editorContainer.find('input[name="sbrfg-scale"]');
+		var is = editorContainer.find('input[name="rse-scale"]');
 		is.bind('propertychange change click keyup input paste', function() {
 			var range = jQuery(this);
 			fb.setScale(range.val(), range.attr('min'), range.attr('max'));
@@ -207,7 +207,7 @@ var sbrfgInitSocialEditor = function(editorContainer, imageId, imageUrl, setting
 	}
 
 	function initImageSelection() {
-		jQuery('.sbrfg-image-selection-button').live('click', function(event) {
+		jQuery('.rse-image-selection-button').live('click', function(event) {
 			event.preventDefault();
 
 			if (fileFrame) {
@@ -242,102 +242,102 @@ var sbrfgInitSocialEditor = function(editorContainer, imageId, imageUrl, setting
 			if (fb) {
 				var data = {};
 				data = fb.getApiFaviconDesign();
-				editorContainer.find('input[name="sbrfg-og-serialized-data"]').val(
+				editorContainer.find('input[name="rse-og-serialized-data"]').val(
 					JSON.stringify(data));
-				editorContainer.find('input[name="sbrfg-og-image-id"]').val(imageId);
+				editorContainer.find('input[name="rse-og-image-id"]').val(imageId);
 			}
 		});
 	}
 */
 	/*
-	function sbrfgInitEditors(settings, imageId, imageUrl) {
-		sbrfgEditor.openGraphEditor();
+	function rseInitEditors(settings, imageId, imageUrl) {
+		rseEditor.openGraphEditor();
 
 		imageId = imageId;
 
-		var allFormats = sbrfgEditor.getAllFormats();
-		var radioContainer = sbrfgContainer.find('.format-radios-container');
+		var allFormats = rseEditor.getAllFormats();
+		var radioContainer = rseContainer.find('.format-radios-container');
 		radioContainer.html('');
 		jQuery.each(allFormats, function(format) {
-			radioContainer.append('<p><input type="radio" name="sbrfg-format" value="' +
+			radioContainer.append('<p><input type="radio" name="rse-format" value="' +
 				format + '"> ' + allFormats[format] + '</p>');
 		});
 
-		sbrfgInitEditor();
+		rseInitEditor();
 
 
-		function sbrfgInitEditor() {
-			sbrfgEditor.initComponent({
+		function rseInitEditor() {
+			rseEditor.initComponent({
 				master_img_src: imageUrl,
 				serialized_data: settings.open_graph.facebook_open_graph,
 				onScaleChange: function(e, min, max, current) {
-					sbrfgScaleMin = min;
-					sbrfgScaleMax = max;
-					var range = sbrfgEditor.addScaleAmplitude(100, sbrfgScaleMin, sbrfgScaleMax, current);
-					sbrfgContainer.find('input[name="sbrfg-scale"]').attr('min', range[0]);
-					sbrfgContainer.find('input[name="sbrfg-scale"]').attr('max', range[1]);
-					sbrfgContainer.find('input[name="sbrfg-scale"]').val(range[2]);
+					rseScaleMin = min;
+					rseScaleMax = max;
+					var range = rseEditor.addScaleAmplitude(100, rseScaleMin, rseScaleMax, current);
+					rseContainer.find('input[name="rse-scale"]').attr('min', range[0]);
+					rseContainer.find('input[name="rse-scale"]').attr('max', range[1]);
+					rseContainer.find('input[name="rse-scale"]').val(range[2]);
 				},
 				onInit: function() {
-					sbrfgContainer.find('.sbrfg-platform-switcher-container').html('');
-					var platforms = sbrfgEditor.getAllPlatforms();
+					rseContainer.find('.rse-platform-switcher-container').html('');
+					var platforms = rseEditor.getAllPlatforms();
 					platforms.forEach(function(p) {
 						var button = $(
 							'<button href="#" class="button-secondary" data-platform="' + p + '">' +
-							sbrfgEditor.getPlatformName(p) +
+							rseEditor.getPlatformName(p) +
 							'</button>');
 						button.click(function(e) {
-							sbrfgContainer.find('.sbrfg-platform-switcher-container button').removeAttr('disabled');
+							rseContainer.find('.rse-platform-switcher-container button').removeAttr('disabled');
 							button.attr('disabled', 'disabled');
-							sbrfgEditor.setPlatform(p);
+							rseEditor.setPlatform(p);
 							e.preventDefault()
 						});
-						sbrfgContainer.find('.sbrfg-platform-switcher-container').append(button);
+						rseContainer.find('.rse-platform-switcher-container').append(button);
 					});
 
-					sbrfgEditor.setUrl(location.protocol + "//" +  window.location.hostname);
+					rseEditor.setUrl(location.protocol + "//" +  window.location.hostname);
 
-					sbrfgContainer.find('input[name="sbrfg-title"]').val(sbrfgEditor.getTitle());
-					sbrfgContainer.find('input[name="sbrfg-title"]').bind('propertychange change click keyup input paste', function() {
-				    sbrfgEditor.setTitle($(this).val());
+					rseContainer.find('input[name="rse-title"]').val(rseEditor.getTitle());
+					rseContainer.find('input[name="rse-title"]').bind('propertychange change click keyup input paste', function() {
+				    rseEditor.setTitle($(this).val());
 				  });
 
-					sbrfgContainer.find('textarea[name="sbrfg-description"]').val(sbrfgEditor.getDescription());
-					sbrfgContainer.find('textarea[name="sbrfg-description"]').bind('propertychange change click keyup input paste', function() {
-				    sbrfgEditor.setDescription($(this).val());
+					rseContainer.find('textarea[name="rse-description"]').val(rseEditor.getDescription());
+					rseContainer.find('textarea[name="rse-description"]').bind('propertychange change click keyup input paste', function() {
+				    rseEditor.setDescription($(this).val());
 				  });
 
-					var format = sbrfgEditor.getFormat();
-					sbrfgContainer.find('input[name="sbrfg-format"][value="' + format + '"]').attr('checked', 'checked');
-					sbrfgContainer.find('input[name="sbrfg-format"]').bind('propertychange change click keyup input paste', function() {
-						sbrfgEditor.setFormat(sbrfgContainer.find('input[name="sbrfg-format"]:checked').val());
+					var format = rseEditor.getFormat();
+					rseContainer.find('input[name="rse-format"][value="' + format + '"]').attr('checked', 'checked');
+					rseContainer.find('input[name="rse-format"]').bind('propertychange change click keyup input paste', function() {
+						rseEditor.setFormat(rseContainer.find('input[name="rse-format"]:checked').val());
 					});
 
-					sbrfgContainer.find('input[name="sbrfg-scale"]').bind('propertychange change click keyup input paste', function() {
-						var scale = sbrfgEditor.removeScaleAmplitude(100, sbrfgScaleMin, sbrfgScaleMax, $(this).val());
-						sbrfgEditor.setScale(scale);
+					rseContainer.find('input[name="rse-scale"]').bind('propertychange change click keyup input paste', function() {
+						var scale = rseEditor.removeScaleAmplitude(100, rseScaleMin, rseScaleMax, $(this).val());
+						rseEditor.setScale(scale);
 					});
 
 
-					objectTypeField = sbrfgContainer.find('select[name="sbrfg-object-type"]');
-					allTypes = sbrfgEditor.getAllObjectTypes();
-					var currentType = sbrfgEditor.getObjectType() || 'article';
+					objectTypeField = rseContainer.find('select[name="rse-object-type"]');
+					allTypes = rseEditor.getAllObjectTypes();
+					var currentType = rseEditor.getObjectType() || 'article';
 					jQuery.each(allTypes, function(t) {
 						var selected = (t == currentType) ? ' selected' : '';
 						objectTypeField.append('<option value="' + t + '"' + selected + '>'
 							+ allTypes[t] + '</option>');
 					});
 					objectTypeField.bind('propertychange change click keyup input paste', function() {
-				    sbrfgEditor.setObjectType($(this).find('option:selected').val());
+				    rseEditor.setObjectType($(this).find('option:selected').val());
 				  });
 
 					var postForm = jQuery.find('#post');
 					$(document).on('submit', postForm, function() {
 						var data = {};
-						data.facebook_open_graph = sbrfgEditor.serializeForAPIRequest();
-						sbrfgContainer.find('input[name="sbrfg-og-serialized-data"]').val(
+						data.facebook_open_graph = rseEditor.serializeForAPIRequest();
+						rseContainer.find('input[name="rse-og-serialized-data"]').val(
 							JSON.stringify(data));
-						sbrfgContainer.find('input[name="sbrfg-og-image-id"]').val(imageId);
+						rseContainer.find('input[name="rse-og-image-id"]').val(imageId);
 					});
 				}
 			});

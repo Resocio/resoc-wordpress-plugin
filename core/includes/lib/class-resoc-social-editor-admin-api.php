@@ -42,8 +42,8 @@ class Resoc_Social_Editor_Admin_API {
 
 	public function save_social_data ( $post_id ) {
     // Title and description
-    $title = $_POST['sbrfg-title'];
-    $description = $_POST['sbrfg-description'];
+    $title = $_POST['rse-title'];
+    $description = $_POST['rse-description'];
 
     update_post_meta( $post_id,
       Resoc_Social_Editor::OG_TITLE, $title );
@@ -55,13 +55,13 @@ class Resoc_Social_Editor_Admin_API {
 */
     // Image
 
-		$imageSettings = $_POST['sbrfg-og-image-settings'];
+		$imageSettings = $_POST['rse-og-image-settings'];
 		// See http://stackoverflow.com/questions/2496455/why-are-post-variables-getting-escaped-in-php
     $imageSettings = stripslashes( $imageSettings );
 
     error_log("DATA=" . $imageSettings);
 
-    $imageId = $_POST['sbrfg-og-image-id'];
+    $imageId = $_POST['rse-og-image-id'];
     error_log("IMAGE ID " . $imageId);  
 
 		// Check if the data have changed
@@ -513,7 +513,7 @@ class Resoc_Social_Editor_Admin_API {
 		// Try to patch Yoast SEO. If that works, there is nothing more to do
 		if ( $this->patch_yoast_seo_meta_box() ) return;
 
-		$this->add_meta_box('sbrfg-meta-facebook', 'Share on Facebook',
+		$this->add_meta_box('rse-meta-facebook', 'Share on Facebook',
 			get_post_types( array( 'public' => true ) ) );
 
 		if ( ! $post_id ) return;

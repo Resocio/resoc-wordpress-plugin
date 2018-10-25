@@ -24,49 +24,49 @@ class Resoc_Social_Editor_Facebook_Editor {
 
 		ob_start();
 ?>
-	<div class="social-by-rfg-wrap custom-field-panel sbrfg-editor" id="sbrfg-editor">
+	<div class="social-by-rfg-wrap custom-field-panel rse-editor" id="rse-editor">
 		<div>
 			<h3>By <a href="https://resoc.io" target="_blank">Resoc</a></h3>
 		</div>
 
-		<div class="sbrfg-editor-overall-container">
-      <div class="sbrfg-preview-container">
+		<div class="rse-editor-overall-container">
+      <div class="rse-preview-container">
 				<div class="open-graph-editor-container"></div>
 			</div>
 
-			<div class="sbrfg-fields">
+			<div class="rse-fields">
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row"><label for="sbrfg-title">Title</label></th>
-						<td><input type="text" name="sbrfg-title" placeholder="A title you should change"></td>
+						<th scope="row"><label for="rse-title">Title</label></th>
+						<td><input type="text" name="rse-title" placeholder="A title you should change"></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="sbrfg-description">Description</label></th>
-						<td><textarea rows="3" name="sbrfg-description" placeholder="A description you should change, too"></textarea></td>
+						<th scope="row"><label for="rse-description">Description</label></th>
+						<td><textarea rows="3" name="rse-description" placeholder="A description you should change, too"></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="sbrfg-image">Image</label></th>
+						<th scope="row"><label for="rse-image">Image</label></th>
 						<td>
-              <button class="sbrfg-image-selection-button button-primary">Select Facebook image</button>
+              <button class="rse-image-selection-button button-primary">Select Facebook image</button>
             </td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="sbrfg-view">View</label></th>
+						<th scope="row"><label for="rse-view">View</label></th>
 						<td>
-              <label for="sbrfg-view-facebook">
-                <input type="radio" name="sbrfg-view" value="facebook" id="sbrfg-view-facebook" checked="checked" />
+              <label for="rse-view-facebook">
+                <input type="radio" name="rse-view" value="facebook" id="rse-view-facebook" checked="checked" />
                 Facebook
               </label>
-              <label for="sbrfg-view-facebook-caption">
-                <input type="radio" name="sbrfg-view" value="facebook_caption" id="sbrfg-view-facebook-caption" />
+              <label for="rse-view-facebook-caption">
+                <input type="radio" name="rse-view" value="facebook_caption" id="rse-view-facebook-caption" />
                 Facebook - Captions
               </label>
-              <label for="sbrfg-view-linkedin">
-                <input type="radio" name="sbrfg-view" value="linkedin" id="sbrfg-view-linkedin" />
+              <label for="rse-view-linkedin">
+                <input type="radio" name="rse-view" value="linkedin" id="rse-view-linkedin" />
                 LinkedIn
               </label>
-              <label for="sbrfg-view-linkedin-caption">
-                <input type="radio" name="sbrfg-view" value="linkedin_caption" id="sbrfg-view-linkedin-caption" />
+              <label for="rse-view-linkedin-caption">
+                <input type="radio" name="rse-view" value="linkedin_caption" id="rse-view-linkedin-caption" />
                 LinkedIn - Captions
               </label>
             </td>
@@ -74,20 +74,20 @@ class Resoc_Social_Editor_Facebook_Editor {
 				</table>
 			</div>
 
-			<div class="sbrfg-clear-fix"></div>
+			<div class="rse-clear-fix"></div>
       <input
         type="hidden"
-        name="sbrfg-og-image-settings"
+        name="rse-og-image-settings"
       >
       <input
         type="hidden"
-        name="sbrfg-og-image-id"
+        name="rse-og-image-id"
         value="<?php echo $imageId ?>"
       >
 		</div>
 	</div>
 
-	<div id="sbrfg-upgrade-notice" style="display:none">
+	<div id="rse-upgrade-notice" style="display:none">
 		Your version of the plugin is outdated.
 		Please <a href="<?php echo get_site_url( null, '/wp-admin/plugins.php' ) ?>" target="_blank">
 			visit your plugins page</a> and update <strong>Social by RealFaviconGenerator</strong>.
@@ -98,8 +98,8 @@ class Resoc_Social_Editor_Facebook_Editor {
 		jQuery(document).ready(function(e) {
 			var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
 			var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
-			sbrfgInitSocialEditor(
-				jQuery('#sbrfg-editor'),
+			rseInitSocialEditor(
+				jQuery('#rse-editor'),
 				imageId, imageUrl,
 				<?php echo $openGraphSerializedData ? $openGraphSerializedData : 'undefined' ?>,
 				'<?php echo get_site_url() ?>');
@@ -116,9 +116,9 @@ class Resoc_Social_Editor_Facebook_Editor {
       var imageSettings = <?php echo $imageSettings ? $imageSettings : 'undefined' ?>;
       var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);
-      var editorContainer = jQuery('#sbrfg-editor');
+      var editorContainer = jQuery('#rse-editor');
 
-      sbrfgInitOpenGraphEditor(
+      rseInitOpenGraphEditor(
         editorContainer,
         title,
         description,
