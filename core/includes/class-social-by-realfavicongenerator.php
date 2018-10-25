@@ -22,12 +22,16 @@ class Social_by_RealFaviconGenerator {
 
 	const PLUGIN_SLUG                        = 'social-by-realfavicongenerator';
 
-  const OG_MASTER_IMAGE_ID       = 'SbRFG_OG_Master_Image_Id';
-  const OG_MASTER_IMAGE_SETTINGS = 'SbRFG_OG_Master_Image_Settings';
-	const OG_IMAGE_ID              = 'SbRFG_OG_Image_Id';
-	const OG_TITLE                 = 'SbRFG_OG_Title';
-  const OG_DESCRIPTION           = 'SbRFG_OG_Description';
-
+  const OG_MASTER_IMAGE_ID       = 'SbRFG_OpenGraph_Master_Image_Id';
+  const OG_MASTER_IMAGE_SETTINGS = 'SbRFG_OpenGraph_Master_Image_Settings';
+  // Note: the previous name of this meta was
+  // 'SbRFG_OG_Image_Id'. For some reasons,
+  // it was not possible to update the meta
+  // whith that name. I couldn't figure out why.
+  // Thus it was artificially changed.
+  const OG_IMAGE_ID              = 'SbRFG_OpenGraph_Image_Id';
+  const OG_TITLE                 = 'SbRFG_OpenGraph_Title';
+  const OG_DESCRIPTION           = 'SbRFG_OpenGraph_Description';
 
 	/**
 	 * The single instance of Social_by_RealFaviconGenerator.
