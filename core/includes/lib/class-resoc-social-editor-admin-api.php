@@ -2,7 +2,7 @@
 
 require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-api-response.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-facebook-editor.php';
-
+require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-utils.php';
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -25,8 +25,10 @@ class Resoc_Social_Editor_Admin_API {
 	public function patch_yoast_seo_meta_box() {
 		global $GLOBALS;
 
-		// Useless if Yoast is not even installed and active
-		if (! is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) return false;
+    // Useless if Yoast is not even installed and active
+    if (! Resoc_Social_Editor_Utils::is_yoast_seo_active() ) {
+      return false;
+    }
 
 		// This global is always supposed to be available, but if that's not the
 		// case, just stop here
