@@ -160,18 +160,6 @@ class Resoc_Social_Editor {
 	 * @return  void
 	 */
 	public function admin_enqueue_scripts ( $hook = '' ) {
-		wp_enqueue_script( $this->_token . '-admin-rse-core',
-			'https://realfavicongenerator.net/web-components/js/core.min.js',
-			array( 'jquery' ), false, true );
-		wp_enqueue_script( $this->_token . '-admin-rse-facebook',
-			'https://realfavicongenerator.net/web-components/js/facebook.min.js',
-      array( $this->_token . '-admin-rse-core' ), false, true );
-		wp_enqueue_script( $this->_token . '-admin',
-			esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js',
-      array( $this->_token . '-admin-rse-facebook' ), $this->_version );
-
-
-    // NEW! :)
 		wp_enqueue_script( $this->_token . '-react',
 			'https://unpkg.com/react@16/umd/react.development.js',
       array( ), $this->_version );
@@ -184,6 +172,9 @@ class Resoc_Social_Editor {
     wp_enqueue_script( $this->_token . '-bundle',
       esc_url( $this->assets_url ) . 'js/bundle' . $this->script_suffix . '.js',
       array( $this->_token . '-rse-vendor' ), $this->_version . '-C' );
+    wp_enqueue_script( $this->_token . '-admin',
+      esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js',
+      array( $this->_token . '-bundle' ), $this->_version );
   }
 
 	/**
