@@ -32,14 +32,13 @@ class RSE_WPSEO_Enhanced_Social_Admin extends WPSEO_Social_Admin {
         $section->tabs[$i] = new WPSEO_Metabox_Form_Tab(
   				'facebook',
   				Resoc_Social_Editor_Facebook_Editor::facebook_editor( $GLOBALS['post'] ),
-  				'<span class="screen-reader-text">' . __( 'Facebook / Open Graph metadata', 'wordpress-seo' ) . '</span><span class="dashicons dashicons-facebook-alt"></span>',
+          '<span class="screen-reader-text">' . __( 'Facebook / LinkedIn / Open Graph metadata', 'wordpress-seo' ) . '</span><span class="dashicons dashicons-facebook-alt"></span>',
   				array(
-  					'link_aria_label' => __( 'Facebook / Open Graph metadata', 'wordpress-seo' ),
-  					'link_class'      => 'yoast-tooltip yoast-tooltip-se',
-  					'single'          => $single,
-  				)
-  			);
-
+            'link_aria_label' => __( 'Facebook / LinkedIn / Open Graph metadata', 'wordpress-seo' ),
+            'link_class'      => 'yoast-tooltip yoast-tooltip-se',
+            'single'          => $single,
+          )
+        );
       }
     }
 
