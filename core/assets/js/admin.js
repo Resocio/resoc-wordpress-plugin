@@ -72,7 +72,7 @@ var sbrfgInitOpenGraphEditor = function(
         attachment = fileFrame.state().get('selection').first().toJSON();
 
         imageUrl = attachment.url;
-        openGraphEditor.setImageSrc(imageUrl);
+        openGraphEditor.setImage(imageUrl);
 
         imageId = attachment.id;
         editorContainer.find('input[name="sbrfg-og-image-id"]').val(imageId);
