@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Social_by_RealFaviconGenerator_Public {
+class Resoc_Social_Editor_Public {
 
 	public function __construct () {
 		add_action( 'wp_head', array( $this, 'add_favicon_markups' ) );
@@ -28,7 +28,7 @@ class Social_by_RealFaviconGenerator_Public {
     $post_id = get_the_ID();
     $specific_title = get_post_meta(
       $post_id,
-      Social_by_RealFaviconGenerator::OG_TITLE,
+      Resoc_Social_Editor::OG_TITLE,
       true
     );
     return $specific_title ? $specific_title : $original_title;
@@ -38,7 +38,7 @@ class Social_by_RealFaviconGenerator_Public {
     $post_id = get_the_ID();
     $specific_description = get_post_meta(
       $post_id,
-      Social_by_RealFaviconGenerator::OG_DESCRIPTION,
+      Resoc_Social_Editor::OG_DESCRIPTION,
       true
     );
     return $specific_description ? $specific_description : $original_description;
@@ -48,7 +48,7 @@ class Social_by_RealFaviconGenerator_Public {
     $post_id = get_the_ID();
     $specific_image_id = get_post_meta(
       $post_id,
-      Social_by_RealFaviconGenerator::OG_IMAGE_ID,
+      Resoc_Social_Editor::OG_IMAGE_ID,
       true
     );
     if ( $specific_image_id ) {
@@ -63,7 +63,7 @@ class Social_by_RealFaviconGenerator_Public {
 		}
 
 		$code = get_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OPTION_HTML_CODE,
+			Resoc_Social_Editor::OPTION_HTML_CODE,
 			true );
 
 		// Category
@@ -85,19 +85,19 @@ class Social_by_RealFaviconGenerator_Public {
 		// Inject information
 		foreach(array(
 				// Generic
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_URL, wp_get_canonical_url( $post_id ) ),
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_SITE_NAME, get_bloginfo( 'name' ) ),
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_LOCALE, get_locale() ),
+				array( Resoc_Social_Editor::PLACEHOLDER_URL, wp_get_canonical_url( $post_id ) ),
+				array( Resoc_Social_Editor::PLACEHOLDER_SITE_NAME, get_bloginfo( 'name' ) ),
+				array( Resoc_Social_Editor::PLACEHOLDER_LOCALE, get_locale() ),
 
 				// Article
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_PUBLISHED_TIME, get_the_time( 'c' ) ),
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_MODIFIED_TIME, get_the_time( 'c' ) ),
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_AUTHOR, get_the_author_meta( 'facebook' ) ),
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_SECTION, $category ),
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_TAG, $tags ),
-				array( Social_by_RealFaviconGenerator::PLACEHOLDER_ARTICLE_PUBLISHER, get_the_author_meta( 'facebook' ) ),
+				array( Resoc_Social_Editor::PLACEHOLDER_ARTICLE_PUBLISHED_TIME, get_the_time( 'c' ) ),
+				array( Resoc_Social_Editor::PLACEHOLDER_ARTICLE_MODIFIED_TIME, get_the_time( 'c' ) ),
+				array( Resoc_Social_Editor::PLACEHOLDER_ARTICLE_AUTHOR, get_the_author_meta( 'facebook' ) ),
+				array( Resoc_Social_Editor::PLACEHOLDER_ARTICLE_SECTION, $category ),
+				array( Resoc_Social_Editor::PLACEHOLDER_ARTICLE_TAG, $tags ),
+				array( Resoc_Social_Editor::PLACEHOLDER_ARTICLE_PUBLISHER, get_the_author_meta( 'facebook' ) ),
 			) as $param) {
-				$code = Social_by_RealFaviconGenerator_Public::replace_placeholder(
+				$code = Resoc_Social_Editor_Public::replace_placeholder(
 					$code, $param[0], $param[1] );
 		}
 

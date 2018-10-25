@@ -1,5 +1,5 @@
 <?php
-// Copyright 2016 RealFaviconGenerator
+// Copyright 2018 Resoc
 
 define( 'RFG_PACKAGE_URL',                  'package_url' );
 define( 'RFG_COMPRESSION',                  'compression' );
@@ -17,7 +17,7 @@ define( 'RFG_FAVICON_COMPRESSED_PACKAGE_PATH',   'favicon_compressed_package_pat
 define( 'RFG_FAVICON_UNCOMPRESSED_PACKAGE_PATH', 'favicon_uncompressed_package_path' );
 define( 'RFG_PREVIEW_PATH',                      'preview_path' );
 
-class Social_By_RealFaviconGenerator_Api_Response {
+class Resoc_Social_Editor_Api_Response {
 
 	private $params = array();
 
@@ -203,13 +203,13 @@ class Social_By_RealFaviconGenerator_Api_Response {
 		if ( $result !== true ) {
 			$explanation = ( is_wp_error( $result ) )
 				? $result->get_error_message()
-				: __( 'Unknown reason', Social_by_RealFaviconGenerator::PLUGIN_SLUG );
+				: __( 'Unknown reason', Resoc_Social_Editor::PLUGIN_SLUG );
 			if ( get_class($wp_filesystem) != 'WP_Filesystem_Direct' ) {
 				$explanation .= ' ' . __( "Apparently WordPress has no direct access to the file system (it uses another mean such as FTP). " .
-					"This may be the root cause of this issue.", Social_by_RealFaviconGenerator::PLUGIN_SLUG );
+					"This may be the root cause of this issue.", Resoc_Social_Editor::PLUGIN_SLUG );
 			}
 			throw new InvalidArgumentException(
-				sprintf( __( 'Error while unziping the favicon package %s to directory %s', Social_by_RealFaviconGenerator::PLUGIN_SLUG ),
+				sprintf( __( 'Error while unziping the favicon package %s to directory %s', Resoc_Social_Editor::PLUGIN_SLUG ),
 				$packagePath, $extractedPath ) . ': ' . $explanation );
 		}
 
@@ -278,7 +278,7 @@ class Social_By_RealFaviconGenerator_Api_Response {
 			 ( $resp['response']['code'] == NULL ) || ( $resp['response']['code'] != 200 ) ) {
 			$explanation = is_wp_error( $resp ) ? ( ': ' . $resp->get_error_message() ) : '' ;
 			throw new InvalidArgumentException(
-				sprintf( __( 'Cannot download file at %s', Social_by_RealFaviconGenerator::PLUGIN_SLUG ), $url ) . $explanation );
+				sprintf( __( 'Cannot download file at %s', Resoc_Social_Editor::PLUGIN_SLUG ), $url ) . $explanation );
 		}
 		if ( ( ! file_exists( $localPath ) ) || ( filesize( $localPath ) <= 0 ) ) {
 			throw new InvalidArgumentException( __( 'Cannot store downloaded file locally', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ) );

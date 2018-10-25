@@ -1,23 +1,23 @@
 <?php
 
-class Social_by_RealFaviconGenerator_Facebook_Editor {
+class Resoc_Social_Editor_Facebook_Editor {
 
 	public static function facebook_editor( $post ) {
 
     $title =
       get_post_meta( $post->ID,
-        Social_by_RealFaviconGenerator::OG_TITLE, true );
+        Resoc_Social_Editor::OG_TITLE, true );
     $description =
       get_post_meta( $post->ID,
-        Social_by_RealFaviconGenerator::OG_DESCRIPTION, true );
+        Resoc_Social_Editor::OG_DESCRIPTION, true );
 
 		$imageSettings =
 			get_post_meta( $post->ID,
-        Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_SETTINGS, true );
+        Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, true );
 
 		$imageId =
 			get_post_meta( $post->ID,
-				Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_ID, true );
+				Resoc_Social_Editor::OG_MASTER_IMAGE_ID, true );
 		if ($imageId) {
 			$imageUrl = wp_get_attachment_url( $imageId );
     }
@@ -26,7 +26,7 @@ class Social_by_RealFaviconGenerator_Facebook_Editor {
 ?>
 	<div class="social-by-rfg-wrap custom-field-panel sbrfg-editor" id="sbrfg-editor">
 		<div>
-			<h3>By <a href="https://realfavicongenerator.net/social" target="_blank">RealFaviconGenerator</a></h3>
+			<h3>By <a href="https://resoc.io" target="_blank">Resoc</a></h3>
 		</div>
 
 		<div class="sbrfg-editor-overall-container">

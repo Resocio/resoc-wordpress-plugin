@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Social_by_RealFaviconGenerator {
+class Resoc_Social_Editor {
 
 	const PLUGIN_PREFIX = 'sbrfg';
 
@@ -20,7 +20,7 @@ class Social_by_RealFaviconGenerator {
 	const PLACEHOLDER_ARTICLE_TAG            = 'SbRFG_Placeholder_Article_Tag';
 	const PLACEHOLDER_ARTICLE_PUBLISHER      = 'SbRFG_Placeholder_Article_Publisher';
 
-	const PLUGIN_SLUG                        = 'social-by-realfavicongenerator';
+	const PLUGIN_SLUG                        = 'resoc-social-editor';
 
   const OG_MASTER_IMAGE_ID       = 'SbRFG_OpenGraph_Master_Image_Id';
   const OG_MASTER_IMAGE_SETTINGS = 'SbRFG_OpenGraph_Master_Image_Settings';
@@ -34,7 +34,7 @@ class Social_by_RealFaviconGenerator {
   const OG_DESCRIPTION           = 'SbRFG_OpenGraph_Description';
 
 	/**
-	 * The single instance of Social_by_RealFaviconGenerator.
+	 * The single instance of Resoc_Social_Editor.
 	 * @var 	object
 	 * @access  private
 	 * @since 	1.0.0
@@ -113,7 +113,7 @@ class Social_by_RealFaviconGenerator {
 	 */
 	public function __construct ( $file = '', $version = '1.0.0' ) {
 		$this->_version = $version;
-		$this->_token = 'social_by_realfavicongenerator';
+		$this->_token = 'resoc_social_editor';
 
 		// Load plugin environment variables
 		$this->file = $file;
@@ -131,10 +131,10 @@ class Social_by_RealFaviconGenerator {
 
 		// Load API for generic admin functions
 		if ( is_admin() ) {
-			new Social_by_RealFaviconGenerator_Admin_API();
+			new Resoc_Social_Editor_Admin_API();
 		}
 		else {
-			new Social_by_RealFaviconGenerator_Public();
+			new Resoc_Social_Editor_Public();
 		}
 
 		// Handle localisation
@@ -193,7 +193,7 @@ class Social_by_RealFaviconGenerator {
 	 * @return  void
 	 */
 	public function load_localisation () {
-		load_plugin_textdomain( 'social-by-realfavicongenerator', false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
+		load_plugin_textdomain( 'resoc-social-editor', false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
 	} // End load_localisation ()
 
 	/**
@@ -203,7 +203,7 @@ class Social_by_RealFaviconGenerator {
 	 * @return  void
 	 */
 	public function load_plugin_textdomain () {
-	    $domain = 'social-by-realfavicongenerator';
+	    $domain = 'resoc-social-editor';
 
 	    $locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
@@ -212,14 +212,14 @@ class Social_by_RealFaviconGenerator {
 	} // End load_plugin_textdomain ()
 
 	/**
-	 * Main Social_by_RealFaviconGenerator Instance
+	 * Main Resoc_Social_Editor Instance
 	 *
-	 * Ensures only one instance of Social_by_RealFaviconGenerator is loaded or can be loaded.
+	 * Ensures only one instance of Resoc_Social_Editor is loaded or can be loaded.
 	 *
 	 * @since 1.0.0
 	 * @static
-	 * @see Social_by_RealFaviconGenerator()
-	 * @return Main Social_by_RealFaviconGenerator instance
+	 * @see Resoc_Social_Editor()
+	 * @return Main Resoc_Social_Editor instance
 	 */
 	public static function instance ( $file = '', $version = '1.0.0' ) {
 		if ( is_null( self::$_instance ) ) {
@@ -275,7 +275,7 @@ class Social_by_RealFaviconGenerator {
 	public static function get_files_dir( $post_id = NULL ) {
 		$up_dir = wp_upload_dir();
 		return $up_dir['basedir'] . '/' .
-			Social_by_RealFaviconGenerator::PLUGIN_PREFIX . '/' .
+			Resoc_Social_Editor::PLUGIN_PREFIX . '/' .
 			( $post_id ? $post_id . '/' : '' );
 	}
 
@@ -292,18 +292,18 @@ class Social_by_RealFaviconGenerator {
 		// stripped. But this path is wrong, as it looks like a "same protocol" URL.
 		$separator = (substr($baseUrl, -1) == '/') ? '' : '/';
 		return $baseUrl . $separator .
-			Social_by_RealFaviconGenerator::PLUGIN_PREFIX . '/' . $post_id . '/';
+			Resoc_Social_Editor::PLUGIN_PREFIX . '/' . $post_id . '/';
 	}
 
 	public static function get_tmp_dir() {
-		return Social_by_RealFaviconGenerator::get_files_dir() . 'tmp/';
+		return Resoc_Social_Editor::get_files_dir() . 'tmp/';
 	}
 
 	public static function remove_directory($directory) {
 		foreach( scandir( $directory ) as $v ) {
 			if ( is_dir( $directory . '/' . $v ) ) {
 				if ( $v != '.' && $v != '..' ) {
-					Social_by_RealFaviconGenerator::remove_directory( $directory . '/' . $v );
+					Resoc_Social_Editor::remove_directory( $directory . '/' . $v );
 				}
 			}
 			else {
@@ -324,4 +324,4 @@ class Social_by_RealFaviconGenerator {
 }
 
 // Shortcut
-define('SBRFG_PLUGIN_SLUG', Social_by_RealFaviconGenerator::PLUGIN_SLUG);
+define('SBRFG_PLUGIN_SLUG', Resoc_Social_Editor::PLUGIN_SLUG);

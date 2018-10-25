@@ -1,8 +1,8 @@
 <?php
-require_once dirname( __FILE__ ) . '/../class-social-by-realfavicongenerator-unit-test.php';
-require_once dirname( __FILE__ ) . '/../../includes/lib/class-social-by-realfavicongenerator-public.php';
+require_once dirname( __FILE__ ) . '/../class-resoc-social-editor-unit-test.php';
+require_once dirname( __FILE__ ) . '/../../includes/lib/class-resoc-social-editor-public.php';
 
-class Social_by_RealFaviconGenerator_Public_Test extends Social_by_RealFaviconGenerator_Test_Case {
+class Resoc_Social_Editor_Public_Test extends Resoc_Social_Editor_Test_Case {
 
   public function test_replace_placeholder() {
     // Placeholder on the first line
@@ -17,7 +17,7 @@ EOL;
 <meta property="og:url" content="http://example.com">
 EOL;
     $this->assertEquals( $expected_html_code,
-      Social_by_RealFaviconGenerator_Public::replace_placeholder(
+      Resoc_Social_Editor_Public::replace_placeholder(
         $html_code, 'PLACEHOLDER', 'A new value' ) );
 
     // Placeholder on a middle line
@@ -32,7 +32,7 @@ EOL;
 <meta property="og:url" content="http://example.com">
 EOL;
     $this->assertEquals( $expected_html_code,
-      Social_by_RealFaviconGenerator_Public::replace_placeholder(
+      Resoc_Social_Editor_Public::replace_placeholder(
         $html_code, 'PLACEHOLDER', 'Look at this description' ) );
 
     // Placeholder on the last line
@@ -47,7 +47,7 @@ EOL;
 <meta property="og:url" content="http://someurl.com">
 EOL;
     $this->assertEquals( $expected_html_code,
-      Social_by_RealFaviconGenerator_Public::replace_placeholder(
+      Resoc_Social_Editor_Public::replace_placeholder(
         $html_code, 'PLACEHOLDER', 'http://someurl.com' ) );
 
     // No value
@@ -61,7 +61,7 @@ EOL;
 <meta property="og:url" content="http://example.com">
 EOL;
     $this->assertEquals( $expected_html_code,
-      Social_by_RealFaviconGenerator_Public::replace_placeholder(
+      Resoc_Social_Editor_Public::replace_placeholder(
         $html_code, 'PLACEHOLDER', NULL ) );
 
     // Array
@@ -78,7 +78,7 @@ EOL;
 <meta property="og:url" content="http://example.com">
 EOL;
     $this->assertEquals( $expected_html_code,
-      Social_by_RealFaviconGenerator_Public::replace_placeholder(
+      Resoc_Social_Editor_Public::replace_placeholder(
         $html_code, 'PLACEHOLDER', array( 'D1', 'D2', 'D3' ) ) );
 
   // Nothing to replace
@@ -88,7 +88,7 @@ EOL;
 <meta property="og:url" content="http://example.com">
 EOL;
   $this->assertEquals( $html_code,
-    Social_by_RealFaviconGenerator_Public::replace_placeholder(
+    Resoc_Social_Editor_Public::replace_placeholder(
       $html_code, 'PLACEHOLDER', 'A new value' ) );
 
 
@@ -104,7 +104,7 @@ EOL;
 <meta property="og:url" content="http://example.com">
 EOL;
     $this->assertEquals( $expected_html_code,
-      Social_by_RealFaviconGenerator_Public::replace_placeholder(
+      Resoc_Social_Editor_Public::replace_placeholder(
         $html_code, '2016-10-13T15:44:04+0000', 'A new value' ) );
   }
 

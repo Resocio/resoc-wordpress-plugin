@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ) . 'class-social-by-realfavicongenerator-facebook-editor.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-facebook-editor.php';
 
 class RFG_WPSEO_Enhanced_Social_Admin extends WPSEO_Social_Admin {
 
@@ -31,7 +31,7 @@ class RFG_WPSEO_Enhanced_Social_Admin extends WPSEO_Social_Admin {
         // The same, but different
         $section->tabs[$i] = new WPSEO_Metabox_Form_Tab(
   				'facebook',
-  				Social_by_RealFaviconGenerator_Facebook_Editor::facebook_editor( $GLOBALS['post'] ),
+  				Resoc_Social_Editor_Facebook_Editor::facebook_editor( $GLOBALS['post'] ),
   				'<span class="screen-reader-text">' . __( 'Facebook / Open Graph metadata', 'wordpress-seo' ) . '</span><span class="dashicons dashicons-facebook-alt"></span>',
   				array(
   					'link_aria_label' => __( 'Facebook / Open Graph metadata', 'wordpress-seo' ),

@@ -1,15 +1,15 @@
 <?php
 /*
- * Plugin Name: Social by RealFaviconGenerator
- * Version: 0.1.0
- * Plugin URI: http://realfavicongenerator.net/
+ * Plugin Name: Resoc Social Editor
+ * Version: 0.0.1
+ * Plugin URI: https://resoc.io/
  * Description: Craft the appearance of your site when your visitors share it on Facebook
  * Author: Philippe Bernard
- * Author URI: https://realfavicongenerator.net/
+ * Author URI: https://resoc.io/
  * Requires at least: 4.0
  * Tested up to: 4.9.8
  *
- * Text Domain: social-by-realfavicongenerator
+ * Text Domain: resoc-social-editor
  * Domain Path: /lang/
  *
  * @package WordPress
@@ -20,22 +20,22 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Load plugin class files
-require_once( 'includes/class-social-by-realfavicongenerator.php' );
+require_once( 'includes/class-resoc-social-editor.php' );
 
 // Load plugin libraries
-require_once( 'includes/lib/class-social-by-realfavicongenerator-admin-api.php' );
-require_once( 'includes/lib/class-social-by-realfavicongenerator-public.php' );
+require_once( 'includes/lib/class-resoc-social-editor-admin-api.php' );
+require_once( 'includes/lib/class-resoc-social-editor-public.php' );
 
 /**
- * Returns the main instance of Social_by_RealFaviconGenerator to prevent the need to use globals.
+ * Returns the main instance of Resoc_Social_Editor to prevent the need to use globals.
  *
  * @since  1.0.0
- * @return object Social_by_RealFaviconGenerator
+ * @return object Resoc_Social_Editor
  */
-function Social_by_RealFaviconGenerator () {
-	$instance = Social_by_RealFaviconGenerator::instance( __FILE__, '0.0.6' );
+function Resoc_Social_Editor () {
+	$instance = Resoc_Social_Editor::instance( __FILE__, '0.0.6' );
 
 	return $instance;
 }
 
-Social_by_RealFaviconGenerator();
+Resoc_Social_Editor();

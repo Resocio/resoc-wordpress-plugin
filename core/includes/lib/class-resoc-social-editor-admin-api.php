@@ -1,14 +1,14 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ) . 'class-social-by-realfavicongenerator-api-response.php';
-require_once plugin_dir_path( __FILE__ ) . 'class-social-by-realfavicongenerator-facebook-editor.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-api-response.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-facebook-editor.php';
 
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Social_by_RealFaviconGenerator_Admin_API {
+class Resoc_Social_Editor_Admin_API {
 
 	/**
 	 * Constructor function
@@ -46,9 +46,9 @@ class Social_by_RealFaviconGenerator_Admin_API {
     $description = $_POST['sbrfg-description'];
 
     update_post_meta( $post_id,
-      Social_by_RealFaviconGenerator::OG_TITLE, $title );
+      Resoc_Social_Editor::OG_TITLE, $title );
     update_post_meta( $post_id,
-      Social_by_RealFaviconGenerator::OG_DESCRIPTION, $description );
+      Resoc_Social_Editor::OG_DESCRIPTION, $description );
 /*
     WPSEO_Meta::set_value( 'opengraph-title', $title, $post_id );
     WPSEO_Meta::set_value( 'opengraph-description', $description, $post_id );
@@ -66,9 +66,9 @@ class Social_by_RealFaviconGenerator_Admin_API {
 
 		// Check if the data have changed
 		$existingImageSettings = get_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_SETTINGS, true );
+			Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, true );
 		$existingImageId = get_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_ID, true );
+			Resoc_Social_Editor::OG_MASTER_IMAGE_ID, true );
 		if ( $existingImageSettings && $existingImageSettings == $imageSettings && $existingImageId == $imageId ) {
       // No change in the data: nothing to do
       error_log("No change, nothing to do");
@@ -76,9 +76,9 @@ class Social_by_RealFaviconGenerator_Admin_API {
 		}
 
 		update_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_SETTINGS, $imageSettings );
+			Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, $imageSettings );
 		update_post_meta( $post_id,
-			Social_by_RealFaviconGenerator::OG_MASTER_IMAGE_ID, $imageId );
+			Resoc_Social_Editor::OG_MASTER_IMAGE_ID, $imageId );
 
     $imageSettings = json_decode( $imageSettings, true );
 		$faviconDesign = $imageSettings;
@@ -149,15 +149,15 @@ class Social_by_RealFaviconGenerator_Admin_API {
       WPSEO_Meta::set_value( 'opengraph-image', $ogImageUrl, $post_id );
 */
       update_post_meta( $post_id,
-        Social_by_RealFaviconGenerator::OG_IMAGE_ID, $og_image_id );
+        Resoc_Social_Editor::OG_IMAGE_ID, $og_image_id );
 
       // Save these information internally, when WP SEO is not present
 
       /*
 
-			$response = new Social_By_RealFaviconGenerator_Api_Response($response['body']);
+			$response = new Resoc_Social_Editor_Api_Response($response['body']);
 
-			$zip_path = Social_by_RealFaviconGenerator::get_tmp_dir();
+			$zip_path = Resoc_Social_Editor::get_tmp_dir();
 			if ( ! file_exists( $zip_path ) ) {
 				if ( mkdir( $zip_path, 0755, true ) !== true ) {
 					throw new InvalidArgumentException( sprintf( __( 'Cannot create directory %s to store the favicon package', FBRFG_PLUGIN_SLUG), $zip_path ) );
@@ -167,10 +167,10 @@ class Social_by_RealFaviconGenerator_Admin_API {
 
 			$this->store_pictures( $post_id, $response );
 
-			Social_by_RealFaviconGenerator::remove_directory( $zip_path );
+			Resoc_Social_Editor::remove_directory( $zip_path );
 
 			update_post_meta( $post_id,
-				Social_by_RealFaviconGenerator::OPTION_HTML_CODE,
+				Resoc_Social_Editor::OPTION_HTML_CODE,
         $response->getHtmlCode() );
       */
 		}
@@ -213,14 +213,14 @@ class Social_by_RealFaviconGenerator_Admin_API {
 
 
 	public function get_picture_dir( $post_id ) {
-		return Social_by_RealFaviconGenerator::get_files_dir( $post_id );
+		return Resoc_Social_Editor::get_files_dir( $post_id );
 	}
 
 	/**
 	 * Returns http//somesite.com/blog/wp-content/upload/fbrfg/
 	 */
 	public function get_picture_url( $post_id ) {
-		return Social_by_RealFaviconGenerator::get_files_url( $post_id );
+		return Resoc_Social_Editor::get_files_url( $post_id );
 	}
 
 /*
@@ -396,8 +396,8 @@ class Social_by_RealFaviconGenerator_Admin_API {
 					$image_thumb = wp_get_attachment_thumb_url( $data );
 				}
 				$html .= '<img id="' . $option_name . '_preview" class="image_preview" src="' . $image_thumb . '" /><br/>' . "\n";
-				$html .= '<input id="' . $option_name . '_button" type="button" data-uploader_title="' . __( 'Upload an image' , 'social-by-realfavicongenerator' ) . '" data-uploader_button_text="' . __( 'Use image' , 'social-by-realfavicongenerator' ) . '" class="image_upload_button button" value="'. __( 'Upload new image' , 'social-by-realfavicongenerator' ) . '" />' . "\n";
-				$html .= '<input id="' . $option_name . '_delete" type="button" class="image_delete_button button" value="'. __( 'Remove image' , 'social-by-realfavicongenerator' ) . '" />' . "\n";
+				$html .= '<input id="' . $option_name . '_button" type="button" data-uploader_title="' . __( 'Upload an image' , 'resoc-social-editor' ) . '" data-uploader_button_text="' . __( 'Use image' , 'resoc-social-editor' ) . '" class="image_upload_button button" value="'. __( 'Upload new image' , 'resoc-social-editor' ) . '" />' . "\n";
+				$html .= '<input id="' . $option_name . '_delete" type="button" class="image_delete_button button" value="'. __( 'Remove image' , 'resoc-social-editor' ) . '" />' . "\n";
 				$html .= '<input id="' . $option_name . '" class="image_data_field" type="hidden" name="' . $option_name . '" value="' . $data . '"/><br/>' . "\n";
 			break;
 
@@ -486,7 +486,7 @@ class Social_by_RealFaviconGenerator_Admin_API {
 	 * @return void
 	 */
 	public function meta_box_content ( $post, $args ) {
-		echo Social_by_RealFaviconGenerator_Facebook_Editor::facebook_editor( $post );
+		echo Resoc_Social_Editor_Facebook_Editor::facebook_editor( $post );
 	}
 
 	/**
