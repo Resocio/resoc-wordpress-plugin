@@ -2,7 +2,7 @@
 
 require_once plugin_dir_path( __FILE__ ) . 'class-yoast-seo-enhanced-social-admin.php';
 
-class RFG_WPSEO_Enhanced_Metabox extends WPSEO_Metabox {
+class RSE_WPSEO_Enhanced_Metabox extends WPSEO_Metabox {
 
   public function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
@@ -21,8 +21,8 @@ class RFG_WPSEO_Enhanced_Metabox extends WPSEO_Metabox {
 		// Check if one of the social settings is checked in the options, if so, initialize the social_admin object.
 		if ( $this->options['opengraph'] === true || $this->options['twitter'] === true ) {
       // The only real difference: return an instance of
-      // RFG_WPSEO_Enhanced_Social_Admin instead of WPSEO_Social_Admin
-			$this->social_admin = new RFG_WPSEO_Enhanced_Social_Admin( $this->options );
+      // RSE_WPSEO_Enhanced_Social_Admin instead of WPSEO_Social_Admin
+			$this->social_admin = new RSE_WPSEO_Enhanced_Social_Admin( $this->options );
 		}
 
 		$this->editor = new WPSEO_Metabox_Editor();

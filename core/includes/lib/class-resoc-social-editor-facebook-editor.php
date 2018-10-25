@@ -24,7 +24,7 @@ class Resoc_Social_Editor_Facebook_Editor {
 
 		ob_start();
 ?>
-	<div class="social-by-rfg-wrap custom-field-panel rse-editor" id="rse-editor">
+	<div class="custom-field-panel rse-editor" id="rse-editor">
 		<div>
 			<h3>By <a href="https://resoc.io" target="_blank">Resoc</a></h3>
 		</div>

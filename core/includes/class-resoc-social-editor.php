@@ -160,15 +160,15 @@ class Resoc_Social_Editor {
 	 * @return  void
 	 */
 	public function admin_enqueue_scripts ( $hook = '' ) {
-		wp_enqueue_script( $this->_token . '-admin-rfg-core',
+		wp_enqueue_script( $this->_token . '-admin-rse-core',
 			'https://realfavicongenerator.net/web-components/js/core.min.js',
 			array( 'jquery' ), false, true );
-		wp_enqueue_script( $this->_token . '-admin-rfg-facebook',
+		wp_enqueue_script( $this->_token . '-admin-rse-facebook',
 			'https://realfavicongenerator.net/web-components/js/facebook.min.js',
-      array( $this->_token . '-admin-rfg-core' ), false, true );
+      array( $this->_token . '-admin-rse-core' ), false, true );
 		wp_enqueue_script( $this->_token . '-admin',
 			esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js',
-      array( $this->_token . '-admin-rfg-facebook' ), $this->_version );
+      array( $this->_token . '-admin-rse-facebook' ), $this->_version );
 
 
     // NEW! :)
@@ -178,12 +178,12 @@ class Resoc_Social_Editor {
     wp_enqueue_script( $this->_token . '-react-dom',
 			'https://unpkg.com/react-dom@16/umd/react-dom.development.js',
       array( $this->_token . '-react' ), $this->_version );
-    wp_enqueue_script( $this->_token . '-rfg-vendor',
+    wp_enqueue_script( $this->_token . '-rse-vendor',
       esc_url( $this->assets_url ) . 'js/vendor' . $this->script_suffix . '.js',
       array( $this->_token . '-react-dom' ), $this->_version);
     wp_enqueue_script( $this->_token . '-bundle',
       esc_url( $this->assets_url ) . 'js/bundle' . $this->script_suffix . '.js',
-      array( $this->_token . '-rfg-vendor' ), $this->_version . '-C' );
+      array( $this->_token . '-rse-vendor' ), $this->_version . '-C' );
   }
 
 	/**
@@ -322,6 +322,3 @@ class Resoc_Social_Editor {
 		error_log( $contents );
 	}
 }
-
-// Shortcut
-define('SBRFG_PLUGIN_SLUG', Resoc_Social_Editor::PLUGIN_SLUG);

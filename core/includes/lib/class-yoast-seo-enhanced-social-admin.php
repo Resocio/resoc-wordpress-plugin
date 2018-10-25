@@ -2,7 +2,7 @@
 
 require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-facebook-editor.php';
 
-class RFG_WPSEO_Enhanced_Social_Admin extends WPSEO_Social_Admin {
+class RSE_WPSEO_Enhanced_Social_Admin extends WPSEO_Social_Admin {
 
   public function get_meta_section() {
     global $GLOBALS;

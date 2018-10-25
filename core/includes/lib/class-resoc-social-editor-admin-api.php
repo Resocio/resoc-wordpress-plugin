@@ -35,7 +35,7 @@ class Resoc_Social_Editor_Admin_API {
 		// At this point, Yoast SEO code is available
 		require_once plugin_dir_path( __FILE__ ) . 'class-yoast-seo-enhanced-meta.php';
 
-		$GLOBALS['wpseo_metabox'] = new RFG_WPSEO_Enhanced_Metabox( $GLOBALS['wpseo_metabox'] );
+		$GLOBALS['wpseo_metabox'] = new RSE_WPSEO_Enhanced_Metabox( $GLOBALS['wpseo_metabox'] );
 
 		return true;
 	}
@@ -160,7 +160,7 @@ class Resoc_Social_Editor_Admin_API {
 			$zip_path = Resoc_Social_Editor::get_tmp_dir();
 			if ( ! file_exists( $zip_path ) ) {
 				if ( mkdir( $zip_path, 0755, true ) !== true ) {
-					throw new InvalidArgumentException( sprintf( __( 'Cannot create directory %s to store the favicon package', FBRFG_PLUGIN_SLUG), $zip_path ) );
+					throw new InvalidArgumentException( sprintf( __( 'Cannot create directory %s to store the favicon package', FBRSE_PLUGIN_SLUG), $zip_path ) );
 				}
 			}
 			$response->downloadAndUnpack( $zip_path );
