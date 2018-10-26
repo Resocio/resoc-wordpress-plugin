@@ -132,6 +132,14 @@ class Resoc_Social_Editor_Admin_API {
     // TODO: Take the overlay image into account
 
 		$request = json_encode(array(
+      'master_image_base64' => base64_encode( $masterImage ),
+      'image_settings' => array(
+        'center_x' => $faviconDesign['imageCenterX'],
+        'center_y' => $faviconDesign['imageCenterY'],
+        'scale' => $faviconDesign['imageContainerWidthRatio']
+      )
+
+/*
 			'favicon_generation' => array(
 				"api_key" => "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
 				"master_picture" => array(
@@ -150,8 +158,9 @@ class Resoc_Social_Editor_Admin_API {
               "scale" => $faviconDesign['imageContainerWidthRatio']
             )
           )
-				)
-			)
+        )
+      )
+*/
     ));
     
     error_log("POSTED REQUEST = " . 
@@ -170,64 +179,28 @@ class Resoc_Social_Editor_Admin_API {
 		}
 		else {
       error_log("We get an answer");
-      error_log("Anwer is: " . $response['body']);
 
-      $response = json_decode( $response['body'], true );
+      $og_image_id = $this->add_image_to_media_library( $response['body'], $post_id );
 
-      // Very brittle
-      $image_url = $response['favicon_generation_result']['favicon']['files_urls'][0];
-      error_log( "Image URL " . $image_url );
-      $og_image_id = $this->add_image_to_media_library( $image_url, $post_id );
-/*
-      $ogImageUrl = wp_get_attachment_url( $og_image_id );
-      error_log( "OG Image URL=" . $ogImageUrl);
-      
-      WPSEO_Meta::set_value( 'opengraph-image', $ogImageUrl, $post_id );
-*/
       update_post_meta( $post_id,
         Resoc_Social_Editor::OG_IMAGE_ID, $og_image_id );
-
-      // Save these information internally, when WP SEO is not present
-
-      /*
-
-			$response = new Resoc_Social_Editor_Api_Response($response['body']);
-
-			$zip_path = Resoc_Social_Editor::get_tmp_dir();
-			if ( ! file_exists( $zip_path ) ) {
-				if ( mkdir( $zip_path, 0755, true ) !== true ) {
-					throw new InvalidArgumentException( sprintf( __( 'Cannot create directory %s to store the favicon package', FBRSE_PLUGIN_SLUG), $zip_path ) );
-				}
-			}
-			$response->downloadAndUnpack( $zip_path );
-
-			$this->store_pictures( $post_id, $response );
-
-			Resoc_Social_Editor::remove_directory( $zip_path );
-
-			update_post_meta( $post_id,
-				Resoc_Social_Editor::OPTION_HTML_CODE,
-        $response->getHtmlCode() );
-      */
 		}
 
 		return true;
   }
   
-  public function add_image_to_media_library( $image_url, $post_id ) {
+  public function add_image_to_media_library( $image_data, $post_id ) {
     $upload_dir = wp_upload_dir();
-    
-    $image_data = file_get_contents($image_url);
-  
-    $filename = basename($image_url);
-  
+
+    $filename = basename('og-image.jpg');
+
     if (wp_mkdir_p($upload_dir['path'])) {
       $file = $upload_dir['path'] . '/' . $filename;
     }
     else {
       $file = $upload_dir['basedir'] . '/' . $filename;
     }
-  
+
     file_put_contents($file, $image_data);
     
     $wp_filetype = wp_check_filetype($filename, null);
