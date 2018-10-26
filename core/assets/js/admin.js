@@ -3,10 +3,12 @@ var rseInitOpenGraphEditor = function(
   editorContainer,
   title, description,
   imageId, imageSettings, imageUrl,
+  overlayImageSrc,
   siteUrl
 ) {
   var openGraphEditor;
-  var fileFrame;
+  var imageSelectionFrame;
+  var overlaySelectionFrame;
 
   const e = React.createElement;
   console.log(RFGSocialEditor);
@@ -20,10 +22,12 @@ var rseInitOpenGraphEditor = function(
       openGraphEditor.setUrl(siteUrl);
       openGraphEditor.setTitle(title);
       openGraphEditor.setDescription(description);
+      openGraphEditor.setOverlayImageSrc(overlayImageSrc);
     }}), domContainer);
 
   initForm(editorContainer, title, description);
   initImageSelection(editorContainer);
+  initOverlayImageSelection(editorContainer);
 
   var postForm = jQuery.find('#post');
   jQuery(document).on('submit', postForm, function() {
@@ -54,13 +58,13 @@ var rseInitOpenGraphEditor = function(
     editorContainer.find('.rse-image-selection-button').live('click', function(event) {
       event.preventDefault();
   
-      if (fileFrame) {
-        fileFrame.open();
+      if (imageSelectionFrame) {
+        imageSelectionFrame.open();
         return;
       }
   
       // Create the media frame.
-      fileFrame = wp.media.frames.file_frame = wp.media({
+      imageSelectionFrame = wp.media.frames.file_frame = wp.media({
         title: jQuery(this).data('uploader_title'),
         button: {
           text: jQuery(this).data('uploader_button_text'),
@@ -68,8 +72,8 @@ var rseInitOpenGraphEditor = function(
         multiple: false
       });
   
-      fileFrame.on('select', function() {
-        attachment = fileFrame.state().get('selection').first().toJSON();
+      imageSelectionFrame.on('select', function() {
+        attachment = imageSelectionFrame.state().get('selection').first().toJSON();
 
         imageUrl = attachment.url;
         openGraphEditor.setImage(imageUrl);
@@ -78,7 +82,43 @@ var rseInitOpenGraphEditor = function(
         editorContainer.find('input[name="rse-og-image-id"]').val(imageId);
       });
   
-      fileFrame.open();
+      imageSelectionFrame.open();
+    });
+  }
+
+  function initOverlayImageSelection(editorContainer) {
+    editorContainer.find('.rse-overlay-image-reset-button').live('click', function(event) {
+      event.preventDefault();
+
+      editorContainer.find('input[name="rse-og-overlay-image-id"]').val(undefined);
+      openGraphEditor.setOverlayImageSrc(undefined);
+    });
+
+    editorContainer.find('.rse-overlay-image-selection-button').live('click', function(event) {
+      event.preventDefault();
+
+      if (overlaySelectionFrame) {
+        overlaySelectionFrame.open();
+        return;
+      }
+
+      // Create the media frame.
+      overlaySelectionFrame = wp.media.frames.file_frame = wp.media({
+        title: jQuery(this).data('uploader_title'),
+        button: {
+          text: jQuery(this).data('uploader_button_text'),
+        },
+        multiple: false
+      });
+
+      overlaySelectionFrame.on('select', function() {
+        attachment = overlaySelectionFrame.state().get('selection').first().toJSON();
+
+        openGraphEditor.setOverlayImageSrc(attachment.url);
+        editorContainer.find('input[name="rse-og-overlay-image-id"]').val(attachment.id);
+      });
+
+      overlaySelectionFrame.open();
     });
   }
   

@@ -22,6 +22,12 @@ class Resoc_Social_Editor_Facebook_Editor {
 			$imageUrl = wp_get_attachment_url( $imageId );
     }
 
+    $default_overlay_url = NULL;
+    $default_overlay_id = get_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID );
+    if ( $default_overlay_id ) {
+      $default_overlay_url = wp_get_attachment_url( $default_overlay_id );
+    }
+
 		ob_start();
 ?>
 	<div class="custom-field-panel rse-editor" id="rse-editor">
@@ -50,6 +56,13 @@ class Resoc_Social_Editor_Facebook_Editor {
               <button class="rse-image-selection-button button-primary">Select Facebook image</button>
             </td>
 					</tr>
+          <tr valign="top">
+            <th scope="row"><label for="rse-image">Overlay</label></th>
+            <td>
+              <button class="rse-overlay-image-selection-button button-secondary">Select overlay image</button>
+              <button class="rse-overlay-image-reset-button button-secondary">No overlay</button>
+            </td>
+          </tr>
 					<tr valign="top">
 						<th scope="row"><label for="rse-view">View</label></th>
 						<td>
@@ -84,6 +97,11 @@ class Resoc_Social_Editor_Facebook_Editor {
         name="rse-og-image-id"
         value="<?php echo $imageId ?>"
       >
+      <input
+        type="hidden"
+        name="rse-og-overlay-image-id"
+        value="<?php echo $default_overlay_id ?>"
+      >
 		</div>
 	</div>
 
@@ -115,6 +133,7 @@ class Resoc_Social_Editor_Facebook_Editor {
       var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
       var imageSettings = <?php echo $imageSettings ? $imageSettings : 'undefined' ?>;
       var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
+      var defaultOverlayUrl = <?php echo $default_overlay_url ? '"' . $default_overlay_url . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);
       var editorContainer = jQuery('#rse-editor');
 
@@ -125,6 +144,7 @@ class Resoc_Social_Editor_Facebook_Editor {
         imageId,
         imageSettings,
         imageUrl,
+        defaultOverlayUrl,
         '<?php echo get_site_url() ?>'
       );
     });
