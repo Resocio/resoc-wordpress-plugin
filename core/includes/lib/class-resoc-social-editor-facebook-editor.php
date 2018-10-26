@@ -22,10 +22,18 @@ class Resoc_Social_Editor_Facebook_Editor {
 			$imageUrl = wp_get_attachment_url( $imageId );
     }
 
-    $default_overlay_url = NULL;
-    $default_overlay_id = get_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID );
-    if ( $default_overlay_id ) {
-      $default_overlay_url = wp_get_attachment_url( $default_overlay_id );
+    $overlay_id = NULL;
+    $overlay_url = NULL;
+    $overlay_choice = get_post_meta( $post->ID, Resoc_Social_Editor::OG_OVERLAY_IMAGE_SET );
+    if ( $overlay_choice ) {
+      $overlay_id = get_post_meta( $post->ID,
+        Resoc_Social_Editor::OG_OVERLAY_IMAGE_ID, true );
+    }
+    else {
+      $overlay_id = get_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID );
+    }
+    if ( $overlay_id ) {
+      $overlay_url = wp_get_attachment_url( $overlay_id );
     }
 
 		ob_start();
@@ -100,7 +108,7 @@ class Resoc_Social_Editor_Facebook_Editor {
       <input
         type="hidden"
         name="rse-og-overlay-image-id"
-        value="<?php echo $default_overlay_id ?>"
+        value="<?php echo $overlay_id ?>"
       >
 		</div>
 	</div>
@@ -133,7 +141,7 @@ class Resoc_Social_Editor_Facebook_Editor {
       var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
       var imageSettings = <?php echo $imageSettings ? $imageSettings : 'undefined' ?>;
       var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
-      var defaultOverlayUrl = <?php echo $default_overlay_url ? '"' . $default_overlay_url . '"' : 'undefined' ?>;
+      var overlayUrl = <?php echo $overlay_url ? '"' . $overlay_url . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);
       var editorContainer = jQuery('#rse-editor');
 
@@ -144,7 +152,7 @@ class Resoc_Social_Editor_Facebook_Editor {
         imageId,
         imageSettings,
         imageUrl,
-        defaultOverlayUrl,
+        overlayUrl,
         '<?php echo get_site_url() ?>'
       );
     });

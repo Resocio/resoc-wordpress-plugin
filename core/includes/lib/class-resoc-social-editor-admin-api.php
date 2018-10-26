@@ -73,12 +73,21 @@ class Resoc_Social_Editor_Admin_API {
     $imageId = $_POST['rse-og-image-id'];
     error_log("IMAGE ID " . $imageId);  
 
+    $overlay_id = $_POST['rse-og-overlay-image-id'];
+
 		// Check if the data have changed
 		$existingImageSettings = get_post_meta( $post_id,
 			Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, true );
 		$existingImageId = get_post_meta( $post_id,
 			Resoc_Social_Editor::OG_MASTER_IMAGE_ID, true );
-		if ( $existingImageSettings && $existingImageSettings == $imageSettings && $existingImageId == $imageId ) {
+    $existing_overlay_id = get_post_meta( $post_id,
+			Resoc_Social_Editor::OG_OVERLAY_IMAGE_ID, true );
+		if (
+      $existingImageSettings &&
+      $existingImageSettings == $imageSettings &&
+      $existingImageId == $imageId &&
+      $existing_overlay_id == $overlay_id
+    ) {
       // No change in the data: nothing to do
       error_log("No change, nothing to do");
 			return true;
@@ -88,6 +97,11 @@ class Resoc_Social_Editor_Admin_API {
 			Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, $imageSettings );
 		update_post_meta( $post_id,
 			Resoc_Social_Editor::OG_MASTER_IMAGE_ID, $imageId );
+    update_post_meta( $post_id,
+      Resoc_Social_Editor::OG_OVERLAY_IMAGE_ID, $overlay_id );
+    // Save the fact that the user made a choice regarding the overlay
+    update_post_meta( $post_id,
+      Resoc_Social_Editor::OG_OVERLAY_IMAGE_SET, true );
 
     $imageSettings = json_decode( $imageSettings, true );
 		$faviconDesign = $imageSettings;
@@ -101,8 +115,21 @@ class Resoc_Social_Editor_Admin_API {
 			error_log( "Cannot download master image: " . $masterImageResult->get_error_message() );
 			return;
 		}
-
 		$masterImage = wp_remote_retrieve_body( $masterImageResult );
+
+    $overlay_image = NULL;
+    if ( $overlay_id ) {
+      $overlay_url = wp_get_attachment_url( $overlay_id );
+      $overlay_response = wp_remote_get( $overlay_url );
+      if (is_wp_error( $overlay_response )) {
+        // TODO
+        error_log( "Cannot download overlay image: " . $overlay_response->get_error_message() );
+        return;
+      }
+      $overlay_image = wp_remote_retrieve_body( $overlay_response );
+    }
+
+    // TODO: Take the overlay image into account
 
 		$request = json_encode(array(
 			'favicon_generation' => array(

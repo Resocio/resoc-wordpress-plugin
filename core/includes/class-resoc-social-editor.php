@@ -24,6 +24,10 @@ class Resoc_Social_Editor {
 
   const OG_MASTER_IMAGE_ID       = 'RSE_OpenGraph_Master_Image_Id';
   const OG_MASTER_IMAGE_SETTINGS = 'RSE_OpenGraph_Master_Image_Settings';
+  const OG_OVERLAY_IMAGE_ID      = 'RSE_OpenGraph_Overlay_Image_Id';
+  // Boolean - If the user has made a choice regarding the overlay
+  // (including "no overlay") or not.
+  const OG_OVERLAY_IMAGE_SET     = 'RSE_OpenGraph_Overlay_Image_Set';
   // Note: the previous name of this meta was
   // 'RSE_OG_Image_Id'. For some reasons,
   // it was not possible to update the meta
