@@ -4,7 +4,6 @@
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
 	<form action="<?php echo $social_editor_admin_url ?>" method="post" id="rse-settings-form">
-
 		<table class="form-table">
 			<tbody>
 				<tr>
@@ -31,7 +30,7 @@
 		<input
       type="hidden"
       name="<?php echo Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID ?>"
-      value="<?php echo default_overlay_id ?>"
+      value="<?php echo $default_overlay_id ?>"
     >
 
 		<input name="Submit" type="submit" class="button-primary" value="Save changes">
@@ -57,7 +56,7 @@
 <?php
         if ( $default_overlay_id) {
 ?>
-          showOverlayPreview(<?php echo $default_overlay_id ?>, "<?php echo $default_overlay_url ?>");
+          showOverlayPreview("<?php echo $default_overlay_id ?>", "<?php echo $default_overlay_url ?>");
 <?php
         }
         else {

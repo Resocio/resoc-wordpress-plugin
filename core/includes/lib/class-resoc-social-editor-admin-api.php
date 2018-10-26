@@ -576,9 +576,14 @@ class Resoc_Social_Editor_Admin_API {
     ) {
       $new_id = $_REQUEST[Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID];
       if ( ! add_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id ) ) {
-        update_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id );
+        if (! update_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id ) ) {
+          add_settings_error(
+            Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID,
+            NULL,
+            'Could not save the default overlay'
+          );
+        }
       }
-      // TODO: Display a notification
     }
   }
 }
