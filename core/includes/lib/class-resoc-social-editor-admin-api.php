@@ -19,8 +19,15 @@ class Resoc_Social_Editor_Admin_API {
 		// Make sure to run this action just before Yoast SEO
 		// (Yoast is using the default priority, which is 10)
 		add_action( 'add_meta_boxes',
-			array( $this, 'save_meta_boxes' ), 9 );
-	}
+      array( $this, 'save_meta_boxes' ), 9 );
+
+    add_action( 'admin_menu',
+      array( $this, 'settings_menu' )
+    );
+    add_action('admin_init',
+      array( $this, 'process_settings_form' )
+    );
+  }
 
 	public function patch_yoast_seo_meta_box() {
 		global $GLOBALS;
@@ -535,4 +542,43 @@ class Resoc_Social_Editor_Admin_API {
 		}
 	}
 
+  public function settings_menu() {
+    add_options_page(
+      'Settings',
+      'Social',
+      'manage_options',
+      'resoc_social_editor_settings_menu',
+      array( $this, 'create_social_editor_settings_page' )
+    );
+  }
+
+  public function create_social_editor_settings_page() {
+    global $current_user;
+
+    // Prepare variables
+    $social_editor_admin_url = admin_url(
+      'options-general.php?page=resoc_social_editor_settings_menu'
+    );
+
+    $default_overlay_id = get_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID );
+    $default_overlay_url = wp_get_attachment_url( $default_overlay_id );
+
+    wp_enqueue_media();
+
+    // Template time!
+    include_once( plugin_dir_path(__FILE__) . '../../views' . DIRECTORY_SEPARATOR . 'settings.php' );
+  }
+
+  public function process_settings_form() {
+    if (
+      isset( $_REQUEST[Resoc_Social_Editor::SETTINGS_FORM] ) &&
+      '1' == $_REQUEST[Resoc_Social_Editor::SETTINGS_FORM]
+    ) {
+      $new_id = $_REQUEST[Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID];
+      if ( ! add_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id ) ) {
+        update_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id );
+      }
+      // TODO: Display a notification
+    }
+  }
 }

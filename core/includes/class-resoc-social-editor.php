@@ -33,6 +33,10 @@ class Resoc_Social_Editor {
   const OG_TITLE                 = 'RSE_OpenGraph_Title';
   const OG_DESCRIPTION           = 'RSE_OpenGraph_Description';
 
+  const SETTINGS_FORM = "RSE_Settings_Form";
+
+  const OPTION_DEFAULT_OVERLAY_ID = 'RSE_Option_Default_Overlay_Id';
+
 	/**
 	 * The single instance of Resoc_Social_Editor.
 	 * @var 	object
