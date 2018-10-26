@@ -131,37 +131,17 @@ class Resoc_Social_Editor_Admin_API {
 
     // TODO: Take the overlay image into account
 
-		$request = json_encode(array(
+		$request = array(
       'master_image_base64' => base64_encode( $masterImage ),
       'image_settings' => array(
         'center_x' => $faviconDesign['imageCenterX'],
         'center_y' => $faviconDesign['imageCenterY'],
         'scale' => $faviconDesign['imageContainerWidthRatio']
       )
-
-/*
-			'favicon_generation' => array(
-				"api_key" => "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
-				"master_picture" => array(
-					"type" => "inline",
-					"content" => base64_encode( $masterImage )
-				),
-				"files_location" => array(
-					"type" => "path",
-					"path" => $pic_path
-				),
-				"favicon_design" => array(
-					"resoc_open_graph" => array(
-            "image" => array(
-              "center_x" => $faviconDesign['imageCenterX'],
-              "center_y" => $faviconDesign['imageCenterY'],
-              "scale" => $faviconDesign['imageContainerWidthRatio']
-            )
-          )
-        )
-      )
-*/
-    ));
+    );
+    if ( $overlay_image ) {
+      $request['overlay_image_base64'] = base64_encode( $overlay_image );
+    }
     
     error_log("POSTED REQUEST = " . 
       json_encode( $request )
@@ -169,7 +149,7 @@ class Resoc_Social_Editor_Admin_API {
 
 		// Generate the Open Graph data
 		$response = wp_remote_post('https://resoc.io/api/og-image', array(
-      'body' => $request,
+      'body' => json_encode( $request ),
       'timeout' => 20
 		));
 
