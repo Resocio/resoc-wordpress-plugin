@@ -54,7 +54,8 @@
     rseInitOverlayEditor(
       editorContainer,
       '<?php echo admin_url( 'admin-ajax.php', isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://' ) ?>',
-      '<?php echo Resoc_Social_Editor::PLUGIN_SLUG . '_create_overlay' ?>'
+      '<?php echo Resoc_Social_Editor::PLUGIN_SLUG . '_create_overlay' ?>',
+      <?php echo $overlayEditorCallback ? $overlayEditorCallback : undefined ?>
     );
   });
 </script>

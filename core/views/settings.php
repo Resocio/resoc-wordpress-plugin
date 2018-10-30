@@ -1,5 +1,11 @@
 <div class="wrap">
 
+  <script>
+    function overlayEditorCallback(imageData) {
+      console.log("Callback called with " + imageData.image_id);
+    }
+  </script>
+
 	<?php screen_icon() ?>
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
@@ -19,8 +25,11 @@
               <p>No default overlay</p>
             </div>
 
+            <?php
+              $overlayEditorCallback = 'overlayEditorCallback';
+              require('overlay-editor.php');
+            ?>
             <button class="rse-image-selection-button button-secondary">Select overlay image</button>
-            <?php require('overlay-editor.php'); ?>
             <button class="rse-image-reset-button button-secondary">Reset overlay image</button>
 					</td>
 				</tr>

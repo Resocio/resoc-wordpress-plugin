@@ -1,5 +1,9 @@
 
-var rseInitOverlayEditor = function(editorContainer, ajaxUrl, ajaxActionName) {
+var rseInitOverlayEditor = function(
+  editorContainer,
+  ajaxUrl,
+  ajaxActionName,
+  overlayEditorCallback) {
   var overlayEditor;
   var imageSelectionFrame;
   var imageId;
@@ -65,13 +69,16 @@ var rseInitOverlayEditor = function(editorContainer, ajaxUrl, ajaxActionName) {
     jQuery.ajax({
       type: 'POST',
       data: data,
-      dataType: 'application/json',
+      dataType: 'json',
       url: ajaxUrl,
       success: function(response) {
         console.log("DONE", response);
+        if (overlayEditorCallback) {
+          overlayEditorCallback(response);
+        }
       },
-      failure: function(e) {
-        console.log("Fail!", e);
+      error: function(e, f, g) {
+        console.log("Cannot create overlay", e);
       }
     });
   });
