@@ -62,7 +62,7 @@ class Resoc_Social_Editor_Admin_API {
       );
 
       echo json_encode(
-        array('image_id' => $og_image_id),
+        array('image_id' => $overlay_id),
         true
       );
     }
