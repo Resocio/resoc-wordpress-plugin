@@ -1,21 +1,46 @@
 <?php add_thickbox(); ?>
 <div id="rse-overlay-editor-modal" style="display:none;">
-  <h1>
-    Create new overlay
-  </h1>
+  <div class="rse-overlay-editor-container">
+    <div class="rse-overlay-editor-inner-container">
+      <h1>
+        Create new overlay
+      </h1>
 
-  <div id="rse-overlay-editor" class="rse-overlay-editor"></div>
+      <p>
+        An overlay can be applied to all or some or the images
+        that illustrate your posts when they are shared on social networks.
+        A typical overlay contains your logo, so it is visible
+        by your visitors's friends and followers.
+      </p>
 
-  <p>
-    <button class="rse-image-selection-button button-primary">
-      Select overlay image
-    </button>
-    <button class="rse-overlay-creation-button button-primary">
-      Create overlay
-    </button>
-  </p>
+      <div id="rse-overlay-editor" class="rse-overlay-editor"></div>
 
-  <input name="rse-overlay-image-id" type="hidden"/>
+      <div class="form-table">
+        <p>
+          <button class="rse-image-selection-button button-primary">
+            Select overlay image
+          </button>
+          <span class="description">
+            You probably want to select your logo and/or company name.
+          </span>
+        </p>
+
+        <div class="rse-image-selected-panel" style="display:none">
+          <p>
+            <strong>
+              Not perfect?
+            </strong>
+            Move the image by dragging it with your mouse.
+            Zoom in/out with your mouse wheel.
+          </p>
+
+          <button class="rse-overlay-creation-button button-primary">
+            Create overlay
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <a href="#TB_inline?width=600&height=550&inlineId=rse-overlay-editor-modal" class="button-secondary thickbox">

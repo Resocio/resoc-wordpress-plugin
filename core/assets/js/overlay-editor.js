@@ -4,6 +4,10 @@ var rseInitOverlayEditor = function(editorContainer, ajaxUrl, ajaxActionName) {
   var imageSelectionFrame;
   var imageId;
 
+  var selectImageButton = editorContainer.find('.rse-image-selection-button');
+  var createOverlayButton = editorContainer.find('.rse-overlay-creation-button');
+  var creationPanel = editorContainer.find('.rse-image-selected-panel');
+
   const e = React.createElement;
   const domContainer = editorContainer.find('.rse-overlay-editor')[0];
   ReactDOM.render(e(
@@ -12,7 +16,7 @@ var rseInitOverlayEditor = function(editorContainer, ajaxUrl, ajaxActionName) {
     }}
   ), domContainer);
 
-  editorContainer.find('.rse-image-selection-button').on('click', function(event) {
+  selectImageButton.on('click', function(event) {
     event.preventDefault();
 
     if (imageSelectionFrame) {
@@ -36,12 +40,16 @@ var rseInitOverlayEditor = function(editorContainer, ajaxUrl, ajaxActionName) {
       overlayEditor.setImage(imageUrl);
 
       imageId = attachment.id;
+
+      creationPanel.show();
+      selectImageButton.removeClass('button-primary');
+      selectImageButton.addClass('button-secondary');
     });
 
     imageSelectionFrame.open();
   });
 
-  editorContainer.find('.rse-overlay-creation-button').on('click', function(event) {
+  createOverlayButton.on('click', function(event) {
     event.preventDefault();
 
     var request = JSON.stringify({
