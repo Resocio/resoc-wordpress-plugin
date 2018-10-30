@@ -27,6 +27,51 @@ class Resoc_Social_Editor_Admin_API {
     add_action('admin_init',
       array( $this, 'process_settings_form' )
     );
+
+    add_action(
+      'wp_ajax_' . Resoc_Social_Editor::PLUGIN_SLUG . '_create_overlay',
+      array( $this, 'create_overlay' )
+    );
+  }
+
+  public function create_overlay() {
+    header("Content-type: application/json");
+
+    // See http://stackoverflow.com/questions/2496455/why-are-post-variables-getting-escaped-in-php
+    $data = json_decode( stripslashes( $_REQUEST['request'] ), true );
+
+    $image_id = $data['image_id'];
+    $master_image = Resoc_Social_Editor_Utils::get_image_content_by_id( $image_id );
+
+    $image_settings = $data['image_settings'];
+
+		$request = array(
+      'master_image_base64' => base64_encode( $master_image ),
+      'image_settings' => array(
+        'center_x' => $image_settings['imageCenterX'],
+        'center_y' => $image_settings['imageCenterY'],
+        'scale' => $image_settings['imageContainerWidthRatio']
+      )
+    );
+
+    try {
+      $overlay_id = Resoc_Social_Editor_Utils::generate_resoc_image(
+        'https://resoc.io/api/overlay',
+        $request,
+        'Resoc-Overlay-' . Resoc_Social_Editor_Utils::time_to_filename_fragment() . '.png'
+      );
+
+      echo json_encode(
+        array('image_id' => $og_image_id),
+        true
+      );
+    }
+    catch(Exception $e) {
+      // TODO: Process the error
+      error_log("ERROR: " . $e);
+    }
+
+    wp_die();
   }
 
 	public function patch_yoast_seo_meta_box() {
@@ -142,64 +187,25 @@ class Resoc_Social_Editor_Admin_API {
     if ( $overlay_image ) {
       $request['overlay_image_base64'] = base64_encode( $overlay_image );
     }
-    
-    error_log("POSTED REQUEST = " . 
-      json_encode( $request )
-    );
 
-		// Generate the Open Graph data
-		$response = wp_remote_post('https://resoc.io/api/og-image', array(
-      'body' => json_encode( $request ),
-      'timeout' => 20
-		));
+    try {
+      $og_image_id = Resoc_Social_Editor_Utils::generate_resoc_image(
+        'https://resoc.io/api/og-image',
+        $request,
+        'og-image.jpg' // TODO: Change this
+      );
 
-		if ( is_wp_error( $response ) ) {
-      error_log("We get NO answer");
-			error_log($response->get_error_message());
-		}
-		else {
-      error_log("We get an answer");
-
-      $og_image_id = $this->add_image_to_media_library( $response['body'], $post_id );
-
-      update_post_meta( $post_id,
-        Resoc_Social_Editor::OG_IMAGE_ID, $og_image_id );
-		}
+      update_post_meta(
+        $post_id,
+        Resoc_Social_Editor::OG_IMAGE_ID, $og_image_id
+      );
+    }
+    catch(Exception $e) {
+      // TODO: Process the error
+    }
 
 		return true;
   }
-  
-  public function add_image_to_media_library( $image_data, $post_id ) {
-    $upload_dir = wp_upload_dir();
-
-    $filename = basename('og-image.jpg');
-
-    if (wp_mkdir_p($upload_dir['path'])) {
-      $file = $upload_dir['path'] . '/' . $filename;
-    }
-    else {
-      $file = $upload_dir['basedir'] . '/' . $filename;
-    }
-
-    file_put_contents($file, $image_data);
-    
-    $wp_filetype = wp_check_filetype($filename, null);
-    
-    $attachment = array(
-      'post_mime_type' => $wp_filetype['type'],
-      'post_title' => sanitize_file_name($filename),
-      'post_content' => '',
-      'post_status' => 'inherit'
-    );
-    
-    $attach_id = wp_insert_attachment( $attachment, $file, $post_id );
-    require_once(ABSPATH . 'wp-admin/includes/image.php');
-    $attach_data = wp_generate_attachment_metadata($attach_id, $file);
-    wp_update_attachment_metadata($attach_id, $attach_data);
-
-    return $attach_id;
-  }
-
 
 	public function get_picture_dir( $post_id ) {
 		return Resoc_Social_Editor::get_files_dir( $post_id );

@@ -20,6 +20,7 @@
             </div>
 
             <button class="rse-image-selection-button button-secondary">Select overlay image</button>
+            <?php require('overlay-editor.php'); ?>
             <button class="rse-image-reset-button button-secondary">Reset overlay image</button>
 					</td>
 				</tr>

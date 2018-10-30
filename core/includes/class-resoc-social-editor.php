@@ -183,6 +183,9 @@ class Resoc_Social_Editor {
     wp_enqueue_script( $this->_token . '-admin',
       esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js',
       array( $this->_token . '-bundle' ), $this->_version );
+    wp_enqueue_script( $this->_token . '-overlay-editor',
+      esc_url( $this->assets_url ) . 'js/overlay-editor' . $this->script_suffix . '.js',
+      array( $this->_token . '-bundle' ), $this->_version );
   }
 
 	/**
