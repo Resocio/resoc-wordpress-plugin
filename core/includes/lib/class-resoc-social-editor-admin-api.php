@@ -534,7 +534,7 @@ class Resoc_Social_Editor_Admin_API {
   public function settings_menu() {
     add_options_page(
       'Settings',
-      'Social',
+      'Resoc Social Editor',
       'manage_options',
       'resoc_social_editor_settings_menu',
       array( $this, 'create_social_editor_settings_page' )
