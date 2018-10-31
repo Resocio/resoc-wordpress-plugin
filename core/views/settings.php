@@ -15,14 +15,25 @@
               />
             </div>
             <div id="no-overlay" style="display:none">
-              <p>No default overlay</p>
+              <p>
+                <strong>
+                  No default overlay
+                  </strong>
+              </p>
             </div>
 
             <?php
               require('overlay-editor.php');
             ?>
-            <button class="rse-image-selection-button button-secondary">Select overlay image</button>
-            <button class="rse-image-reset-button button-secondary">Reset overlay image</button>
+            <button class="rse-image-selection-button button-secondary">Select existing overlay</button>
+            <button class="rse-image-reset-button button-secondary">Reset default overlay</button>
+
+            <p class="description">
+              The default overlay is automatically applied to all of your new posts and can be overriden manually.
+              <br/>
+              You probably want to choose an overlay that integrates your logo,
+              so all your pages have a uniform branding when shared on social networks.
+            </p>
 					</td>
 				</tr>
 			</tbody>

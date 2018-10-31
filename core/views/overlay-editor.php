@@ -35,7 +35,7 @@
           </p>
 
           <button class="rse-overlay-creation-button button-primary">
-            Create overlay
+            Create new overlay
           </button>
         </div>
       </div>
