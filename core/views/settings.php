@@ -1,11 +1,4 @@
 <div class="wrap">
-
-  <script>
-    function overlayEditorCallback(imageData) {
-      console.log("Callback called with " + imageData.image_id);
-    }
-  </script>
-
 	<?php screen_icon() ?>
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
@@ -26,7 +19,6 @@
             </div>
 
             <?php
-              $overlayEditorCallback = 'overlayEditorCallback';
               require('overlay-editor.php');
             ?>
             <button class="rse-image-selection-button button-secondary">Select overlay image</button>
@@ -50,6 +42,15 @@
     jQuery(document).ready(function() {
       var form = jQuery('#rse-settings-form');
       var fileFrame;
+
+      function overlayEditorCallback(imageData) {
+        console.log("Callback called with " + imageData.image_id);
+        showOverlayPreview(imageData.image_id, imageData.image_url);
+      }
+
+<?php
+      init_rse_overlay_editor( overlayEditorCallback );
+?>
 
       function showOverlayPreview(overlayId, overlayUrl) {
         if (overlayId) {

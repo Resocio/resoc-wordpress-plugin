@@ -47,15 +47,16 @@
   Create new overlay
 </a>
 
-<script>
-  jQuery(document).ready(function(e) {
-    var editorContainer = jQuery('#rse-overlay-editor-modal');
+<?php
+function init_rse_overlay_editor( $overlay_created_callback ) {
+?>
+  var editorContainer = jQuery('#rse-overlay-editor-modal');
 
-    rseInitOverlayEditor(
-      editorContainer,
-      '<?php echo admin_url( 'admin-ajax.php', isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://' ) ?>',
-      '<?php echo Resoc_Social_Editor::PLUGIN_SLUG . '_create_overlay' ?>',
-      <?php echo $overlayEditorCallback ? $overlayEditorCallback : undefined ?>
-    );
-  });
-</script>
+  rseInitOverlayEditor(
+    editorContainer,
+    '<?php echo admin_url( 'admin-ajax.php', isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://' ) ?>',
+    '<?php echo Resoc_Social_Editor::PLUGIN_SLUG . '_create_overlay' ?>',
+    <?php echo $overlay_created_callback ? $overlay_created_callback : undefined ?>
+  );
+<?php
+}
