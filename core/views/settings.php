@@ -57,6 +57,9 @@
       function overlayEditorCallback(imageData) {
         console.log("Callback called with " + imageData.image_id);
         showOverlayPreview(imageData.image_id, imageData.image_url);
+        form.find(
+          'input[name="<?php echo Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID ?>"]'
+        ).val(imageData.image_id);
       }
 
 <?php
