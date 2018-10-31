@@ -3,7 +3,7 @@ var rseInitOpenGraphEditor = function(
   editorContainer,
   title, description,
   imageId, imageSettings, imageUrl,
-  overlayImageSrc,
+  overlayImageSrc, overlayImageId,
   siteUrl
 ) {
   var openGraphEditor;
@@ -22,7 +22,7 @@ var rseInitOpenGraphEditor = function(
       openGraphEditor.setUrl(siteUrl);
       openGraphEditor.setTitle(title);
       openGraphEditor.setDescription(description);
-      openGraphEditor.setOverlayImageSrc(overlayImageSrc);
+      setOverlay(overlayImageId, overlayImageSrc);
     }}), domContainer);
 
   initForm(editorContainer, title, description);
@@ -87,8 +87,7 @@ var rseInitOpenGraphEditor = function(
     editorContainer.find('.rse-overlay-image-reset-button').live('click', function(event) {
       event.preventDefault();
 
-      editorContainer.find('input[name="rse-og-overlay-image-id"]').val(undefined);
-      openGraphEditor.setOverlayImageSrc(undefined);
+      setOverlay(undefined, undefined);
     });
 
     editorContainer.find('.rse-overlay-image-selection-button').live('click', function(event) {
@@ -111,8 +110,7 @@ var rseInitOpenGraphEditor = function(
       overlaySelectionFrame.on('select', function() {
         attachment = overlaySelectionFrame.state().get('selection').first().toJSON();
 
-        openGraphEditor.setOverlayImageSrc(attachment.url);
-        editorContainer.find('input[name="rse-og-overlay-image-id"]').val(attachment.id);
+        setOverlay(attachment.id, attachment.url);
       });
 
       overlaySelectionFrame.open();
@@ -133,6 +131,24 @@ var rseInitOpenGraphEditor = function(
         .addClass('button-primary');
     }
   }
-  
+
+  function setOverlay(overlayId, overlayUrl) {
+    openGraphEditor.setOverlayImageSrc(overlayUrl);
+    editorContainer.find('input[name="rse-og-overlay-image-id"]').val(overlayId);
+
+    if (overlayId) {
+      editorContainer.find('.rse-overlay-image-selection-button')
+        .removeClass('button-primary')
+        .addClass('button-secondary');
+      editorContainer.find('.rse-overlay-image-reset-button').removeAttr('disabled');
+    }
+    else {
+      editorContainer.find('.rse-overlay-image-selection-button')
+        .removeClass('button-secondary')
+        .addClass('button-primary');
+      editorContainer.find('.rse-overlay-image-reset-button').attr('disabled', 'disabled');
+    }
+  }
+
   console.log("OPENGRAPH Editor Init Completed");
 }

@@ -142,6 +142,7 @@ class Resoc_Social_Editor_Facebook_Editor {
       var imageSettings = <?php echo $imageSettings ? $imageSettings : 'undefined' ?>;
       var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
       var overlayUrl = <?php echo $overlay_url ? '"' . $overlay_url . '"' : 'undefined' ?>;
+      var overlayId = <?php echo $overlay_id ? '"' . $overlay_id . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);
       var editorContainer = jQuery('#rse-editor');
 
@@ -149,10 +150,8 @@ class Resoc_Social_Editor_Facebook_Editor {
         editorContainer,
         title,
         description,
-        imageId,
-        imageSettings,
-        imageUrl,
-        overlayUrl,
+        imageId, imageSettings, imageUrl,
+        overlayUrl, overlayId,
         '<?php echo get_site_url() ?>'
       );
     });
