@@ -73,6 +73,7 @@ var rseInitOverlayEditor = function(
       url: ajaxUrl,
       success: function(response) {
         console.log("DONE", response);
+        tb_remove();
         if (overlayEditorCallback) {
           overlayEditorCallback(response);
         }
