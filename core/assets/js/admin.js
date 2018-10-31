@@ -151,4 +151,8 @@ var rseInitOpenGraphEditor = function(
   }
 
   console.log("OPENGRAPH Editor Init Completed");
+
+  return function(imageData) {
+    setOverlay(imageData.image_id, imageData.image_url);
+  }
 }

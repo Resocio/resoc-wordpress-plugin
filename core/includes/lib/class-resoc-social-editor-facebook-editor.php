@@ -67,10 +67,15 @@ class Resoc_Social_Editor_Facebook_Editor {
           <tr valign="top">
             <th scope="row"><label for="rse-image">Overlay</label></th>
             <td>
-              <button class="rse-overlay-image-selection-button button-secondary">Select overlay image</button>
+              <?php
+                require(
+                  plugin_dir_path(__FILE__) . '../../views' . DIRECTORY_SEPARATOR . 'overlay-editor.php'
+                );
+              ?>
+              <button class="rse-overlay-image-selection-button button-secondary">Select existing overlay</button>
               <button class="rse-overlay-image-reset-button button-secondary">No overlay</button>
               <p class="description">
-                Use an overlay to display information on top of your image. For example, your logo.
+                Use an overlay to show something on top of your image. For example, your logo.
               </p>
             </td>
           </tr>
@@ -149,7 +154,7 @@ class Resoc_Social_Editor_Facebook_Editor {
       console.log("IMAGE URL=" + imageUrl);
       var editorContainer = jQuery('#rse-editor');
 
-      rseInitOpenGraphEditor(
+      var setOverlayData = rseInitOpenGraphEditor(
         editorContainer,
         title,
         description,
@@ -157,6 +162,10 @@ class Resoc_Social_Editor_Facebook_Editor {
         overlayUrl, overlayId,
         '<?php echo get_site_url() ?>'
       );
+
+<?php
+      init_rse_overlay_editor( setOverlayData );
+?>
     });
   </script>
   
