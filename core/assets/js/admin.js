@@ -17,7 +17,7 @@ var rseInitOpenGraphEditor = function(
     RFGSocialEditor.StandaloneOpenGraphEditor, {onCreated: function(obj) {
       openGraphEditor = obj;
 
-      openGraphEditor.setImage(imageUrl, imageSettings);
+      setImage(imageId, imageUrl, imageSettings);
       openGraphEditor.setView('facebook');
       openGraphEditor.setUrl(siteUrl);
       openGraphEditor.setTitle(title);
@@ -76,10 +76,7 @@ var rseInitOpenGraphEditor = function(
         attachment = imageSelectionFrame.state().get('selection').first().toJSON();
 
         imageUrl = attachment.url;
-        openGraphEditor.setImage(imageUrl);
-
-        imageId = attachment.id;
-        editorContainer.find('input[name="rse-og-image-id"]').val(imageId);
+        setImage(attachment.id, attachment.url, undefined);
       });
   
       imageSelectionFrame.open();
@@ -120,6 +117,21 @@ var rseInitOpenGraphEditor = function(
 
       overlaySelectionFrame.open();
     });
+  }
+
+  function setImage(imageId, imageUrl, imageSettings) {
+    openGraphEditor.setImage(imageUrl, imageSettings);
+    editorContainer.find('input[name="rse-og-image-id"]').val(imageId);
+    if (imageId) {
+      editorContainer.find('.rse-image-selection-button')
+      .removeClass('button-primary')
+      .addClass('button-secondary');
+    }
+    else {
+      editorContainer.find('.rse-image-selection-button')
+        .removeClass('button-secondary')
+        .addClass('button-primary');
+    }
   }
   
   console.log("OPENGRAPH Editor Init Completed");
