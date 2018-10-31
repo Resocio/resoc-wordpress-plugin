@@ -69,6 +69,9 @@ class Resoc_Social_Editor_Facebook_Editor {
             <td>
               <button class="rse-overlay-image-selection-button button-secondary">Select overlay image</button>
               <button class="rse-overlay-image-reset-button button-secondary">No overlay</button>
+              <p class="description">
+                Use an overlay to display information on top of your image. For example, your logo.
+              </p>
             </td>
           </tr>
 					<tr valign="top">
