@@ -43,6 +43,7 @@ class Resoc_Social_Editor {
   const OPTION_SKIP_OVERLAY_CREATION_SUGGESTION = 'RSE_Option_Skip_Overlay_Creation_Suggestion';
 
   const OPTION_SALT = 'RSE_Option_Salt';
+  const OPTION_SEND_ANONYMOUS_DATA = 'RSE_Send_Anonymous_Data';
 
 	/**
 	 * The single instance of Resoc_Social_Editor.

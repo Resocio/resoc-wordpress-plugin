@@ -84,11 +84,13 @@ class Resoc_Social_Editor_Utils {
   }
 
   public static function add_analytics_data( $api_request ) {
-    $api_request['analytics'] = array(
-      'hashed_site_url' => Resoc_Social_Editor_Utils::anonymize_data( get_site_url() ),
-      'hashed_post_id' => Resoc_Social_Editor_Utils::anonymize_data( get_the_ID() ),
-      'hashed_user_id' => Resoc_Social_Editor_Utils::anonymize_data( get_current_user_id() )
-    );
+    if ( get_option( Resoc_Social_Editor::OPTION_SEND_ANONYMOUS_DATA, false ) ) {
+      $api_request['analytics'] = array(
+        'hashed_site_url' => Resoc_Social_Editor_Utils::anonymize_data( get_site_url() ),
+        'hashed_post_id' => Resoc_Social_Editor_Utils::anonymize_data( get_the_ID() ),
+        'hashed_user_id' => Resoc_Social_Editor_Utils::anonymize_data( get_current_user_id() )
+      );
+    }
     return $api_request;
   }
 }

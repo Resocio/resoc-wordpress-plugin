@@ -568,6 +568,10 @@ class Resoc_Social_Editor_Admin_API {
       $new_id = $_REQUEST[Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID];
       update_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id );
       update_option( Resoc_Social_Editor::OPTION_SKIP_OVERLAY_CREATION_SUGGESTION, true );
+
+      $new_usage = ( $_REQUEST[Resoc_Social_Editor::OPTION_SEND_ANONYMOUS_DATA] ) &&
+        (1 == $_REQUEST[Resoc_Social_Editor::OPTION_SEND_ANONYMOUS_DATA] );
+      update_option( Resoc_Social_Editor::OPTION_SEND_ANONYMOUS_DATA, $new_usage );
     }
   }
 }

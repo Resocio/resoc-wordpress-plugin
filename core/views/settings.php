@@ -36,6 +36,20 @@
             </p>
 					</td>
 				</tr>
+        <tr>
+          <th scope="row">Usage</th>
+          <td>
+            <label>
+              <input
+                type="checkbox"
+                name="<?php echo Resoc_Social_Editor::OPTION_SEND_ANONYMOUS_DATA ?>"
+                value="1"
+                <?php echo get_option( Resoc_Social_Editor::OPTION_SEND_ANONYMOUS_DATA ) ? 'checked' : '' ?>
+              />
+              Allow the plugin to send anonymous usage data
+            </label>
+          </td>
+        </tr>
 			</tbody>
 		</table>
 
