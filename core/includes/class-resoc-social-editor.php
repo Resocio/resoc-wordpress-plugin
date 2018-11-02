@@ -42,6 +42,8 @@ class Resoc_Social_Editor {
   const OPTION_DEFAULT_OVERLAY_ID = 'RSE_Option_Default_Overlay_Id';
   const OPTION_SKIP_OVERLAY_CREATION_SUGGESTION = 'RSE_Option_Skip_Overlay_Creation_Suggestion';
 
+  const OPTION_SALT = 'RSE_Option_Salt';
+
 	/**
 	 * The single instance of Resoc_Social_Editor.
 	 * @var 	object

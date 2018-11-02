@@ -61,4 +61,34 @@ class Resoc_Social_Editor_Utils {
   public static function time_to_filename_fragment() {
     return date('Ymd-his');
   }
+
+  // Analytics / anonymization
+
+  public static function generate_salt() {
+    return hash('sha256', strval( rand() ) );
+  }
+
+  public static function get_salt() {
+    $salt = get_option( Resoc_Social_Editor::OPTION_SALT );
+    if ( ! $salt ) {
+      $salt = Resoc_Social_Editor_Utils::generate_salt();
+      update_option( Resoc_Social_Editor::OPTION_SALT, $salt );
+    }
+    return $salt;
+  }
+
+  public static function anonymize_data( $data ) {
+    return hash('sha256',
+    Resoc_Social_Editor_Utils::get_salt() . $data
+    );
+  }
+
+  public static function add_analytics_data( $api_request ) {
+    $api_request['analytics'] = array(
+      'hashed_site_url' => Resoc_Social_Editor_Utils::anonymize_data( get_site_url() ),
+      'hashed_post_id' => Resoc_Social_Editor_Utils::anonymize_data( get_the_ID() ),
+      'hashed_user_id' => Resoc_Social_Editor_Utils::anonymize_data( get_current_user_id() )
+    );
+    return $api_request;
+  }
 }

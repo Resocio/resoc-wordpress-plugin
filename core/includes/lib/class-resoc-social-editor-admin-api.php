@@ -53,6 +53,7 @@ class Resoc_Social_Editor_Admin_API {
         'scale' => $image_settings['imageContainerWidthRatio']
       )
     );
+    $request = Resoc_Social_Editor_Utils::add_analytics_data( $request );
 
     try {
       $overlay_id = Resoc_Social_Editor_Utils::generate_resoc_image(
@@ -189,6 +190,7 @@ class Resoc_Social_Editor_Admin_API {
     if ( $overlay_image ) {
       $request['overlay_image_base64'] = base64_encode( $overlay_image );
     }
+    $request = Resoc_Social_Editor_Utils::add_analytics_data( $request );
 
     try {
       $og_image_id = Resoc_Social_Editor_Utils::generate_resoc_image(
