@@ -40,6 +40,7 @@ class Resoc_Social_Editor {
   const SETTINGS_FORM = "RSE_Settings_Form";
 
   const OPTION_DEFAULT_OVERLAY_ID = 'RSE_Option_Default_Overlay_Id';
+  const OPTION_SKIP_OVERLAY_CREATION_SUGGESTION = 'RSE_Option_Skip_Overlay_Creation_Suggestion';
 
 	/**
 	 * The single instance of Resoc_Social_Editor.

@@ -60,6 +60,7 @@ class Resoc_Social_Editor_Admin_API {
         $request,
         'Resoc-Overlay-' . Resoc_Social_Editor_Utils::time_to_filename_fragment() . '.png'
       );
+      update_option( Resoc_Social_Editor::OPTION_SKIP_OVERLAY_CREATION_SUGGESTION, true );
 
       echo json_encode(
         array(
@@ -177,8 +178,6 @@ class Resoc_Social_Editor_Admin_API {
       $overlay_image = wp_remote_retrieve_body( $overlay_response );
     }
 
-    // TODO: Take the overlay image into account
-
 		$request = array(
       'master_image_base64' => base64_encode( $masterImage ),
       'image_settings' => array(
@@ -202,6 +201,7 @@ class Resoc_Social_Editor_Admin_API {
         $post_id,
         Resoc_Social_Editor::OG_IMAGE_ID, $og_image_id
       );
+      update_option( Resoc_Social_Editor::OPTION_SKIP_OVERLAY_CREATION_SUGGESTION, true );
     }
     catch(Exception $e) {
       // TODO: Process the error
@@ -564,15 +564,8 @@ class Resoc_Social_Editor_Admin_API {
       '1' == $_REQUEST[Resoc_Social_Editor::SETTINGS_FORM]
     ) {
       $new_id = $_REQUEST[Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID];
-      if ( ! add_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id ) ) {
-        if (! update_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id ) ) {
-          add_settings_error(
-            Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID,
-            NULL,
-            'Could not save the default overlay'
-          );
-        }
-      }
+      update_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID, $new_id );
+      update_option( Resoc_Social_Editor::OPTION_SKIP_OVERLAY_CREATION_SUGGESTION, true );
     }
   }
 }

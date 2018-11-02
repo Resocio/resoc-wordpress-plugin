@@ -1,4 +1,8 @@
-<?php add_thickbox(); ?>
+<?php
+  add_thickbox();
+
+  $highlight_creation_button = ! get_option( Resoc_Social_Editor::OPTION_SKIP_OVERLAY_CREATION_SUGGESTION );
+?>
 <div id="rse-overlay-editor-modal" style="display:none;">
   <div class="rse-overlay-editor-container">
     <div class="rse-overlay-editor-inner-container">
@@ -43,7 +47,10 @@
   </div>
 </div>
 
-<a href="#TB_inline?width=600&height=550&inlineId=rse-overlay-editor-modal" class="button-secondary thickbox">
+<a
+  href="#TB_inline?width=600&height=550&inlineId=rse-overlay-editor-modal"
+  class="<?php echo $highlight_creation_button ? 'button-primary' : 'button-secondary' ?> thickbox"
+>
   Create new overlay
 </a>
 
