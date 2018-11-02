@@ -66,6 +66,9 @@ var rseInitOverlayEditor = function(
       request: request
     };
     
+    // Prevent the button to be clicked twice,
+    // show feedback
+    createOverlayButton.attr('disabled', 'disabled');
     jQuery.ajax({
       type: 'POST',
       data: data,
@@ -74,12 +77,14 @@ var rseInitOverlayEditor = function(
       success: function(response) {
         console.log("DONE", response);
         tb_remove();
+        createOverlayButton.removeAttr('disabled');
         if (overlayEditorCallback) {
           overlayEditorCallback(response);
         }
       },
       error: function(e, f, g) {
         console.log("Cannot create overlay", e);
+        createOverlayButton.removeAttr('disabled');
       }
     });
   });
