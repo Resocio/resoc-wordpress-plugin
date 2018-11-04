@@ -66,7 +66,7 @@ class Resoc_Social_Editor_Facebook_Editor {
 					</tr>
           <tr valign="top">
             <th scope="row"><label for="rse-image">Overlay</label></th>
-            <td>
+            <td class="rse-image-selection-container">
               <?php
                 require(
                   plugin_dir_path(__FILE__) . '../../views' . DIRECTORY_SEPARATOR . 'overlay-editor.php'
