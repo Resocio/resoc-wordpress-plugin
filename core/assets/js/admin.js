@@ -10,6 +10,8 @@ var rseInitOpenGraphEditor = function(
   var imageSelectionFrame;
   var overlaySelectionFrame;
 
+  var titleEdited = (title !== undefined);
+
   const e = React.createElement;
   console.log(RFGSocialEditor);
   const domContainer = editorContainer.find('.open-graph-editor-container')[0];
@@ -28,6 +30,7 @@ var rseInitOpenGraphEditor = function(
   initForm(editorContainer, title, description);
   initImageSelection(editorContainer);
   initOverlayImageSelection(editorContainer);
+  initMainFieldsListeners(editorContainer);
 
   var postForm = jQuery.find('#post');
   jQuery(document).on('submit', postForm, function() {
@@ -36,10 +39,23 @@ var rseInitOpenGraphEditor = function(
     );
   });
 
+  function initMainFieldsListeners(editorContainer) {
+    var rseTitleField = editorContainer.find('input[name=rse-title]');
+    var titleField = jQuery(document).find('input[name="post_title"]');
+    titleField.on('change paste keyup', function() {
+      if (! titleEdited) {
+        var newTitle = titleField.val();
+        rseTitleField.val(newTitle);
+        openGraphEditor.setTitle(newTitle);
+      }
+    });
+  }
+
   function initForm(editorContainer, title, description) {
     var titleField = editorContainer.find('input[name=rse-title]');
     titleField.val(title);
     titleField.on('input', function() {
+      titleEdited = true;
       openGraphEditor.setTitle(this.value);
     });
 
