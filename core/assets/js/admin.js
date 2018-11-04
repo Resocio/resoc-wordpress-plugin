@@ -42,6 +42,13 @@ var rseInitOpenGraphEditor = function(
   function initMainFieldsListeners(editorContainer) {
     var rseTitleField = editorContainer.find('input[name=rse-title]');
     var titleField = jQuery(document).find('input[name="post_title"]');
+
+    if (rseTitleField.val() === '') {
+      var newTitle = titleField.val();
+      rseTitleField.val(newTitle);
+      openGraphEditor.setTitle(newTitle);
+    }
+
     titleField.on('change paste keyup', function() {
       if (! titleEdited) {
         var newTitle = titleField.val();
