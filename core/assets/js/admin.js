@@ -23,7 +23,7 @@ var rseInitOpenGraphEditor = function(
       openGraphEditor.setView('facebook');
       openGraphEditor.setUrl(siteUrl);
       openGraphEditor.setTitle(title);
-      openGraphEditor.setDescription(description);
+      openGraphEditor.setDescription(description || '');
       setOverlay(overlayImageId, overlayImageSrc);
     }}), domContainer);
 
