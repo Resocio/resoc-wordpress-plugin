@@ -11,6 +11,7 @@ var rseInitOpenGraphEditor = function(
   var overlaySelectionFrame;
 
   var titleEdited = (title !== undefined);
+  var imageEdited = (imageId !== undefined);
 
   const e = React.createElement;
   console.log(RFGSocialEditor);
@@ -100,9 +101,35 @@ var rseInitOpenGraphEditor = function(
 
         imageUrl = attachment.url;
         setImage(attachment.id, attachment.url, undefined);
+        imageEdited = true;
       });
   
       imageSelectionFrame.open();
+    });
+
+    // When the featured image is set,
+    // auto-populate the OpenGraph editor
+    $(document).ajaxComplete(function (event, xhr, settings) {
+      // We assign the featured image to the OpenGraph editor only
+      // if the user made no choice yet.
+      if (imageEdited) {
+        return;
+      }
+
+      if (typeof settings.data === 'string'
+      && /action=get-post-thumbnail-html/.test(settings.data)
+      && xhr.responseJSON && typeof xhr.responseJSON.data === 'string') {
+        var srcMatch = /<img[^>]+src="([^"]+)"/.exec(xhr.responseJSON.data);
+        var idMatch = /<input[^>]+value="([^"]+)"/.exec(xhr.responseJSON.data);
+        if (srcMatch && idMatch) {
+          var imageSrc = srcMatch[1];
+          var imageId = idMatch[1];
+
+          setImage(imageId, imageSrc, undefined);
+        }
+        // No match? Maybe there is no feature image
+        // (eg. it was just unset)
+      }
     });
   }
 
