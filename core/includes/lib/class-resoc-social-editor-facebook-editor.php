@@ -61,7 +61,7 @@ class Resoc_Social_Editor_Facebook_Editor {
 					<tr valign="top">
 						<th scope="row"><label for="rse-image">Image</label></th>
 						<td>
-              <button class="rse-image-selection-button button-primary">Select Facebook image</button>
+              <button class="rse-image-selection-button button-primary">Select image</button>
             </td>
 					</tr>
           <tr valign="top">

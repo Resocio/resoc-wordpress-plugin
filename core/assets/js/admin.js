@@ -179,12 +179,14 @@ var rseInitOpenGraphEditor = function(
     if (imageId) {
       editorContainer.find('.rse-image-selection-button')
       .removeClass('button-primary')
-      .addClass('button-secondary');
+      .addClass('button-secondary')
+      .html('Select another image');
     }
     else {
       editorContainer.find('.rse-image-selection-button')
         .removeClass('button-secondary')
-        .addClass('button-primary');
+        .addClass('button-primary')
+        .html('Select image');
     }
   }
 
