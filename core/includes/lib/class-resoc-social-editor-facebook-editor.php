@@ -124,7 +124,7 @@ class Resoc_Social_Editor_Facebook_Editor {
 	<div id="rse-upgrade-notice" style="display:none">
 		Your version of the plugin is outdated.
 		Please <a href="<?php echo get_site_url( null, '/wp-admin/plugins.php' ) ?>" target="_blank">
-			visit your plugins page</a> and update <strong>Social by RealFaviconGenerator</strong>.
+			visit your plugins page</a> and update <strong>Resoc Social Editor</strong>.
 	</div>
 
 	<script>
