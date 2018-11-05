@@ -13,8 +13,6 @@ class RSE_WPSEO_Enhanced_Metabox extends WPSEO_Metabox {
 		add_action( 'post_submitbox_start', array( $this, 'publish_box' ) );
 		add_action( 'admin_init', array( $this, 'setup_page_analysis' ) );
 		add_action( 'admin_init', array( $this, 'translate_meta_boxes' ) );
-		add_action( 'admin_footer', array( $this, 'template_keyword_tab' ) );
-		add_action( 'admin_footer', array( $this, 'template_generic_tab' ) );
 
 		$this->options = WPSEO_Options::get_options( array( 'wpseo', 'wpseo_social' ) );
 
