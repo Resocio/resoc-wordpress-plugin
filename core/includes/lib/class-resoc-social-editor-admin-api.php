@@ -192,11 +192,21 @@ class Resoc_Social_Editor_Admin_API {
     }
     $request = Resoc_Social_Editor_Utils::add_analytics_data( $request );
 
+    // Compute image file name
+    $title = get_the_title( $post_id );
+    if ( $title ) {
+      $title = sanitize_title_with_dashes( $title );
+    }
+    else {
+      $title = 'og-image-' . $post_id;
+    }
+    $image_filename = $title . ".jpg";
+
     try {
       $og_image_id = Resoc_Social_Editor_Utils::generate_resoc_image(
         'https://resoc.io/api/og-image',
         $request,
-        'og-image.jpg' // TODO: Change this
+        $image_filename
       );
 
       update_post_meta(
@@ -206,6 +216,7 @@ class Resoc_Social_Editor_Admin_API {
       update_option( Resoc_Social_Editor::OPTION_SKIP_OVERLAY_CREATION_SUGGESTION, true );
     }
     catch(Exception $e) {
+      error_log("Error while generating the OpenGraph image: " . $e );
       // TODO: Process the error
     }
 
