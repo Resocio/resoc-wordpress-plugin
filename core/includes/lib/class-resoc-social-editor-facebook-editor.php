@@ -152,6 +152,15 @@ class Resoc_Social_Editor_Facebook_Editor {
       var overlayUrl = <?php echo $overlay_url ? '"' . $overlay_url . '"' : 'undefined' ?>;
       var overlayId = <?php echo $overlay_id ? '"' . $overlay_id . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);
+
+      <?php if ( has_post_thumbnail( $post->ID ) ) { ?>
+        var featuredImageId = <?php echo get_post_thumbnail_id( $post->ID ) ?>;
+        var featuredImageUrl = "<?php echo wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) ) ?>";
+      <?php } else { ?>
+        var featuredImageId = undefined;
+        var featuredImageUrl = undefined;
+      <?php } ?>
+
       var editorContainer = jQuery('#rse-editor');
 
       var setOverlayData = rseInitOpenGraphEditor(
@@ -160,7 +169,8 @@ class Resoc_Social_Editor_Facebook_Editor {
         description,
         imageId, imageSettings, imageUrl,
         overlayUrl, overlayId,
-        '<?php echo get_site_url() ?>'
+        '<?php echo get_site_url() ?>',
+        featuredImageId, featuredImageUrl
       );
 
 <?php

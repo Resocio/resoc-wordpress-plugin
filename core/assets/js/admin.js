@@ -4,7 +4,8 @@ var rseInitOpenGraphEditor = function(
   title, description,
   imageId, imageSettings, imageUrl,
   overlayImageSrc, overlayImageId,
-  siteUrl
+  siteUrl,
+  featuredImageId, featuredImageUrl
 ) {
   var openGraphEditor;
   var imageSelectionFrame;
@@ -20,7 +21,12 @@ var rseInitOpenGraphEditor = function(
     RFGSocialEditor.StandaloneOpenGraphEditor, {onCreated: function(obj) {
       openGraphEditor = obj;
 
-      setImage(imageId, imageUrl, imageSettings);
+      if (imageId) {
+        setImage(imageId, imageUrl, imageSettings);
+      }
+      else {
+        setImage(featuredImageId, featuredImageUrl, undefined);
+      }
       openGraphEditor.setView('facebook');
       openGraphEditor.setUrl(siteUrl);
       openGraphEditor.setTitle(title);
