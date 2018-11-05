@@ -1,6 +1,5 @@
 === Resoc Social Editor ===
 Contributors:  phbernard
-Donate link: http://realfavicongenerator.net/donate
 Tags: social, facebook, opengraph, metadata, editor, wordpress, plugin
 Requires at least: 4.0
 Tested up to: 4.9.8
