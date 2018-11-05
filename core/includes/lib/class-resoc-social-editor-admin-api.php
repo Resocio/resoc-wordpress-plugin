@@ -1,6 +1,5 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-api-response.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-facebook-editor.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-utils.php';
 
