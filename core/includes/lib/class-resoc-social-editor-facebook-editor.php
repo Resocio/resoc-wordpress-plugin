@@ -88,7 +88,7 @@ class Resoc_Social_Editor_Facebook_Editor {
               </label>
               <label for="rse-view-facebook-caption">
                 <input type="radio" name="rse-view" value="facebook_caption" id="rse-view-facebook-caption" />
-                Facebook - Captions
+                Facebook - Focus on text
               </label>
               <label for="rse-view-linkedin">
                 <input type="radio" name="rse-view" value="linkedin" id="rse-view-linkedin" />
@@ -96,7 +96,7 @@ class Resoc_Social_Editor_Facebook_Editor {
               </label>
               <label for="rse-view-linkedin-caption">
                 <input type="radio" name="rse-view" value="linkedin_caption" id="rse-view-linkedin-caption" />
-                LinkedIn - Captions
+                LinkedIn - Focus on text
               </label>
             </td>
 					</tr>
