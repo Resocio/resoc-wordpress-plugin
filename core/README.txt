@@ -30,13 +30,10 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 
 == Screenshots ==
 
-1. The Facebook metadata editor appears right below the classic post editor.
-2. Once you select the image, you can rescale it and crop it.
-3. Review the outcome as you type, on desktop, iPhone and Android smartphone.
-4. Facebook supports three formats. The most common is the wide format, but you can also get a square image.
-5. Or why not the tall format? You choose.
-6. When your visitors share your article, it appears just as planned in the Facebook news feed!
-6. Yoast user? We replace its editor.
+1. You edit the appearance of your post on Facebook and LinkedIn right below the classic editor.
+2. In seconds, craft an overlay that will be added to your posts images.
+3. Select a default overlay: from now on, all your posts are branded when they are shared on Faceook and LinkedIn.
+4. Yoast user? We replace its editor.
 
 == Changelog ==
 
