@@ -21,6 +21,8 @@ Will the title fit the space allocated by Facebook in its news feed? Will the de
 
 Using Yoast SEO? Perfect. We replace its classic Facebook OpenGraph editor with our.
 
+In the background, the plugin is using the [Resoc API](https://resoc.io/) to generate images that perfectly match Facebook recommandations.
+
 === Key features ===
 
 * **WYSIWYG editor for Facebook and LinkedIn** No more guess work, you know exactly what to expect when your content is shared.
