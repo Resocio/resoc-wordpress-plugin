@@ -24,7 +24,7 @@ class Resoc_Social_Editor_Facebook_Editor {
 
     $overlay_id = NULL;
     $overlay_url = NULL;
-    $overlay_choice = get_post_meta( $post->ID, Resoc_Social_Editor::OG_OVERLAY_IMAGE_SET );
+    $overlay_choice = get_post_meta( $post->ID, Resoc_Social_Editor::OG_OVERLAY_IMAGE_SET, true );
     if ( $overlay_choice ) {
       $overlay_id = get_post_meta( $post->ID,
         Resoc_Social_Editor::OG_OVERLAY_IMAGE_ID, true );

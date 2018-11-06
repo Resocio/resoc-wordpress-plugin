@@ -109,10 +109,16 @@ class Resoc_Social_Editor_Admin_API {
       Resoc_Social_Editor::OG_DESCRIPTION, $description );
 
     // Image
+    $imageId = $_POST['rse-og-image-id'];
+    if (! $imageId) {
+      // Not set? Maybe this is a new post, or user didn't assign it.
+      // In any case, there is nothing to do
+      return;
+    }
+
 		$imageSettings = $_POST['rse-og-image-settings'];
 		// See http://stackoverflow.com/questions/2496455/why-are-post-variables-getting-escaped-in-php
     $imageSettings = stripslashes( $imageSettings );
-    $imageId = $_POST['rse-og-image-id'];
     $overlay_id = $_POST['rse-og-overlay-image-id'];
 
 		// Check if the data have changed
