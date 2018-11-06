@@ -6,10 +6,7 @@ var uglify = require('gulp-uglify');
 
 const jsSrc = [
   'assets/js/admin.js',
-  'assets/js/overlay-editor.js',
-  'assets/js/settings.js',
-  'assets/js/vendor.js',
-  'assets/js/bundle.js',
+  'assets/js/overlay-editor.js'
 ];
 
 gulp.task('css', function () {
