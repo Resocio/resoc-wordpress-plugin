@@ -85,7 +85,7 @@ class Resoc_Social_Editor_Facebook_Editor {
                   href="<?php echo admin_url( 'options-general.php?page=' . Resoc_Social_Editor::MENU_SETTINGS ) ?>"
                   target="_blank"
                 >
-                  make it your default overlay.
+                  make it the default overlay.
                 </a>
               </p>
             </td>
