@@ -1,9 +1,11 @@
 === Resoc Social Editor ===
 Contributors:  resoc
+Donate link: https://resoc.io/donate
 Tags: social, facebook, linkedin, opengraph, metadata, editor, wordpress, plugin
 Requires at least: 4.0
 Tested up to: 4.9.8
 Stable tag: 0.0.1
+Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
