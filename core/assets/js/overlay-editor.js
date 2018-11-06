@@ -15,7 +15,7 @@ var rseInitOverlayEditor = function(
   const e = React.createElement;
   const domContainer = editorContainer.find('.rse-overlay-editor')[0];
   ReactDOM.render(e(
-    RFGSocialEditor.StandaloneOverlayEditor, {onCreated: function(obj) {
+    ResocSocialEditor.StandaloneOverlayEditor, {onCreated: function(obj) {
       overlayEditor = obj;
     }}
   ), domContainer);

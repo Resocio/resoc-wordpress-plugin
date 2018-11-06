@@ -15,10 +15,10 @@ var rseInitOpenGraphEditor = function(
   var imageEdited = (imageId !== undefined);
 
   const e = React.createElement;
-  console.log(RFGSocialEditor);
+  console.log(ResocSocialEditor);
   const domContainer = editorContainer.find('.open-graph-editor-container')[0];
   ReactDOM.render(e(
-    RFGSocialEditor.StandaloneOpenGraphEditor, {onCreated: function(obj) {
+    ResocSocialEditor.StandaloneOpenGraphEditor, {onCreated: function(obj) {
       openGraphEditor = obj;
 
       if (imageId) {
