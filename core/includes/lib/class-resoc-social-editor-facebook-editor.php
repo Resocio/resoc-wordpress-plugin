@@ -11,15 +11,15 @@ class Resoc_Social_Editor_Facebook_Editor {
       get_post_meta( $post->ID,
         Resoc_Social_Editor::OG_DESCRIPTION, true );
 
-		$imageSettings =
+		$image_settings =
 			get_post_meta( $post->ID,
         Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, true );
 
-		$imageId =
+		$image_d =
 			get_post_meta( $post->ID,
 				Resoc_Social_Editor::OG_MASTER_IMAGE_ID, true );
-		if ($imageId) {
-			$imageUrl = wp_get_attachment_url( $imageId );
+		if ($image_d) {
+			$image_url = wp_get_attachment_url( $image_d );
     }
 
     $overlay_id = NULL;
@@ -111,7 +111,7 @@ class Resoc_Social_Editor_Facebook_Editor {
       <input
         type="hidden"
         name="rse-og-image-id"
-        value="<?php echo $imageId ?>"
+        value="<?php echo $image_d ?>"
       >
       <input
         type="hidden"
@@ -130,8 +130,8 @@ class Resoc_Social_Editor_Facebook_Editor {
 	<script>
   /*
 		jQuery(document).ready(function(e) {
-			var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
-			var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
+			var imageId = <?php echo $image_d ? $image_d : 'undefined' ?>;
+			var imageUrl = <?php echo $image_url ? '"' . $image_url . '"' : 'undefined' ?>;
 			rseInitSocialEditor(
 				jQuery('#rse-editor'),
 				imageId, imageUrl,
@@ -146,9 +146,9 @@ class Resoc_Social_Editor_Facebook_Editor {
       var title = <?php echo $title ? json_encode( $title ) : 'undefined' ?>;
       var description = <?php echo $description ? json_encode( $description ) : 'undefined' ?>;
 
-      var imageId = <?php echo $imageId ? $imageId : 'undefined' ?>;
-      var imageSettings = <?php echo $imageSettings ? $imageSettings : 'undefined' ?>;
-      var imageUrl = <?php echo $imageUrl ? '"' . $imageUrl . '"' : 'undefined' ?>;
+      var imageId = <?php echo $image_d ? $image_d : 'undefined' ?>;
+      var imageSettings = <?php echo $image_settings ? $image_settings : 'undefined' ?>;
+      var imageUrl = <?php echo $image_url ? '"' . $image_url . '"' : 'undefined' ?>;
       var overlayUrl = <?php echo $overlay_url ? '"' . $overlay_url . '"' : 'undefined' ?>;
       var overlayId = <?php echo $overlay_id ? '"' . $overlay_id . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);

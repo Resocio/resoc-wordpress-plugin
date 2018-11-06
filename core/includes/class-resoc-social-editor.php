@@ -290,14 +290,14 @@ class Resoc_Social_Editor {
 	 */
 	public static function get_files_url( $post_id ) {
 		$up_dir = wp_upload_dir();
-		$baseUrl = $up_dir['baseurl'];
+		$base_url = $up_dir['baseurl'];
 		// Make sure to no duplicate the '/'
 		// This is especially important when the base URL is the root directory:
 		// When this happens, the generated URL would be
 		// "http//somesite.com//fbrfg/" and then "//fbrfg/" when the host name is
 		// stripped. But this path is wrong, as it looks like a "same protocol" URL.
-		$separator = (substr($baseUrl, -1) == '/') ? '' : '/';
-		return $baseUrl . $separator .
+		$separator = (substr($base_url, -1) == '/') ? '' : '/';
+		return $base_url . $separator .
 			Resoc_Social_Editor::PLUGIN_PREFIX . '/' . $post_id . '/';
 	}
 

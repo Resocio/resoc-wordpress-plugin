@@ -109,29 +109,29 @@ class Resoc_Social_Editor_Admin_API {
       Resoc_Social_Editor::OG_DESCRIPTION, $description );
 
     // Image
-    $imageId = $_POST['rse-og-image-id'];
-    if (! $imageId) {
+    $image_id = $_POST['rse-og-image-id'];
+    if (! $image_id) {
       // Not set? Maybe this is a new post, or user didn't assign it.
       // In any case, there is nothing to do
       return;
     }
 
-		$imageSettings = $_POST['rse-og-image-settings'];
+		$image_settings = $_POST['rse-og-image-settings'];
 		// See http://stackoverflow.com/questions/2496455/why-are-post-variables-getting-escaped-in-php
-    $imageSettings = stripslashes( $imageSettings );
+    $image_settings = stripslashes( $image_settings );
     $overlay_id = $_POST['rse-og-overlay-image-id'];
 
 		// Check if the data have changed
-		$existingImageSettings = get_post_meta( $post_id,
+		$existing_image_settings = get_post_meta( $post_id,
 			Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, true );
-		$existingImageId = get_post_meta( $post_id,
+		$existing_image_id = get_post_meta( $post_id,
 			Resoc_Social_Editor::OG_MASTER_IMAGE_ID, true );
     $existing_overlay_id = get_post_meta( $post_id,
 			Resoc_Social_Editor::OG_OVERLAY_IMAGE_ID, true );
 		if (
-      $existingImageSettings &&
-      $existingImageSettings == $imageSettings &&
-      $existingImageId == $imageId &&
+      $existing_image_settings &&
+      $existing_image_settings == $image_settings &&
+      $existing_image_id == $image_id &&
       $existing_overlay_id == $overlay_id
     ) {
       // No change in the data: nothing to do
@@ -140,28 +140,28 @@ class Resoc_Social_Editor_Admin_API {
 		}
 
 		update_post_meta( $post_id,
-			Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, $imageSettings );
+			Resoc_Social_Editor::OG_MASTER_IMAGE_SETTINGS, $image_settings );
 		update_post_meta( $post_id,
-			Resoc_Social_Editor::OG_MASTER_IMAGE_ID, $imageId );
+			Resoc_Social_Editor::OG_MASTER_IMAGE_ID, $image_id );
     update_post_meta( $post_id,
       Resoc_Social_Editor::OG_OVERLAY_IMAGE_ID, $overlay_id );
     // Save the fact that the user made a choice regarding the overlay
     update_post_meta( $post_id,
       Resoc_Social_Editor::OG_OVERLAY_IMAGE_SET, true );
 
-    $imageSettings = json_decode( $imageSettings, true );
-		$faviconDesign = $imageSettings;
+    $image_settings = json_decode( $image_settings, true );
+		$favicon_design = $image_settings;
 
 		$pic_path = $this->get_picture_url( $post_id );
 
-		$masterImageUrl = wp_get_attachment_url( $imageId );
-		$masterImageResult = wp_remote_get( $masterImageUrl );
-		if (is_wp_error( $masterImageResult )) {
+		$master_image_url = wp_get_attachment_url( $image_id );
+		$master_image_result = wp_remote_get( $master_image_url );
+		if (is_wp_error( $master_image_result )) {
 			// BEST: is there a best way to handle the error?
-			error_log( "Cannot download master image: " . $masterImageResult->get_error_message() );
+			error_log( "Cannot download master image: " . $master_image_result->get_error_message() );
 			return;
 		}
-		$masterImage = wp_remote_retrieve_body( $masterImageResult );
+		$master_image = wp_remote_retrieve_body( $master_image_result );
 
     $overlay_image = NULL;
     if ( $overlay_id ) {
@@ -176,11 +176,11 @@ class Resoc_Social_Editor_Admin_API {
     }
 
 		$request = array(
-      'master_image_base64' => base64_encode( $masterImage ),
+      'master_image_base64' => base64_encode( $master_image ),
       'image_settings' => array(
-        'center_x' => $faviconDesign['imageCenterX'],
-        'center_y' => $faviconDesign['imageCenterY'],
-        'scale' => $faviconDesign['imageContainerWidthRatio']
+        'center_x' => $favicon_design['imageCenterX'],
+        'center_y' => $favicon_design['imageCenterY'],
+        'scale' => $favicon_design['imageContainerWidthRatio']
       )
     );
     if ( $overlay_image ) {
