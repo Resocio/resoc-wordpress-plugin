@@ -22,6 +22,8 @@ class Resoc_Social_Editor_Facebook_Editor {
 			$image_url = wp_get_attachment_url( $image_d );
     }
 
+    $default_overlay_id = get_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID );
+
     $overlay_id = NULL;
     $overlay_url = NULL;
     $overlay_choice = get_post_meta( $post->ID, Resoc_Social_Editor::OG_OVERLAY_IMAGE_SET, true );
@@ -30,7 +32,7 @@ class Resoc_Social_Editor_Facebook_Editor {
         Resoc_Social_Editor::OG_OVERLAY_IMAGE_ID, true );
     }
     else {
-      $overlay_id = get_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID );
+      $overlay_id = $default_overlay_id;
     }
     if ( $overlay_id ) {
       $overlay_url = wp_get_attachment_url( $overlay_id );
@@ -76,6 +78,15 @@ class Resoc_Social_Editor_Facebook_Editor {
               <button class="rse-overlay-image-reset-button button-secondary">No overlay</button>
               <p class="description">
                 Use an overlay to show something on top of your image. For example, your logo.
+              </p>
+              <p class="rse-make-it-default-overlay description" style="display:none">
+                To have the current overlay applied to new posts,
+                <a
+                  href="<?php echo admin_url( 'options-general.php?page=' . Resoc_Social_Editor::MENU_SETTINGS ) ?>"
+                  target="_blank"
+                >
+                  make it your default overlay.
+                </a>
               </p>
             </td>
           </tr>
@@ -151,6 +162,7 @@ class Resoc_Social_Editor_Facebook_Editor {
       var imageUrl = <?php echo $image_url ? '"' . $image_url . '"' : 'undefined' ?>;
       var overlayUrl = <?php echo $overlay_url ? '"' . $overlay_url . '"' : 'undefined' ?>;
       var overlayId = <?php echo $overlay_id ? '"' . $overlay_id . '"' : 'undefined' ?>;
+      var defaultOverlayId = <?php echo $default_overlay_id ? '"' . $default_overlay_id . '"' : 'undefined' ?>;
       console.log("IMAGE URL=" + imageUrl);
 
       <?php if ( has_post_thumbnail( $post->ID ) ) { ?>
@@ -168,7 +180,7 @@ class Resoc_Social_Editor_Facebook_Editor {
         title,
         description,
         imageId, imageSettings, imageUrl,
-        overlayUrl, overlayId,
+        overlayUrl, overlayId, defaultOverlayId,
         '<?php echo get_site_url() ?>',
         featuredImageId, featuredImageUrl
       );

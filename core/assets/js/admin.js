@@ -3,7 +3,7 @@ var rseInitOpenGraphEditor = function(
   editorContainer,
   title, description,
   imageId, imageSettings, imageUrl,
-  overlayImageSrc, overlayImageId,
+  overlayImageSrc, overlayImageId, defaultOverlayId,
   siteUrl,
   featuredImageId, featuredImageUrl
 ) {
@@ -199,6 +199,10 @@ var rseInitOpenGraphEditor = function(
         .removeClass('button-primary')
         .addClass('button-secondary');
       editorContainer.find('.rse-overlay-image-reset-button').removeAttr('disabled');
+
+      if (!defaultOverlayId || (overlayId !== defaultOverlayId)) {
+        editorContainer.find('.rse-make-it-default-overlay').show();
+      }
     }
     else {
       editorContainer.find('.rse-overlay-image-selection-button')

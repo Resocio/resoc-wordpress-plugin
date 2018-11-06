@@ -280,7 +280,7 @@ class Resoc_Social_Editor_Admin_API {
       'Settings',
       'Resoc Social Editor',
       'manage_options',
-      'resoc_social_editor_settings_menu',
+      Resoc_Social_Editor::MENU_SETTINGS,
       array( $this, 'create_social_editor_settings_page' )
     );
   }
@@ -290,7 +290,7 @@ class Resoc_Social_Editor_Admin_API {
 
     // Prepare variables
     $social_editor_admin_url = admin_url(
-      'options-general.php?page=resoc_social_editor_settings_menu'
+      'options-general.php?page=' . Resoc_Social_Editor::MENU_SETTINGS
     );
 
     $default_overlay_id = get_option( Resoc_Social_Editor::OPTION_DEFAULT_OVERLAY_ID );
