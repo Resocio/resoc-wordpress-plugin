@@ -179,10 +179,10 @@ class Resoc_Social_Editor {
 			'https://unpkg.com/react-dom@16/umd/react-dom.development.js',
       array( $this->_token . '-react' ), $this->_version );
     wp_enqueue_script( $this->_token . '-rse-vendor',
-      esc_url( $this->assets_url ) . 'js/vendor' . $this->script_suffix . '.js',
+      'https://resoc.io/components/resoc-social-editor-components/0.0.1/vendor.js',
       array( $this->_token . '-react-dom' ), $this->_version);
     wp_enqueue_script( $this->_token . '-bundle',
-      esc_url( $this->assets_url ) . 'js/bundle' . $this->script_suffix . '.js',
+      'https://resoc.io/components/resoc-social-editor-components/0.0.1/bundle.js',
       array( $this->_token . '-rse-vendor' ), $this->_version . '-C' );
     wp_enqueue_script( $this->_token . '-admin',
       esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js',
