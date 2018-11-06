@@ -9,7 +9,7 @@ Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Craft the appearance of your posts and show your brand when your visitors share them on Facebook and LinkedIn
+Craft the appearance of your content and show your brand when your visitors share your posts on Facebook and LinkedIn.
 
 == Description ==
 

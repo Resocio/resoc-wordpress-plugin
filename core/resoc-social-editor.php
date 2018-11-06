@@ -3,7 +3,7 @@
  * Plugin Name: Resoc Social Editor
  * Version: 0.0.1
  * Plugin URI: https://resoc.io/
- * Description: Craft the appearance of your site when your visitors share it on Facebook
+ * Description: Craft the appearance of your content and show your brand when your visitors share your posts on Facebook and LinkedIn.
  * Author: Philippe Bernard
  * Author URI: https://resoc.io/
  * Requires at least: 4.0
