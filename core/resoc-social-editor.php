@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Resoc Social Editor
  * Version: 0.0.1
- * Plugin URI: https://resoc.io/
+ * Plugin URI: https://resoc.io/wordpress
  * Description: Craft the appearance of your content and show your brand when your visitors share your posts on Facebook and LinkedIn.
  * Author: Philippe Bernard
  * Author URI: https://resoc.io/
