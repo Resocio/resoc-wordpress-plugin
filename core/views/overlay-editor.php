@@ -21,8 +21,8 @@
 
       <div class="form-table">
         <p>
-          <button class="rse-image-selection-button button-primary">
-            Select overlay image
+          <button class="rse-image-for-overlay-selection-button button-primary">
+            Select image for overlay
           </button>
           <span class="description">
             You probably want to select your logo and/or company name.
@@ -38,9 +38,16 @@
             Zoom in/out with your mouse wheel.
           </p>
 
-          <button class="rse-overlay-creation-button button-primary">
-            Create new overlay
-          </button>
+          <div class="rse-overlay-creation-button-container">
+            <button class="rse-overlay-creation-button button-primary">
+              Create new overlay
+            </button>
+          </div>
+
+          <p>
+            <strong>Rather design an overlay your own way?</strong>
+            Create a 1200x630 PNG image. Use transparency to let the underlying image appear.
+          </p>
         </div>
       </div>
     </div>

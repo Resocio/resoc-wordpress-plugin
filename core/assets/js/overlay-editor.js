@@ -8,7 +8,7 @@ var rseInitOverlayEditor = function(
   var imageSelectionFrame;
   var imageId;
 
-  var selectImageButton = editorContainer.find('.rse-image-selection-button');
+  var selectImageButton = editorContainer.find('.rse-image-for-overlay-selection-button');
   var createOverlayButton = editorContainer.find('.rse-overlay-creation-button');
   var creationPanel = editorContainer.find('.rse-image-selected-panel');
 
