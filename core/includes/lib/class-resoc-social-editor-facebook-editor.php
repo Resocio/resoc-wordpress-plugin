@@ -58,7 +58,7 @@ class Resoc_Social_Editor_Facebook_Editor {
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label for="rse-description">Description</label></th>
-						<td><textarea rows="3" name="rse-description" placeholder="A description you should change, too"></textarea></td>
+						<td><textarea rows="3" name="rse-description" placeholder="A description you can edit"></textarea></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label for="rse-image">Image</label></th>
