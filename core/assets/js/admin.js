@@ -95,11 +95,11 @@ var rseInitOpenGraphEditor = function(
   
       // Create the media frame.
       imageSelectionFrame = wp.media.frames.file_frame = wp.media({
-        title: jQuery(this).data('uploader_title'),
-        button: {
-          text: jQuery(this).data('uploader_button_text'),
-        },
-        multiple: false
+        title: "Image for Facebook and LinkedIn",
+        multiple: false,
+        library: {
+          type: 'image'
+        }
       });
   
       imageSelectionFrame.on('select', function() {
@@ -156,11 +156,14 @@ var rseInitOpenGraphEditor = function(
 
       // Create the media frame.
       overlaySelectionFrame = wp.media.frames.file_frame = wp.media({
-        title: jQuery(this).data('uploader_title'),
+        title: "Overlay",
         button: {
-          text: jQuery(this).data('uploader_button_text'),
+          text: "Select as overlay",
         },
-        multiple: false
+        multiple: false,
+        library: {
+          type: 'image'
+        }
       });
 
       overlaySelectionFrame.on('select', function() {

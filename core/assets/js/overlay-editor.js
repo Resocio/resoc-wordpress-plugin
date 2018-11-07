@@ -30,11 +30,10 @@ var rseInitOverlayEditor = function(
 
     // Create the media frame.
     imageSelectionFrame = wp.media.frames.file_frame = wp.media({
-      title: jQuery(this).data('uploader_title'),
-      button: {
-        text: jQuery(this).data('uploader_button_text'),
-      },
-      multiple: false
+      multiple: false,
+      library: {
+        type: 'image'
+      }
     });
 
     imageSelectionFrame.on('select', function() {

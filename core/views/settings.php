@@ -122,11 +122,14 @@
     
         // Create the media frame.
         fileFrame = wp.media.frames.file_frame = wp.media({
-          title: jQuery(this).data('uploader_title'),
+          title: "Default overlay - 1200x630 image with transparent regions",
           button: {
-            text: jQuery(this).data('uploader_button_text'),
+            text: "Set as default overlay",
           },
-          multiple: false
+          multiple: false,
+          library: {
+            type: 'image'
+          }
         });
     
         fileFrame.on('select', function() {
