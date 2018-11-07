@@ -122,7 +122,7 @@
     
         // Create the media frame.
         fileFrame = wp.media.frames.file_frame = wp.media({
-          title: "Default overlay - 1200x630 image with transparent regions",
+          title: "Default overlay - 1200x630 PNG image with transparent regions",
           button: {
             text: "Set as default overlay",
           },

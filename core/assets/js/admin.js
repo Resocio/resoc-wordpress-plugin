@@ -156,7 +156,7 @@ var rseInitOpenGraphEditor = function(
 
       // Create the media frame.
       overlaySelectionFrame = wp.media.frames.file_frame = wp.media({
-        title: "Overlay",
+        title: "Overlay - 1200x630 PNG image with transparent regions",
         button: {
           text: "Select as overlay",
         },
