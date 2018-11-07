@@ -17,6 +17,11 @@
         by your visitors's friends and followers.
       </p>
 
+      <p>
+        <strong>Rather design an overlay your own way?</strong>
+        Create a 1200x630 PNG image. Use transparency to let the underlying image appear.
+      </p>
+
       <div id="rse-overlay-editor" class="rse-overlay-editor"></div>
 
       <div class="form-table">
@@ -43,11 +48,6 @@
               Create new overlay
             </button>
           </div>
-
-          <p>
-            <strong>Rather design an overlay your own way?</strong>
-            Create a 1200x630 PNG image. Use transparency to let the underlying image appear.
-          </p>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
 </div>
 
 <a
-  href="#TB_inline?width=600&height=550&inlineId=rse-overlay-editor-modal"
+  href="#TB_inline?width=600&height=650&inlineId=rse-overlay-editor-modal"
   class="<?php echo $highlight_creation_button ? 'button-primary' : 'button-secondary' ?> thickbox"
 >
   Create new overlay
