@@ -4,7 +4,7 @@ class Resoc_Social_Editor_Utils {
 		return is_plugin_active( 'wordpress-seo/wp-seo.php' );
   }
 
-  public static function add_image_to_media_library( $image_data, $post_id, $filename = 'og-image.jpg' ) {
+  public static function add_image_to_media_library( $image_data, $post_id, $filename = 'og-image.jpg', $attach_id = NULL ) {
     $upload_dir = wp_upload_dir();
 
     if (wp_mkdir_p($upload_dir['path'])) {
@@ -18,14 +18,19 @@ class Resoc_Social_Editor_Utils {
 
     $wp_filetype = wp_check_filetype($filename, null);
 
-    $attachment = array(
-      'post_mime_type' => $wp_filetype['type'],
-      'post_title' => sanitize_file_name($filename),
-      'post_content' => '',
-      'post_status' => 'inherit'
-    );
+    if (! $attach_id) {
+      // Create new attachement if there is none
+      // (else, the image is attached to the existing attachement)
+      $attachment = array(
+        'post_mime_type' => $wp_filetype['type'],
+        'post_title' => sanitize_file_name($filename),
+        'post_content' => '',
+        'post_status' => 'inherit'
+      );
 
-    $attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+      $attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+    }
+
     require_once(ABSPATH . 'wp-admin/includes/image.php');
     $attach_data = wp_generate_attachment_metadata($attach_id, $file);
     wp_update_attachment_metadata($attach_id, $attach_data);
@@ -33,7 +38,7 @@ class Resoc_Social_Editor_Utils {
     return $attach_id;
   }
 
-  public static function generate_resoc_image($api_entry_point_url, $request, $filename) {
+  public static function generate_resoc_image($api_entry_point_url, $request, $filename = NULL, $attach_id = NULL) {
 		$response = wp_remote_post($api_entry_point_url, array(
       'body' => json_encode( $request ),
       'timeout' => 10
@@ -44,7 +49,7 @@ class Resoc_Social_Editor_Utils {
 			throw new Exception( $response->get_error_message() );
     }
 
-    return Resoc_Social_Editor_Utils::add_image_to_media_library( $response['body'], $post_id, $filename );
+    return Resoc_Social_Editor_Utils::add_image_to_media_library( $response['body'], $post_id, $filename, $attach_id );
   }
 
   public static function get_image_content_by_id( $image_id ) {

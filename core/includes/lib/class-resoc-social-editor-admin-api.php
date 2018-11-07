@@ -198,11 +198,15 @@ class Resoc_Social_Editor_Admin_API {
     }
     $image_filename = $title . ".jpg";
 
+    // Get existing OpenGraph image to update it as an attachement
+    $existing_og_image_id = get_post_meta( $post_id, Resoc_Social_Editor::OG_IMAGE_ID, true );
+
     try {
       $og_image_id = Resoc_Social_Editor_Utils::generate_resoc_image(
         'https://resoc.io/api/og-image',
         $request,
-        $image_filename
+        $image_filename,
+        $existing_og_image_id
       );
 
       update_post_meta(
