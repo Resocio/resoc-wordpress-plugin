@@ -20,9 +20,9 @@ cd svn
 
 # 4. Create SVN tag
 svn cp \
+  trunk tags/$TRAVIS_TAG \
   --username $SVN_USERNAME \
-  --password $SVN_PASSWORD \
-  trunk tags/$TRAVIS_TAG
+  --password $SVN_PASSWORD
 
 # 5. Push SVN tag
 svn ci \
