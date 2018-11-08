@@ -3,7 +3,7 @@
 echo "Starting deploy to WordPress.org SVN"
 
 # 1. Clone complete SVN repository to separate directory
-svn co $SVN_REPOSITORY ../svn
+svn co $SVN_REPOSITORY ./svn
 
 # 2. Copy git repository contents to SNV trunk/ directory
 rsync \
@@ -12,11 +12,11 @@ rsync \
   --exclude deploy \
   --exclude .git \
   --exclude .travis.yml \
-  -vaz ../* ../svn/trunk/
+  -vaz ./* ../svn/trunk/
 rsync -vaz assets/ ../svn/
 
 # 3. Switch to SVN repository
-cd ../svn/
+cd svn
 
 # 4. Create SVN tag
 svn cp trunk tags/$TRAVIS_TAG
