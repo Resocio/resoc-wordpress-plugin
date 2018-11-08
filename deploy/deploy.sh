@@ -6,26 +6,22 @@ echo "Starting deploy to WordPress.org SVN"
 svn co $SVN_REPOSITORY ../svn
 
 # 2. Copy git repository contents to SNV trunk/ directory
-cp -R ../* ../svn/trunk/
+rsync \
+  --exclude svn \
+  --exclude assets \
+  --exclude deploy \
+  --exclude .git \
+  --exclude .travis.yml \
+  -vaz ../* ../svn/trunk/
+rsync -vaz ../assets ../svn/
 
 # 3. Switch to SVN repository
-cd ../svn/trunk/
+cd ../svn/
 
-# 4. Move assets/ to SVN /assets/
-mv ./assets/ ../assets/
-
-# 5. Clean up unnecessary files
-rm -rf .git/
-rm -rf deploy/
-rm .travis.yml
-
-# 6. Go to SVN repository root
-cd ../
-
-# 7. Create SVN tag
+# 4. Create SVN tag
 svn cp trunk tags/$TRAVIS_TAG
 
-# 8. Push SVN tag
+# 5. Push SVN tag
 svn ci \
   --message "Release $TRAVIS_TAG" \
   --username $SVN_USERNAME \
