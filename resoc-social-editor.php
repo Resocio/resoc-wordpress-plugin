@@ -33,7 +33,7 @@ require_once( 'includes/lib/class-resoc-social-editor-public.php' );
  * @return object Resoc_Social_Editor
  */
 function Resoc_Social_Editor () {
-	$instance = Resoc_Social_Editor::instance( __FILE__, '0.0.6' );
+	$instance = Resoc_Social_Editor::instance( __FILE__, '0.0.2' );
 
 	return $instance;
 }
