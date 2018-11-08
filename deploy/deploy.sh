@@ -13,7 +13,7 @@ rsync \
   --exclude .git \
   --exclude .travis.yml \
   -vaz ../* ../svn/trunk/
-rsync -vaz ../assets ../svn/
+rsync -vaz ../assets/ ../svn/
 
 # 3. Switch to SVN repository
 cd ../svn/
