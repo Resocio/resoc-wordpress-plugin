@@ -1,0 +1,20 @@
+branches:
+  only:
+  # Enable Travis hook on tags (there is regular expression for semver tag)*
+  - "/\\d\\.\\d\\.\\d/"
+
+# Enable Travis deployment
+deploy:
+  # Use script as a deployment tool
+  provider: script
+  script: deploy/deploy.sh
+  # Restrict deployment only for tags
+  on:
+    tags: true
+
+# Deployment script requires few enviromnet variables
+env:
+  global:
+  - SVN_REPOSITORY={http://plugins.svn.wordpress.org/resoc-social-editor/}
+  - secure: {RRNDYOetjT9mzUCiD9LmZAfbf1DiJNyDa/NdBxUiLpieL+x0Vl9qG3uKcDN1+Yh8ZU0SrEqdhYG1VYYc5Eh52euFmrr9ORrkOhRugIQKeXwzeosWmG8l/RA8dL+5XM8eJGjAS2p01ItdvM0mg/cSEOgougsTGcTnVe67yj9MVuRM0T38ZNDAgBmj8CRYg0Hz9QmD3l+i7btfEVbb5Yup6p2urmjtuuW9CAMGQ+WpdesB0skO4YQ8rHc09Njc29GcmchDbXvwOGlpQ7PcmzSXHGG9JGM1Ryl/71zGIjEWMphzTWzyVr9FDgKdBNzNOaDZG/iyNh2x8YB7IWIiFma6TTAklUdGg3OQ0gArljUARhoVkar2EPSX6QwEqwQVranZXDpM3wJ72m/uUGpjfNoziMc/MHEFCAQnQ2kPc9rXWBIJ5DsbJ3IGQRPE6/VpADqLYa0m0nI05cF0mUqhYsbHtmcYjfg7UuyK/35lGBxfVPGTJslLgw1+x83pfwyrpI17oBo9Wb8fewR0gI7jJMOYi/y4vofXZRFjK5XqMQLpEdBJgwsxx7xdnH5v/nUsXaFqHskLo1YU62eh+rspzUHv/Sd/hlvAgHotkte6JIcJXPMrc5xEewgt5IuE9gchR8s9QsDPjoX97MRaXIg6Do/Rfagy/fg2GWhnpg263XmOzQw=}
+  - secure: {qqpqeDcled5ASbRYCbfKH9NZL+CnZFpdKFHSNtYYUFVYGE6eUhbTiwGQd3a3BKx+VcWTHJjoKB7/2AHRX4zxqn9BL96cPlgJCk7e/D70UHFsJfF+bPTz2hqL3L+XNKhaVSF436S9CfhHntpPJCW05gojWkvwJ1+9FRiBwFaac4z72shYwOqPla9CNkjqWxj5dVu3wZjt16M+m/ww4dt0LomnuloHnlU7BkZAIcsMbH7iSneQyaWTL6xlVFmZ09Vsa7eu2LZXJ5jGlHLLMyl0YXzyZVXDEzDfdl1fsMQYgiVUj4WmDIuC6fjFc1lZdSOnFmqya5SI81Xkkx5DqzIUevzkVM6m9G99QOuVCe9FIlfPAWOV56TCuFnwdTRxDic3K57fj5kuTxnNrUU9qquOBjZ5aA4xf+vPA0JWAxoa9KKyLChU4fmiXkdpaxpeGN15sSc+bLeRbg5GS0Bx6YLHSa+SzyHZAIR+GrMGD5VYljJYM/dFdWl7KdJIRsJ+cLG6zo4ZdfKp0temWr5fZTIikNWAad9m1gqO4baP0/ReXkMo1ZCVYJVMNnfLoIOsWX57gKTEKuEDbxXxR5mOP041kXGHFsDIpE2nyxbyNvffCGPK1GGd0/bKQJU3PBA7uIdYcbcEzwLODv8WMs2E9GgUvrRIrvlEwlEZW3rllAl5PaE=}
