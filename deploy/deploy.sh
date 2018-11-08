@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Starting deploy to WordPress.org SVN"
+
 # 1. Clone complete SVN repository to separate directory
 svn co $SVN_REPOSITORY ../svn
 
