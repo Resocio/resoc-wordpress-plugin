@@ -11,7 +11,7 @@
             <div id="overlay-preview" style="display:none">
               <img
                 class="rse-overlay-preview-img"
-                style="background-image: url('<?php echo plugin_dir_url( __FILE__ ) . '../assets/images/overlay-background.png' ?>')"
+                style="background-image: url('<?php echo plugin_dir_url( __FILE__ ) . '../plugin-assets/images/overlay-background.png' ?>')"
               />
             </div>
             <div id="no-overlay" style="display:none">
