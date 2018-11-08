@@ -19,7 +19,10 @@ rsync -vaz assets/ ./svn/
 cd svn
 
 # 4. Create SVN tag
-svn cp trunk tags/$TRAVIS_TAG
+svn cp \
+  --username $SVN_USERNAME \
+  --password $SVN_PASSWORD \
+  trunk tags/$TRAVIS_TAG
 
 # 5. Push SVN tag
 svn ci \
