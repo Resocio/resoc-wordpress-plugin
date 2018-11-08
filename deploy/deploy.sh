@@ -18,8 +18,9 @@ rsync -vaz assets/ ./svn/
 # 3. Switch to SVN repository
 cd svn
 
-# 4. Make sure trunk is fully committed
+# 4. Make sure everything is fully committed
 svn add --force trunk
+svn add --force assets
 
 # 5. Create SVN tag
 svn cp \
