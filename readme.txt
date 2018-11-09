@@ -26,9 +26,9 @@ In the background, the plugin is using the [Resoc API](https://resoc.io/) to gen
 === Key features ===
 
 * **WYSIWYG editor for Facebook and LinkedIn** No more guess work, you know exactly what to expect when your content is shared.
-* **Brand awareness** Your logo was invisible all those years... Now your posts clearly sho where they are from.
+* **Brand awareness** Your logo was invisible all those years... Now your posts clearly show where they are from.
 * **Simple overlay editor** Should your logo sit on the bottom left corner? The top right corner? You decide and edit in seconds.
-* **Compatibility** We generate images that respect Facebook specifications. They work everywhere, including LinekdIn, Slack, etc.
+* **Compatibility** We generate images that respect Facebook specifications. They work everywhere, including LinkedIn, Slack, etc.
 
 == Installation ==
 
