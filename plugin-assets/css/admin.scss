@@ -1,5 +1,16 @@
 .rse-editor {
 
+  .rse-by-resoc-title {
+    h3 {
+      display: inline-block !important;
+    }
+
+    .rse-feeback-link a {
+      color: inherit;
+      font-style: italic;
+    }
+  }
+
   .rse-platform-switcher-container {
     button {
       margin-right: 1em;

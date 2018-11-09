@@ -41,8 +41,13 @@ class Resoc_Social_Editor_Facebook_Editor {
 		ob_start();
 ?>
 	<div class="custom-field-panel rse-editor" id="rse-editor">
-		<div>
-			<h3>By <a href="https://resoc.io" target="_blank">Resoc</a></h3>
+		<div class="rse-by-resoc-title">
+			<h3>
+        By <a href="https://resoc.io" target="_blank">Resoc</a>
+      </h3>
+      <span class="rse-feeback-link">
+        - <a href="mailto:contact@resoc.io">Send feedback</a>
+      </span>
 		</div>
 
 		<div class="rse-editor-overall-container">
