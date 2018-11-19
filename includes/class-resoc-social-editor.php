@@ -174,6 +174,8 @@ class Resoc_Social_Editor {
 	 * @return  void
 	 */
 	public function admin_enqueue_scripts ( $hook = '' ) {
+    $resoc_components_version = '0.0.3';
+
 		wp_enqueue_script( $this->_token . '-react',
 			'https://unpkg.com/react@16/umd/react.development.js',
       array( ), $this->_version );
@@ -181,10 +183,12 @@ class Resoc_Social_Editor {
 			'https://unpkg.com/react-dom@16/umd/react-dom.development.js',
       array( $this->_token . '-react' ), $this->_version );
     wp_enqueue_script( $this->_token . '-rse-vendor',
-      'https://resoc.io/components/resoc-social-editor-components/0.0.2/vendor.js',
+      'https://resoc.io/components/resoc-social-editor-components/' .
+        $resoc_components_version . '/vendor.js',
       array( $this->_token . '-react-dom' ), $this->_version);
     wp_enqueue_script( $this->_token . '-rse-bundle',
-      'https://resoc.io/components/resoc-social-editor-components/0.0.2/bundle.js',
+      'https://resoc.io/components/resoc-social-editor-components/' .
+        $resoc_components_version . '/bundle.js',
       array( $this->_token . '-rse-vendor' ), $this->_version . '-C' );
     wp_enqueue_script( $this->_token . '-admin',
       esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js',

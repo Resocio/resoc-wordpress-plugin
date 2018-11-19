@@ -46,6 +46,12 @@ var rseInitOpenGraphEditor = function(
     );
   });
 
+  openGraphEditor.onImageEditionChange(function(state) {
+    editorContainer.find('input[name="rse-og-image-settings"]').val(
+      JSON.stringify(state)
+    );
+  });
+
   function initMainFieldsListeners(editorContainer) {
     var rseTitleField = editorContainer.find('input[name=rse-title]');
     var titleField = jQuery(document).find('input[name="post_title"]');
