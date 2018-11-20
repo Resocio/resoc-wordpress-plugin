@@ -25,7 +25,7 @@ var rseInitOpenGraphEditor = function(
         setImage(imageId, imageUrl, imageSettings);
       }
       else {
-        setImage(featuredImageId, featuredImageUrl, undefined);
+        setDefaultImage(featuredImageId, featuredImageUrl, undefined);
       }
       openGraphEditor.setView('facebook');
       openGraphEditor.setUrl(siteUrl);
@@ -56,19 +56,39 @@ var rseInitOpenGraphEditor = function(
     var rseTitleField = editorContainer.find('input[name=rse-title]');
     var titleField = jQuery(document).find('input[name="post_title"]');
 
+    // For WordPress 5 / Gutenberg
+    var dataSubscriber = wp.data.subscribe( function() {
+      var newTitle = wp.data.select("core/editor").getEditedPostAttribute('title');
+      if (newTitle) {
+        setDefaultTitle(newTitle);
+        console.log("Set default title to " + newTitle);
+      }
+
+      var featuredImageId = wp.data.select("core/editor").getEditedPostAttribute('featured_media');
+      if (featuredImageId) {
+        wp.media.attachment(featuredImageId).fetch().then(function (data) {
+          setDefaultImage(featuredImageId, data.url);
+          console.log("Set default image to " + featuredImageId + " / " + data.url);
+        });
+      }
+    });
+
     if (rseTitleField.val() === '') {
       var newTitle = titleField.val();
-      rseTitleField.val(newTitle);
-      openGraphEditor.setTitle(newTitle);
+      setDefaultTitle(newTitle);
     }
 
     titleField.on('change paste keyup', function() {
-      if (! titleEdited) {
-        var newTitle = titleField.val();
-        rseTitleField.val(newTitle);
-        openGraphEditor.setTitle(newTitle);
-      }
+      var newTitle = titleField.val();
+      setDefaultTitle(newTitle);
     });
+
+    function setDefaultTitle(title) {
+      if (! titleEdited) {
+        rseTitleField.val(title);
+        openGraphEditor.setTitle(title);
+      }
+    }
   }
 
   function initForm(editorContainer, title, description) {
@@ -122,12 +142,6 @@ var rseInitOpenGraphEditor = function(
     // When the featured image is set,
     // auto-populate the OpenGraph editor
     $(document).ajaxComplete(function (event, xhr, settings) {
-      // We assign the featured image to the OpenGraph editor only
-      // if the user made no choice yet.
-      if (imageEdited) {
-        return;
-      }
-
       if (typeof settings.data === 'string'
       && /action=get-post-thumbnail-html/.test(settings.data)
       && xhr.responseJSON && typeof xhr.responseJSON.data === 'string') {
@@ -137,7 +151,7 @@ var rseInitOpenGraphEditor = function(
           var imageSrc = srcMatch[1];
           var imageId = idMatch[1];
 
-          setImage(imageId, imageSrc, undefined);
+          setDefaultImage(imageId, imageSrc, undefined);
         }
         // No match? Maybe there is no feature image
         // (eg. it was just unset)
@@ -180,6 +194,15 @@ var rseInitOpenGraphEditor = function(
 
       overlaySelectionFrame.open();
     });
+  }
+
+  // Set what could be a good default (eg. the featured image)
+  function setDefaultImage(imageId, imageUrl, imageSettings) {
+    // We assign the featured image to the OpenGraph editor only
+    // if the user made no choice yet.
+    if (! imageEdited) {
+      setImage(imageId, imageUrl, imageSettings);
+    }
   }
 
   function setImage(imageId, imageUrl, imageSettings) {
