@@ -196,11 +196,15 @@ var rseInitOpenGraphEditor = function(
     });
   }
 
+  var currentDefaultImageId;
+
   // Set what could be a good default (eg. the featured image)
   function setDefaultImage(imageId, imageUrl, imageSettings) {
     // We assign the featured image to the OpenGraph editor only
     // if the user made no choice yet.
-    if (! imageEdited) {
+    // Also, prevent multiple, unecessary calls to setImage.
+    if (! imageEdited && (imageId !== currentDefaultImageId)) {
+      currentDefaultImageId = imageId;
       setImage(imageId, imageUrl, imageSettings);
     }
   }
