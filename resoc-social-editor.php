@@ -1,13 +1,13 @@
 <?php
 /*
  * Plugin Name: Resoc Social Editor
- * Version: 0.0.3
+ * Version: 0.0.4
  * Plugin URI: https://resoc.io/wordpress
  * Description: Craft the appearance of your content and show your brand when your visitors share your posts on Facebook and LinkedIn.
  * Author: Philippe Bernard
  * Author URI: https://resoc.io/
  * Requires at least: 4.0
- * Tested up to: 4.9.8
+ * Tested up to: 5.0-beta5
  *
  * Text Domain: resoc-social-editor
  * Domain Path: /lang/
@@ -33,7 +33,7 @@ require_once( 'includes/lib/class-resoc-social-editor-public.php' );
  * @return object Resoc_Social_Editor
  */
 function Resoc_Social_Editor () {
-	$instance = Resoc_Social_Editor::instance( __FILE__, '0.0.3' );
+	$instance = Resoc_Social_Editor::instance( __FILE__, '0.0.4' );
 
 	return $instance;
 }
