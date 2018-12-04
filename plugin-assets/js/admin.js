@@ -57,21 +57,23 @@ var rseInitOpenGraphEditor = function(
     var titleField = jQuery(document).find('input[name="post_title"]');
 
     // For WordPress 5 / Gutenberg
-    var dataSubscriber = wp.data.subscribe( function() {
-      var newTitle = wp.data.select("core/editor").getEditedPostAttribute('title');
-      if (newTitle) {
-        setDefaultTitle(newTitle);
-        console.log("Set default title to " + newTitle);
-      }
+    if (wp && wp.data && wp.data.subscribe) {
+      var dataSubscriber = wp.data.subscribe( function() {
+        var newTitle = wp.data.select("core/editor").getEditedPostAttribute('title');
+        if (newTitle) {
+          setDefaultTitle(newTitle);
+          console.log("Set default title to " + newTitle);
+        }
 
-      var featuredImageId = wp.data.select("core/editor").getEditedPostAttribute('featured_media');
-      if (featuredImageId) {
-        wp.media.attachment(featuredImageId).fetch().then(function (data) {
-          setDefaultImage(featuredImageId, data.url);
-          console.log("Set default image to " + featuredImageId + " / " + data.url);
-        });
-      }
-    });
+        var featuredImageId = wp.data.select("core/editor").getEditedPostAttribute('featured_media');
+        if (featuredImageId) {
+          wp.media.attachment(featuredImageId).fetch().then(function (data) {
+            setDefaultImage(featuredImageId, data.url);
+            console.log("Set default image to " + featuredImageId + " / " + data.url);
+          });
+        }
+      });
+    }
 
     if (rseTitleField.val() === '') {
       var newTitle = titleField.val();
