@@ -174,7 +174,7 @@ class Resoc_Social_Editor {
 	 * @return  void
 	 */
 	public function admin_enqueue_scripts ( $hook = '' ) {
-    $resoc_components_version = '0.0.3';
+    $resoc_components_version = '0.0.4';
 
 		wp_enqueue_script( $this->_token . '-react',
 			'https://unpkg.com/react@16/umd/react.development.js',

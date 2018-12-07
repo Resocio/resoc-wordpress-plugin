@@ -47,6 +47,10 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 
 == Changelog ==
 
+= 0.0.7 =
+
+* Change in JS dependencies management for better compatibility
+
 = 0.0.6 =
 
 * Additional change for pre-Gutenberg setups
