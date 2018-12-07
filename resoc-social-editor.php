@@ -7,7 +7,7 @@
  * Author: Philippe Bernard
  * Author URI: https://resoc.io/
  * Requires at least: 4.0
- * Tested up to: 5.0-beta5
+ * Tested up to: 5.0
  *
  * Text Domain: resoc-social-editor
  * Domain Path: /lang/
