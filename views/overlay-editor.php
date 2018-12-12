@@ -62,7 +62,8 @@
 </a>
 
 <?php
-function init_rse_overlay_editor( $overlay_created_callback ) {
+if ( ! function_exists( 'init_rse_overlay_editor' ) ) {
+  function init_rse_overlay_editor( $overlay_created_callback ) {
 ?>
   var editorContainer = jQuery('#rse-overlay-editor-modal');
 
@@ -73,4 +74,5 @@ function init_rse_overlay_editor( $overlay_created_callback ) {
     <?php echo $overlay_created_callback ? $overlay_created_callback : undefined ?>
   );
 <?php
+  }
 }
