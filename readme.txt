@@ -4,7 +4,7 @@ Donate link: https://resoc.io/donate
 Tags: social, facebook, linkedin, opengraph, metadata, editor, wordpress, plugin
 Requires at least: 4.0
 Tested up to: 5.0
-Stable tag: 0.0.7
+Stable tag: 0.0.8
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,6 +46,10 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 4. Yoast user? We replace its editor.
 
 == Changelog ==
+
+= 0.0.8 =
+
+* Additional changes in JS dependencies for better compatibility
 
 = 0.0.7 =
 
