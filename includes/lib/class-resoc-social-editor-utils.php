@@ -5,7 +5,14 @@ class Resoc_Social_Editor_Utils {
    * Returns NULL if there is no such conflicting plugin.
    */
   public static function conflicting_plugin() {
-    // TODO
+    if ( is_plugin_active( 'business-directory-plugin/business-directory-plugin.php' ) ) {
+      return "Business Directory Plugin";
+    }
+    if ( defined( 'AIOSEOP_VERSION' ) ) {
+      return "All in One SEO Pack";
+    }
+    // TODO: Add additional conflicting plugins
+
     return NULL;
   }
 
