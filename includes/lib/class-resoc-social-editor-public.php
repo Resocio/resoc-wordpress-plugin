@@ -26,10 +26,47 @@ class Resoc_Social_Editor_Public {
         array( $this, 'get_og_image' )
       );
     }
+    else if ( Resoc_Social_Editor_Utils::is_aiosp_active() ) {
+      add_filter(
+        'aiosp_opengraph_meta',
+        array( $this, 'aiosp_override_image_meta' ),
+        10, 3
+      );
+    }
     else {
       // No Yoast, add markups manually
       add_action( 'wp_head', array( $this, 'add_opengraph_markups' ) );
     }
+  }
+
+  public function aiosp_override_image_meta( $value, $network, $meta ) {
+    if ( ( $network === 'facebook') && (
+      ( $meta === 'thumbnail' ) || ( $meta === 'width' ) || ( $meta === 'height' )
+    ) ) {
+      $specific_image_id = get_post_meta(
+        get_the_ID(),
+        Resoc_Social_Editor::OG_IMAGE_ID,
+        true
+      );
+      if ( $specific_image_id ) {
+        if ( $meta === 'thumbnail' ) {
+          return wp_get_attachment_image_url( $specific_image_id, 'full' );
+        }
+        else {
+          $image_data = wp_get_attachment_metadata( $specific_image_id );
+          if ( is_array( $image_data ) ) {
+            if ( ( $meta === 'width' ) && $image_data['width'] ) {
+              return $image_data['width'];
+            }
+            if ( ( $meta === 'height' ) && $image_data['height'] ) {
+              return $image_data['height'];
+            }
+          }
+        }
+      }
+    }
+
+    return $value;
   }
 
   public function add_opengraph_markups() {

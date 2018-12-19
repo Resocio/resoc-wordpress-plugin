@@ -8,9 +8,6 @@ class Resoc_Social_Editor_Utils {
     if ( is_plugin_active( 'business-directory-plugin/business-directory-plugin.php' ) ) {
       return "Business Directory Plugin";
     }
-    if ( defined( 'AIOSEOP_VERSION' ) ) {
-      return "All in One SEO Pack";
-    }
     if ( is_plugin_active( 'wonderm00ns-simple-facebook-open-graph-tags/wonderm00n-open-graph.php' ) ) {
       return "Open Graph for Facebook, Google+ and Twitter Card Tags";
     }
@@ -21,6 +18,11 @@ class Resoc_Social_Editor_Utils {
 
   public static function is_yoast_seo_active() {
 		return is_plugin_active( 'wordpress-seo/wp-seo.php' );
+  }
+
+  // All In One SEO Pack
+  public static function is_aiosp_active() {
+    return defined( 'AIOSEOP_VERSION' );
   }
 
   public static function add_image_to_media_library( $image_data, $post_id, $filename = 'og-image.jpg', $attach_id = NULL ) {

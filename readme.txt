@@ -50,6 +50,7 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 = 0.0.9 =
 
 * Snap to border for easier image edition
+* Support for All In One SEO Pack
 
 = 0.0.8 =
 
