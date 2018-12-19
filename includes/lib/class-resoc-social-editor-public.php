@@ -8,6 +8,10 @@ class Resoc_Social_Editor_Public {
 		// Disable Jetpack Open Graph markups
     add_filter( 'jetpack_enable_open_graph', '__return_false' );
 
+    if ( Resoc_Social_Editor_Utils::conflicting_plugin() ) {
+      return;
+    }
+
     if ( Resoc_Social_Editor_Utils::is_yoast_seo_active() ) {
       add_filter(
         'wpseo_opengraph_title',

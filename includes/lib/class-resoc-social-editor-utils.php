@@ -1,5 +1,14 @@
 <?php
 class Resoc_Social_Editor_Utils {
+  /**
+   * Returns the name of the plugin which might cause a conflict.
+   * Returns NULL if there is no such conflicting plugin.
+   */
+  public static function conflicting_plugin() {
+    // TODO
+    return NULL;
+  }
+
   public static function is_yoast_seo_active() {
 		return is_plugin_active( 'wordpress-seo/wp-seo.php' );
   }

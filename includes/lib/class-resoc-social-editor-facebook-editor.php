@@ -2,7 +2,67 @@
 
 class Resoc_Social_Editor_Facebook_Editor {
 
+  public static function no_editor_conflict() {
+    $plugin = Resoc_Social_Editor_Utils::conflicting_plugin();
+
+    $email_subject = "Please make Resoc Social Editor compatible with " . $plugin;
+    $email_subject = str_replace( '+', '%20', urlencode( $email_subject ) );
+    $email_body = <<<EOF
+Hi,
+
+I cannot use the Resoc Social Editor WordPress plugin because it is not compatible with PLUGIN_NAME.
+
+Could you update Resoc Social Editor to fix this and let me know when the update is available?
+
+Regards
+EOF;
+    $email_body =
+    str_replace( 'PLUGIN_NAME', $plugin,
+      str_replace( '+', '%20', urlencode( $email_body ) )
+    );
+?>
+<div>
+<div class="rse-by-resoc-title">
+  <h3>
+    You cannot use Resoc Social Editor yet
+  </h3>
+
+  <p>
+    The WordPress ecosystem is very rich and a lot of plugins
+    manage the social networks metadata, as Resoc Social Editor does.
+    You are currently using <?php echo $plugin ?>, which
+    Resoc Social Editor is not compatible with yet.
+  </p>
+
+  <p>
+    How to solve this? That's easy. Simply ask for it. Seriously.
+    We are willing to make Resoc Social Editor usable in all situations,
+    so clicking the button below is all it takes to ask us to
+    fix this.
+  </p>
+
+  <a
+    href="mailto:contact@resoc.io?subject=<?php echo $email_subject ?>&body=<?php echo $email_body ?>"
+    class="button button-primary"
+  >
+    Please make Resoc Social Editor compatible with <?php echo $plugin ?>
+  </a>
+
+  <p>
+    Note: You do <i>not</i> have to deactivate Resoc Social Editor.
+    For now it is in idle mode, not affecting your visitors's experience
+    and not causing any conflict. You will be able to start using it
+    as soon as an update is released.
+  </p>
+</div>
+<?php
+  }
+
 	public static function facebook_editor( $post ) {
+    if ( Resoc_Social_Editor_Utils::conflicting_plugin() ) {
+      Resoc_Social_Editor_Facebook_Editor::no_editor_conflict();
+      return;
+    }
 
     $title =
       get_post_meta( $post->ID,
