@@ -11,6 +11,9 @@ class Resoc_Social_Editor_Utils {
     if ( defined( 'AIOSEOP_VERSION' ) ) {
       return "All in One SEO Pack";
     }
+    if ( is_plugin_active( 'wonderm00ns-simple-facebook-open-graph-tags/wonderm00n-open-graph.php' ) ) {
+      return "Open Graph for Facebook, Google+ and Twitter Card Tags";
+    }
     // TODO: Add additional conflicting plugins
 
     return NULL;
