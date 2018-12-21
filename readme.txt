@@ -51,6 +51,7 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 
 * Snap to border for easier image edition
 * Support for All In One SEO Pack
+* Invite users to claim their free branding identity overlay
 
 = 0.0.8 =
 
