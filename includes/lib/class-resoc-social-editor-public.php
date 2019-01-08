@@ -37,6 +37,39 @@ class Resoc_Social_Editor_Public {
       // No Yoast, add markups manually
       add_action( 'wp_head', array( $this, 'add_opengraph_markups' ) );
     }
+
+    // In any case, update oEmbed
+    // See get_oembed_response_data_rich in WordPress/wp-includes/embed.php
+    add_filter(
+      'oembed_response_data',
+      array( $this, 'upgrade_oembed_response_data_rich' ),
+      15, // WordPress/wp-includes/default-filters.php is using 10, so we are "just a little later"
+      4
+    );
+  }
+
+  public function upgrade_oembed_response_data_rich( $data, $post, $width, $height ) {
+    // At this point, $data['thumbnail_url'], $data['thumbnail_width'] and $data['thumbnail_height']
+    // were already set by get_oembed_response_data_rich.
+    // They are updated if needed.
+
+    $image_id = get_post_meta(
+      $post->ID,
+      Resoc_Social_Editor::OG_IMAGE_ID,
+      true
+    );
+    if ( $image_id ) {
+      $image_data = wp_get_attachment_metadata( $image_id );
+      if ( is_array( $image_data ) ) {
+        $data['thumbnail_url']    = wp_get_attachment_image_url( $image_id, 'full' );
+        if ( $image_data['width'] && $image_data['height'] ) {
+          $data['thumbnail_width']  = $image_data['width'];
+          $data['thumbnail_height'] = $image_data['height'];
+        }
+      }
+    }
+
+    return $data;
   }
 
   public function aiosp_override_image_meta( $value, $network, $meta ) {
