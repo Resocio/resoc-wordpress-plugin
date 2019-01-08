@@ -42,13 +42,13 @@ class Resoc_Social_Editor_Public {
     // See get_oembed_response_data_rich in WordPress/wp-includes/embed.php
     add_filter(
       'oembed_response_data',
-      array( $this, 'upgrade_oembed_response_data_rich' ),
+      array( $this, 'patch_oembed_response_data_rich' ),
       15, // WordPress/wp-includes/default-filters.php is using 10, so we are "just a little later"
       4
     );
   }
 
-  public function upgrade_oembed_response_data_rich( $data, $post, $width, $height ) {
+  public function patch_oembed_response_data_rich( $data, $post, $width, $height ) {
     // At this point, $data['thumbnail_url'], $data['thumbnail_width'] and $data['thumbnail_height']
     // were already set by get_oembed_response_data_rich.
     // They are updated if needed.
@@ -67,6 +67,15 @@ class Resoc_Social_Editor_Public {
           $data['thumbnail_height'] = $image_data['height'];
         }
       }
+    }
+
+    $title = get_post_meta(
+      $post->ID,
+      Resoc_Social_Editor::OG_TITLE,
+      true
+    );
+    if ( $title ) {
+      $data['title'] = $title;
     }
 
     return $data;
