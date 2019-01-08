@@ -59,18 +59,22 @@ var rseInitOpenGraphEditor = function(
     // For WordPress 5 / Gutenberg
     if (wp && wp.data && wp.data.subscribe) {
       var dataSubscriber = wp.data.subscribe( function() {
-        var newTitle = wp.data.select("core/editor").getEditedPostAttribute('title');
-        if (newTitle) {
-          setDefaultTitle(newTitle);
-          console.log("Set default title to " + newTitle);
-        }
+        var coreEditor = wp.data.select("core/editor");
 
-        var featuredImageId = wp.data.select("core/editor").getEditedPostAttribute('featured_media');
-        if (featuredImageId) {
-          wp.media.attachment(featuredImageId).fetch().then(function (data) {
-            setDefaultImage(featuredImageId, data.url);
-            console.log("Set default image to " + featuredImageId + " / " + data.url);
-          });
+        if (coreEditor) {
+          var newTitle = coreEditor.getEditedPostAttribute('title');
+          if (newTitle) {
+            setDefaultTitle(newTitle);
+            console.log("Set default title to " + newTitle);
+          }
+
+          var featuredImageId = coreEditor.getEditedPostAttribute('featured_media');
+          if (featuredImageId) {
+            wp.media.attachment(featuredImageId).fetch().then(function (data) {
+              setDefaultImage(featuredImageId, data.url);
+              console.log("Set default image to " + featuredImageId + " / " + data.url);
+            });
+          }
         }
       });
     }
