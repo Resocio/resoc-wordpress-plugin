@@ -51,6 +51,7 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 
 * Fix for LinkedIn: Open Graph meta are injected in oEmbed
 * Compatibility fix with Yoast WordPress SEO 9.4
+* Fix in case of image update when the file name has changed
 
 = 0.0.9 =
 

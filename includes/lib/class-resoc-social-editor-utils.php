@@ -28,11 +28,26 @@ class Resoc_Social_Editor_Utils {
   public static function add_image_to_media_library( $image_data, $post_id, $filename = 'og-image.jpg', $attach_id = NULL ) {
     $upload_dir = wp_upload_dir();
 
-    if (wp_mkdir_p($upload_dir['path'])) {
-      $file = $upload_dir['path'] . '/' . $filename;
+    // If an existing attachement exists, take its file path and name.
+    // This is because using wp_update_attachment_metadata
+    // with new file path and name does not affect
+    // wp_get_attachment_image_url, which still returns the previous
+    // file path and name.
+    $file = NULL;
+    if ( $attach_id ) {
+      $attach_data = wp_get_attachment_metadata( $attach_id );
+      if ( $attach_data && isset( $attach_data['file'] ) && ( $attach_data['file'] ) ) {
+        $file = $upload_dir['basedir'] . '/' . $attach_data['file'];
+      }
     }
-    else {
-      $file = $upload_dir['basedir'] . '/' . $filename;
+
+    if ( ! $file ) {
+      if (wp_mkdir_p($upload_dir['path'])) {
+        $file = $upload_dir['path'] . '/' . $filename;
+      }
+      else {
+        $file = $upload_dir['basedir'] . '/' . $filename;
+      }
     }
 
     file_put_contents($file, $image_data);
