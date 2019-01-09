@@ -76,7 +76,8 @@ class Resoc_Social_Editor_Utils {
 
   public static function generate_resoc_image($api_entry_point_url, $request, $filename = NULL, $attach_id = NULL) {
 		$response = wp_remote_post($api_entry_point_url, array(
-      'body' => json_encode( $request ),
+      'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
+      'body'    => json_encode( $request ),
       'timeout' => 10
 		));
 
