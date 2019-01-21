@@ -52,11 +52,10 @@ class Resoc_Social_Editor_Utils {
 
     file_put_contents($file, $image_data);
 
-    $wp_filetype = wp_check_filetype($filename, null);
-
-    if (! $attach_id) {
+    if ( ! $attach_id ) {
       // Create new attachement if there is none
       // (else, the image is attached to the existing attachement)
+      $wp_filetype = wp_check_filetype($filename, null);
       $attachment = array(
         'post_mime_type' => $wp_filetype['type'],
         'post_title' => sanitize_file_name($filename),
