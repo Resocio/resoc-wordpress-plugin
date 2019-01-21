@@ -47,6 +47,10 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 
 == Changelog ==
 
+= 0.0.11 =
+
+* Fix in image file name when using non-ASCII characters
+
 = 0.0.10 =
 
 * Fix for LinkedIn: Open Graph meta are injected in oEmbed

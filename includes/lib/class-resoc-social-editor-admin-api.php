@@ -190,10 +190,8 @@ class Resoc_Social_Editor_Admin_API {
 
     // Compute image file name
     $title = get_the_title( $post_id );
-    if ( $title ) {
-      $title = sanitize_title_with_dashes( $title );
-    }
-    else {
+    $title = sanitize_title( $title, 'og-image-' . $post_id );
+    if ( !$title || strlen( $title ) <= 0 ) {
       $title = 'og-image-' . $post_id;
     }
     $image_filename = $title . ".jpg";
