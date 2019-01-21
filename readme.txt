@@ -3,7 +3,7 @@ Contributors:  resoc
 Donate link: https://resoc.io/donate
 Tags: social, facebook, linkedin, opengraph, metadata, editor, wordpress, plugin
 Requires at least: 4.0
-Tested up to: 5.0
+Tested up to: 5.0.3
 Stable tag: 0.0.11
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -50,6 +50,7 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 = 0.0.11 =
 
 * Fix in image file name when using non-ASCII characters
+* Tested up to WordPress 5.0.3
 
 = 0.0.10 =
 
