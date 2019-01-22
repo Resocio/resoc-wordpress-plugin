@@ -81,7 +81,7 @@ class Resoc_Social_Editor_Utils {
 		));
 
 		if ( is_wp_error( $response ) ) {
-      error_log( "Error while generating: " . $response->get_error_message() );
+      Resoc_Social_Editor_Utils::write_log( "Error while generating: " . $response->get_error_message() );
 			throw new Exception( $response->get_error_message() );
     }
 
@@ -92,7 +92,7 @@ class Resoc_Social_Editor_Utils {
 		$image_url = wp_get_attachment_url( $image_id );
 		$result = wp_remote_get( $image_url );
 		if (is_wp_error( $result )) {
-			error_log( "Cannot download image: " . $result->get_error_message() );
+			Resoc_Social_Editor_Utils::write_log( "Cannot download image: " . $result->get_error_message() );
 			throw new Exception( $result->get_error_message() );
 		}
 		return wp_remote_retrieve_body( $result );
@@ -133,5 +133,63 @@ class Resoc_Social_Editor_Utils {
       );
     }
     return $api_request;
+  }
+
+  public static function write_log( $log )  {
+    $prefix = "[Resoc Social Editor] ";
+    if ( is_array( $log ) || is_object( $log ) ) {
+      error_log( $prefix . print_r( $log, true ) );
+    } else {
+      error_log( $prefix . $log );
+    }
+  }
+
+  /**
+   * $title As returned by get_the_title
+   */
+  public static function post_title_to_image_file_name( $title ) {
+    $title = sanitize_title( $title, 'og-image-' . $post_id );
+    if ( !$title || strlen( $title ) <= 0 ) {
+      $title = 'og-image-' . $post_id;
+    }
+    return $title . ".jpg";
+  }
+
+  public static function rename_attached_image( $post_id, $image_id, $new_image_filename) {
+    $image_file = get_attached_file( $image_id );
+    if ( ! $image_file || ! file_exists(  $image_file ) ) {
+      Resoc_Social_Editor_Utils::write_log("No actual file for image {$image_id} ({$image_file}");
+      return NULL;
+    }
+
+    $new_image_file = dirname( $image_file ) . DIRECTORY_SEPARATOR . $new_image_filename;
+    Resoc_Social_Editor_Utils::write_log("Copy {$image_file} to {$new_image_file}");
+    if ( ! copy( $image_file, $new_image_file ) ) {
+      Resoc_Social_Editor_Utils::write_log("Copy failed");
+      return NULL;
+    }
+
+    if ( wp_delete_attachment( $image_id, true ) === false ) {
+      Resoc_Social_Editor_Utils::write_log("Cannot delete existing attachement");
+      return NULL;
+    }
+
+    // BEST: Refactor add_image_to_media_library and call it here
+
+    $wp_filetype = wp_check_filetype( $new_image_filename, null );
+    $attachment = array(
+      'post_mime_type' => $wp_filetype['type'],
+      'post_title' => sanitize_file_name($new_image_filename),
+      'post_content' => '',
+      'post_status' => 'inherit'
+    );
+
+    $new_image_id = wp_insert_attachment( $attachment, $new_image_file, $post_id );
+
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    $attach_data = wp_generate_attachment_metadata($new_image_id, $new_image_file);
+    wp_update_attachment_metadata($new_image_id, $attach_data);
+
+    return $new_image_id;
   }
 }

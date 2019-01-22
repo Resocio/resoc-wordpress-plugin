@@ -2,6 +2,7 @@
 
 require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-facebook-editor.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-utils.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-resoc-social-editor-upgrades.php';
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -31,6 +32,8 @@ class Resoc_Social_Editor_Admin_API {
       'wp_ajax_' . Resoc_Social_Editor::PLUGIN_SLUG . '_create_overlay',
       array( $this, 'create_overlay' )
     );
+
+    add_action( 'upgrader_process_complete', 'Resoc_Social_Editor_Upgrades::upgrade', 10, 2 );
   }
 
   public function create_overlay() {
@@ -190,11 +193,7 @@ class Resoc_Social_Editor_Admin_API {
 
     // Compute image file name
     $title = get_the_title( $post_id );
-    $title = sanitize_title( $title, 'og-image-' . $post_id );
-    if ( !$title || strlen( $title ) <= 0 ) {
-      $title = 'og-image-' . $post_id;
-    }
-    $image_filename = $title . ".jpg";
+    $image_filename = Resoc_Social_Editor_Utils::post_title_to_image_file_name( $title );
 
     // Get existing OpenGraph image to update it as an attachement
     $existing_og_image_id = get_post_meta( $post_id, Resoc_Social_Editor::OG_IMAGE_ID, true );
