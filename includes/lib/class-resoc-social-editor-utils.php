@@ -136,6 +136,10 @@ class Resoc_Social_Editor_Utils {
   }
 
   public static function write_log( $log )  {
+    if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
+      return;
+    }
+
     $prefix = "[Resoc Social Editor] ";
     if ( is_array( $log ) || is_object( $log ) ) {
       error_log( $prefix . print_r( $log, true ) );
