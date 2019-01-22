@@ -45,6 +45,8 @@ class Resoc_Social_Editor {
   const OPTION_SALT = 'RSE_Option_Salt';
   const OPTION_SEND_ANONYMOUS_DATA = 'RSE_Send_Anonymous_Data';
 
+  const OPTION_UPDGRADED_TO = 'RSE_Option_Upgraded_To_';
+
   const MENU_SETTINGS = 'resoc_social_editor_settings_menu';
 
 	/**
