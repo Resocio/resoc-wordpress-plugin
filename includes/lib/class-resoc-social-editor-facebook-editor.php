@@ -251,7 +251,7 @@ EOF;
       );
 
 <?php
-      init_rse_overlay_editor( setOverlayData );
+      init_rse_overlay_editor( 'setOverlayData' );
 ?>
     });
   </script>

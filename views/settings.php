@@ -77,7 +77,7 @@
       }
 
 <?php
-      init_rse_overlay_editor( overlayEditorCallback );
+      init_rse_overlay_editor( 'overlayEditorCallback' );
 ?>
 
       function showOverlayPreview(overlayId, overlayUrl) {

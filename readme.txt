@@ -49,6 +49,7 @@ Installing "Resoc Social Editor" can be done either by searching for "Resoc Soci
 
 = 0.0.12 =
 
+* Fix issue with overlay editor, see https://wordpress.org/support/topic/error-when-clicking-select-image-for-overlay/
 
 = 0.0.11 =
 
